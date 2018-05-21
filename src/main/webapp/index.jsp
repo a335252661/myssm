@@ -20,8 +20,6 @@
 </head>
 <body>
 <div id="cc" class="easyui-layout" style="width:100%;height:100%;">
-    <%--顶部--%>
-    <div data-options="region:'north',title:'North Title',split:true" style="height:100px;"></div>
      <%--底部默认关闭   --%>
     <div data-options="region:'south',title:'South Title',split:true ,minimized:true"
          style="height:100px;"></div>
@@ -31,21 +29,8 @@
         <ul id="indexTree"></ul>
     </div>
 
-    <div data-options="region:'center',title:'center title'" style="padding:5px;background:#eee;">
-
-        <div id="indexTable" class="easyui-tabs" style="width:500px;height:250px;">
-            <div title="首页">欢迎来到Hbase价格库存查询页面</div>
-            <div title="Tab1" style="padding:20px;display:none;">
-                tab1
-            </div>
-            <div title="Tab2" data-options="closable:true" style="overflow:auto;padding:20px;display:none;">
-                tab2
-            </div>
-            <div title="Tab3" data-options="iconCls:'icon-reload',closable:true" style="padding:20px;display:none;">
-                tab3
-            </div>
-        </div>
-
+    <div data-options="region:'center'" style="padding:5px;background:#eee;">
+        <div id="indexTable" data-options="fit:true" class="easyui-tabs" style="width:500px;height:250px;">
     </div>
 </div>
 </body>

@@ -10,10 +10,10 @@ $(function () {
                     url : '<iframe width="100%" height="100%" frameborder="0"  src="jsp/queryPriceStock.jsp" style="width:100%;height:100%;margin:0px 0px;"></iframe>'
                 }
             }, {
-                text : "单一商品价格库存2",
+                text : "用户管理",
                 attributes : {
-                    url : ''
-
+                   // url : '<iframe width="100%" height="100%" frameborder="0"  src="111.jsp" style="width:100%;height:100%;margin:0px 0px;"></iframe>'
+                    url :'user/query'
                 }
             }
             ]
@@ -38,9 +38,13 @@ $(function () {
     $('#indexTree').tree({
         //url: 'static/js/tree_data.json',
         data:treeData,
-        lines:true,
         onClick: function(node){
             console.info(node);
+            $('#indexTable').tabs('add', {
+                title:  node.text,
+                href: node.attributes.url,
+                closable: true
+            });
         }
     })
 
