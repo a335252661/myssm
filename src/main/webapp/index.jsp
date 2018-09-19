@@ -16,6 +16,7 @@
     <script src="static/jquery-easyui-1.5.4.5/jquery.easyui.min.js"></script>
     <script src="static/jquery-easyui-1.5.4.5/locale/easyui-lang-zh_CN.js"></script>
     <script src="static/layui/layui.js"></script>
+    <%--主页初始化加载js--%>
     <script src="static/js/index.js"></script>
 </head>
 <body>
