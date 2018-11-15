@@ -1,0 +1,18 @@
+package cn.cld.service.lianxi;
+
+import cn.cld.pojo.UserInfo;
+import cn.cld.pojo.basic.MessageResult;
+import cn.cld.pojo.basic.PageQueryResult;
+import cn.cld.pojo.basic.SimpleServiceResult;
+import cn.cld.pojo.lianxi.UserInfoListVo;
+
+import java.util.List;
+
+public interface LianxiDemoServiceApi {
+    //查询用户
+    PageQueryResult<UserInfo> queryUserInfo(UserInfoListVo userInfoListVo);
+
+    MessageResult addUser(UserInfo vo);
+
+    MessageResult deleteUserInfo(List<UserInfo> userInfo);
+}

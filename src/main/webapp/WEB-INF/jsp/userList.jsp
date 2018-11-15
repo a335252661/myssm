@@ -9,9 +9,9 @@
 <html>
 <head>
     <title>Title</title>
-    <link rel="stylesheet" href="/static/jquery-easyui-1.5.4.5/themes/default/easyui.css">
-    <link rel="stylesheet" href="/static/jquery-easyui-1.5.4.5/themes/icon.css">
-    <link rel="stylesheet" href="/static/layui/css/layui.css">
+    <link rel="stylesheet" href="/static/js/jquery-easyui-1.5.4.5/themes/default/easyui.css">
+    <link rel="stylesheet" href="/static/js/jquery-easyui-1.5.4.5/themes/icon.css">
+    <link rel="stylesheet" href="/static/js/layui/css/layui.css">
     <script src="/static/jquery-easyui-1.5.4.5/jquery.min.js"></script>
     <script src="/static/jquery-easyui-1.5.4.5/jquery.easyui.min.js"></script>
     <script src="/static/jquery-easyui-1.5.4.5/locale/easyui-lang-zh_CN.js"></script>
@@ -26,6 +26,30 @@
         <a href="#" style="margin: 10px" class="easyui-linkbutton " data-options="iconCls:'icon-remove' ">删除</a>
         <a href="#" style="margin: 10px" class="easyui-linkbutton" data-options="iconCls:'icon-redo' ">重置</a>
         <a href="#" style="margin: 10px" class="easyui-linkbutton" data-options="iconCls:'icon-clear' ">关闭</a>
+        <a href="#" id="uplode" style="margin: 10px" class="easyui-linkbutton" data-options="iconCls:'icon-tip' ">导入</a>
+        <a href="#" id="ceshi" style="margin: 10px" class="easyui-linkbutton" data-options="iconCls:'icon-tip' ">测试</a>
+    </div>
+
+    <div class="easyui-panel" title="高级功能">
+        <form id="upForm" method="post" enctype="multipart/form-data" style="margin: 10px">
+            <input class="easyui-textbox" id="applicationId1" name="applicationId">
+            <input class="easyui-filebox" data-options="prompt:'浏览'" id="contractFile1" name="contractFile" style="width:155px">
+        </form>
+        <a href="#" id="ftp" style="margin: 10px" class="easyui-linkbutton" data-options="iconCls:'icon-tip'">上传到FTP服务器</a>
+    </div>
+
+    <div class="easyui-panel" title="测试">
+        <form id="form1" method="post" enctype="multipart/form-data">
+            <input class="easyui-textbox" id="applicationId" name="applicationId">
+            <input class="easyui-filebox" data-options="prompt:'浏览'" id="contractFile" name="contractFile" style="width:155px">
+            <input class="easyui-filebox" data-options="prompt:'浏览'" id="invoiceFile" name="invoiceFile" style="width:155px">
+        </form>
+        <div class="easyui-dialog" id="add" style="width:750px;height:450px;overflow: auto;"
+             title="审批" data-options="{closed:true,modal:true,buttons:[
+			{text:'提交',iconCls:'icon-save',handler:function(){submit();}},
+			{text:'取消',iconCls:'icon-cancel',handler:function(){$('#add').dialog('close')}}
+		]}">
+        </div>
     </div>
 
     <div class="easyui-panel" title="查询条件">
@@ -63,5 +87,6 @@
          data-options=""></div>
 
     <script src="/static/js/userList.js"></script>
+
 </body>
 </html>

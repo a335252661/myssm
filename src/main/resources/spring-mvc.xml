@@ -11,46 +11,80 @@
                         http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
 						
 						
-	<!-- 添加注解驱动 -->
+	<!-- 启用spring mvc 注解 -->
     <mvc:annotation-driven />
 	
 	<!-- 自动扫描该包，使SpringMVC认为包下用了@controller注解的类是控制器 -->
 	<context:component-scan base-package="cn.cld.controller" />
 
 	<!--释放静态资源-->
-	<mvc:default-servlet-handler/>
+
+	<mvc:resources location="/static/css/" mapping="/static/css/**"/>
+	<mvc:resources location="/static/js/" mapping="/static/js/**"/>
+	<mvc:resources location="/static/img/" mapping="/static/img/**"/>
+	<mvc:default-servlet-handler />
 
 	<!--避免IE执行AJAX时，返回JSON出现下载文件 -->
-	<bean id="mappingJacksonHttpMessageConverter"
-		class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
-		<property name="supportedMediaTypes">
-			<list>
-				<value>text/html;charset=UTF-8</value>
-			</list>
-		</property>
-	</bean>
+	<!--<bean id="mappingJacksonHttpMessageConverter"-->
+		<!--class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">-->
+		<!--<property name="supportedMediaTypes">-->
+			<!--<list>-->
+				<!--<value>text/html;charset=UTF-8</value>-->
+			<!--</list>-->
+		<!--</property>-->
+	<!--</bean>-->
 	<!-- 启动SpringMVC的注解功能，完成请求和注解POJO的映射 -->
-	<bean
-		class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
-		<property name="messageConverters">
-			<list>
-				<ref bean="mappingJacksonHttpMessageConverter" />	<!-- JSON转换器 -->
-			</list>
-		</property>
-	</bean>
+	<!--<bean-->
+		<!--class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">-->
+		<!--<property name="messageConverters">-->
+			<!--<list>-->
+				<!--<ref bean="mappingJacksonHttpMessageConverter" />	&lt;!&ndash; JSON转换器 &ndash;&gt;-->
+			<!--</list>-->
+		<!--</property>-->
+	<!--</bean>-->
 
-	<!-- 定义跳转的文件的前后缀 ，视图模式配置-->
-	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver" p:order="1">
-		<property name="prefix" value="/WEB-INF/jsp/" />
-		<property name="suffix" value=".jsp" />
-	</bean>
 
+
+
+	<!--处理jsp视图-->
+	<!--数字越小，越是优先处理-->
 	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver" p:order="0">
 		<property name="viewClass" value="cn.cld.controller.vmView.VmResourceView"/>
-		<!--<property name="contentType" value="text/html"/>-->
-		<property name="prefix" value="/WEB-INF/vm/"/>
-		<property name="suffix" value=".vm"/>
+		<property name="prefix" value="/WEB-INF/jsp/"/>
+		<property name="suffix" value=".jsp"/>
 	</bean>
+	<!-- 处理velocity视图 -->
+	<bean id="viewResolver" class="org.springframework.web.servlet.view.velocity.VelocityViewResolver" p:order="1">
+		<property name="suffix" value=".vm" />
+		<!-- 避免乱码 -->
+		<property name="contentType" value="text/html;charset=UTF-8" />
+		<property name="dateToolAttribute" value="dateTool" />
+		<property name="numberToolAttribute" value="numberTool" />
+		<property name="exposeRequestAttributes" value="true" />
+		<property name="exposeSessionAttributes" value="true" />
+	</bean>
+
+
+	<!-- velocity环境配置 -->
+	<bean id="velocityConfig" class="org.springframework.web.servlet.view.velocity.VelocityConfigurer">
+		<!-- velocity模板路径 -->
+		<property name="resourceLoaderPath" value="/WEB-INF/vm/"/>
+		<property name="velocityProperties">
+			<props>
+				<prop key="input.encoding">UTF-8</prop>
+				<prop key="output.encoding">UTF-8</prop>
+				<!--是否缓存-->
+				<prop key="file.resource.loader.cache">false</prop>
+				<!--修改检查间隔  设置为0就是不用检查-->
+				<prop key="file.resource.loader.modificationCheckInterval">1</prop>
+				<!--是否自动加载-->
+				<prop key="velocimacro.library.autoreload">false</prop>
+				<!--<prop key="velocimacro.library">common/macros.vm</prop>-->
+			</props>
+		</property>
+	</bean>
+
+
 
 	
 	<!-- 配置文件上传，如果没有使用文件上传可以不用配置，当然如果不配，那么配置文件中也不必引入上传组件包 -->

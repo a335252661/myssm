@@ -2,9 +2,12 @@
 <!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
 <generatorConfiguration>
 	<!-- 数据库驱动包位置 -->
-	<classPathEntry location="E:\day06\generator\mysql-connector-java-3.1.13-bin.jar" />
+	<classPathEntry location="C:\myssm\generator\mysql-connector-java-3.1.13-bin.jar" />
 	<!--<classPathEntry location="C:\oracle\product\10.2.0\db_1\jdbc\lib\ojdbc14.jar" />-->
 	<context id="DB2Tables" targetRuntime="MyBatis3">
+		<!--用作分页查询-->
+		<plugin type="org.mybatis.generator.plugins.RowBoundsPlugin">
+		</plugin>
 		<commentGenerator>
 			<property name="suppressAllComments" value="true" />
 		</commentGenerator>
@@ -17,24 +20,29 @@
 			<property name="forceBigDecimals" value="false" />
 		</javaTypeResolver>
 		<!-- 生成模型的包名和位置 -->
-		<javaModelGenerator targetPackage="cn.cld.pojo" targetProject="E:\day06\src\main\java">
+		<javaModelGenerator targetPackage="cn.cld.pojo" targetProject="C:\myssm\src\main\java">
 			<property name="enableSubPackages" value="true" />
 			<property name="trimStrings" value="true" />
 		</javaModelGenerator>
 		<!-- 生成的映射文件包名和位置 -->
-		<sqlMapGenerator targetPackage="cn.cld.mapping" targetProject="E:\day06\src\main\java">
+		<sqlMapGenerator targetPackage="cn.cld.mapping" targetProject="C:\myssm\src\main\java">
 			<property name="enableSubPackages" value="true" />
 		</sqlMapGenerator>
 		<!-- 生成DAO的包名和位置 -->
-		<javaClientGenerator type="XMLMAPPER" targetPackage="cn.cld.dao" targetProject="E:\day06\src\main\java">
+		<javaClientGenerator type="XMLMAPPER" targetPackage="cn.cld.dao" targetProject="C:\myssm\src\main\java">
 			<property name="enableSubPackages" value="true" />
 		</javaClientGenerator>
 		<!-- 要生成那些表(更改tableName和domainObjectName就可以) -->
-		<table tableName="user" domainObjectName="userVo"
-		enableCountByExample="false" enableUpdateByExample="false"
-			   enableDeleteByExample="false" enableSelectByExample="false"
-			   selectByExampleQueryId="false"
-		/>
+		<table tableName="module"  domainObjectName="Module">
+			<property name="useActualColumnNames" value="true"/>
+		</table>
+
+
+
+		<table tableName="userInfo"  domainObjectName="UserInfo">
+			<property name="useActualColumnNames" value="true"/>
+		</table>
+
 
 		<!-- enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"  -->
 	</context>

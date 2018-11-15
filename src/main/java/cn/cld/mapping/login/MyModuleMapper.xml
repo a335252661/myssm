@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.cld.dao.login.MyModuleMapper">
+
+
+    <!--<select id="selectBigLevel" resultType="java.lang.Integer">-->
+        <!--select a.level from module a  ORDER BY a.`level` DESC LIMIT 1-->
+    <!--</select>-->
+
+    <!--<select id="selectAll" resultType="cn.cld.pojo.Module">-->
+        <!--select a.* from module a  ORDER BY a.`level`-->
+    <!--</select>-->
+
+
+    <select id="select1" resultType="cn.cld.pojo.Module">
+        select a.level from module a  where a.`level`=1 ORDER BY a.`level`
+    </select>
+    <!--<select id="select2" resultType="cn.cld.pojo.Module">-->
+        <!--select a.* from module a  where a.`level`=2 ORDER BY a.`level`-->
+    <!--</select>-->
+    <!--<select id="select3" resultType="cn.cld.pojo.Module">-->
+        <!--select a.* from module a  where a.`level`=3 ORDER BY a.`level`-->
+    <!--</select>-->
+
+</mapper>
