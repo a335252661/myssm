@@ -7,6 +7,7 @@ import cn.cld.pojo.basic.SimpleServiceResult;
 import cn.cld.pojo.lianxi.UserInfoListVo;
 
 import java.util.List;
+import java.util.Map;
 
 public interface LianxiDemoServiceApi {
     //查询用户
@@ -15,4 +16,6 @@ public interface LianxiDemoServiceApi {
     MessageResult addUser(UserInfo vo);
 
     MessageResult deleteUserInfo(List<UserInfo> userInfo);
+
+    MessageResult userListUplode(List<Map<String,String>> myData);
 }

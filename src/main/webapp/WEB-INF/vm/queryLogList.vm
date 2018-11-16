@@ -1,0 +1,65 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Title</title>
+    <link rel="stylesheet" href="/static/js/jquery-easyui-1.5.4.5/themes/default/easyui.css">
+    <link rel="stylesheet" href="/static/js/jquery-easyui-1.5.4.5/themes/icon.css">
+    <link rel="stylesheet" href="/static/js/layui/css/layui.css">
+    <script src="/static/jquery-easyui-1.5.4.5/jquery.min.js"></script>
+    <script src="/static/jquery-easyui-1.5.4.5/jquery.easyui.min.js"></script>
+    <script src="/static/jquery-easyui-1.5.4.5/locale/easyui-lang-zh_CN.js"></script>
+    <script src="/static/layui/layui.js"></script>
+</head>
+
+    #set($pageId = "queryLogList")
+<body>
+
+
+<div class="easyui-panel" title="基础功能">
+    <a href="#" style="margin: 10px"  id="${pageId}Search" class="easyui-linkbutton" data-options="iconCls:'icon-search' ">查询</a>
+
+</div>
+
+<div class="easyui-panel" title="查询条件">
+    <form  id="${pageId}Form">
+
+
+        <div class="" style="padding: 13px;float: left">
+            <lable class="">查询日期：</lable>
+            <input type="text" name="registerStart" class="easyui-datebox" data-options="validType:'dateType'">
+        </div>
+
+        <div class="" style="padding: 13px ;float: left">
+            <lable class="">操作类型：</lable>
+            <input type="text" name="userName" placeholder="请输入" class="easyui-textbox">
+        </div>
+
+
+
+    </form>
+</div>
+
+
+
+
+
+<table class="easyui-datagrid" title="作业日志" style="width:auto;height:250px"
+       data-options="singleSelect:true,collapsible:true,url:'datagrid_data1.json',method:'get'">
+    <thead>
+    <tr>
+        <th data-options="field:'empName',width:80">操作日期</th>
+        <th data-options="field:'empName',width:100">操作用户</th>
+        <th data-options="field:'transName',width:80,align:'right'">操作类型</th>
+        <th data-options="field:'operateObject',width:80,align:'right'">操作对象</th>
+        <th data-options="field:'statusName',width:250">处理状态</th>
+        <th data-options="field:'remark',width:60,align:'center'">备注</th>
+    </tr>
+    </thead>
+</table>
+
+
+
+<script src="/static/js/queryLogList.js"></script>
+<script src="/static/js/common/cldCommon.js"></script>
+
+</body>
+</html>

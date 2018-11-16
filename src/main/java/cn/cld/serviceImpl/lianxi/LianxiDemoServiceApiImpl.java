@@ -15,6 +15,7 @@ import org.apache.ibatis.session.RowBounds;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Map;
 
 public class LianxiDemoServiceApiImpl implements LianxiDemoServiceApi {
 
@@ -110,7 +111,40 @@ public class LianxiDemoServiceApiImpl implements LianxiDemoServiceApi {
         }
 }
 
+    @Override
+    public MessageResult userListUplode(List<Map<String, String>> myData) {
+        MessageResult result = new MessageResult();
+        int total = 0;
+        int updatetotal=0;
+        for(Map<String, String> map:myData){
+            String userName = map.get("用户名");
+            String passWord = map.get("用户密码");
 
+            UserInfo ui = new UserInfo();
+            ui.setUserName(userName);
+            ui.setPassWord(passWord);
+
+            //判断该用户是否存在
+            UserInfoExample uie =new UserInfoExample();
+            uie.createCriteria().andUserNameEqualTo(userName);
+            List<UserInfo> userInfos = userInfoMapper.selectByExample(uie);
+            if(userInfos.isEmpty()){
+                //不存在
+                 userInfoMapper.insertSelective(ui);
+                total++;
+            }else {
+                //存在则更新
+                 userInfoMapper.updateByExampleSelective(ui,uie);
+                updatetotal++;
+            }
+
+
+
+        }
+        result.setMessage("新增用户"+total+"位，更新用户"+updatetotal+"位！");
+
+        return result;
+    }
 
 
 }

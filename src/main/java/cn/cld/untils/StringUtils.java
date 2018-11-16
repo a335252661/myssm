@@ -394,28 +394,28 @@ public class StringUtils extends org.springframework.util.StringUtils {
 	 * @param str 需要处理的字符串
 	 * @return 处理后返回的字符串
 	 */
-//	public static String deleteWhitespace(String str)
-//	 {
-//	      if (org.apache.commons.lang3.StringUtils.isEmpty(str)) {
-//	        return str;
-//	      }else {
-//	    	  str = str.trim();
-//	      }
-//
-//	      int sz = str.length();
-//	      char[] chs = new char[sz];
-//	      int count = 0;
-//	      for (int i = 0; i < sz; ++i) {
-//	      if (!(Character.isWhitespace(str.charAt(i))) || str.charAt(i) == 0x0020) {
-//	          chs[(count++)] = str.charAt(i);
-//	        }
-//	      }
-//
-//	      if (count == sz) {
-//	       return str;
-//	      }
-//	      return new String(chs, 0, count);
-//	  }
+	public static String deleteWhitespace(String str)
+	 {
+	      if (StringUtils.isEmpty(str)) {
+	        return str;
+	      }else {
+	    	  str = str.trim();
+	      }
+
+	      int sz = str.length();
+	      char[] chs = new char[sz];
+	      int count = 0;
+	      for (int i = 0; i < sz; ++i) {
+	      if (!(Character.isWhitespace(str.charAt(i))) || str.charAt(i) == 0x0020) {
+	          chs[(count++)] = str.charAt(i);
+	        }
+	      }
+
+	      if (count == sz) {
+	       return str;
+	      }
+	      return new String(chs, 0, count);
+	  }
 	
 	public static String formatPrice(Integer places, BigDecimal bigDecimal){
 		if(bigDecimal == null){

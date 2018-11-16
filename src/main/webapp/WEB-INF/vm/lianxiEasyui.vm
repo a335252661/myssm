@@ -17,10 +17,10 @@
     <a href="#" style="margin: 10px"  id="userListSearch" class="easyui-linkbutton" data-options="iconCls:'icon-search' ">查询</a>
     <a href="#" style="margin: 10px" id="userListDelete" class="easyui-linkbutton " data-options="iconCls:'icon-remove' ">删除</a>
     <a href="#" style="margin: 10px" id="userListUpdate" class="easyui-linkbutton " data-options="iconCls:'icon-remove' ">保存</a>
+    <a href="#" style="margin: 10px" id=""  class="easyui-linkbutton" data-options="iconCls:'icon-tip' ">导入</a>
+    <a href="#" id="ceshi" style="margin: 10px" class="easyui-linkbutton" data-options="iconCls:'icon-tip' ">测试</a>
     <a href="#" style="margin: 10px" class="easyui-linkbutton" data-options="iconCls:'icon-redo' ">重置</a>
     <a href="#" style="margin: 10px" class="easyui-linkbutton" data-options="iconCls:'icon-clear' ">关闭</a>
-    <a href="#" id="uplode" style="margin: 10px" class="easyui-linkbutton" data-options="iconCls:'icon-tip' ">导入</a>
-    <a href="#" id="ceshi" style="margin: 10px" class="easyui-linkbutton" data-options="iconCls:'icon-tip' ">测试</a>
 </div>
 
 <div class="easyui-panel" title="查询条件">
@@ -52,6 +52,15 @@
     </form>
 </div>
 
+<div class="easyui-panel" title="文件上传" style="padding: 13px;float: left">
+    <form id="userUploadForm"  method="post" enctype="multipart/form-data">
+        <laber>选择文件：</laber>
+        　<input id="uploadExcel" name="file" class="easyui-filebox" style="width:200px" data-options="prompt:'请选择文件...'">
+
+        　　<a href="#" id="userListUplode" class="easyui-linkbutton" style="width:122px" >用户批量导入</a> 　　     　　　　　
+
+    </form>
+</div>
 
 
 <div class="easyui-datagrid" title="用户列表" style="height:auto" id="userListDataTable"

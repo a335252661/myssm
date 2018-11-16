@@ -127,6 +127,20 @@ $(function () {
 
     })
 
+
+    //导入操作
+    $('#userListUplode').click(function () {
+        var fileName= $('#uploadExcel').filebox('getValue');
+        $('#userUploadForm').form('submit',{
+            url:'userListUplode',
+            success:function (data) {
+                var da = JSON.parse(data);
+                //console.info(data)
+                $.messager.alert('Warning',da.message);
+            }
+        })
+    })
+
     /**
      * 选中datagrid转json
      */
