@@ -1,5 +1,6 @@
 package cn.cld.serviceImpl.lianxi;
 
+import cn.cld.dao.MyUserMapper;
 import cn.cld.dao.UserInfoMapper;
 import cn.cld.pojo.UserInfo;
 import cn.cld.pojo.UserInfoExample;
@@ -12,8 +13,12 @@ import cn.cld.untils.CldCommonUntils;
 import cn.cld.untils.DateTimeUtils;
 import cn.cld.untils.StringUtils;
 import org.apache.ibatis.session.RowBounds;
+import org.apache.poi.hssf.usermodel.*;
+import org.apache.poi.hssf.util.HSSFColor;
+import org.apache.poi.ss.util.CellRangeAddress;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -22,11 +27,14 @@ public class LianxiDemoServiceApiImpl implements LianxiDemoServiceApi {
     @Resource
     private UserInfoMapper userInfoMapper;
 
+    @Resource
+    private MyUserMapper myUserMapper;
+
     public PageQueryResult<UserInfo> queryUserInfo(UserInfoListVo params) {
 
         PageQueryResult<UserInfo> pageQueryResult =new PageQueryResult<UserInfo>();
-        params.setPage(1);
-        params.setRows(10);
+//        params.setPage(1);
+//        params.setRows(10);
 
         //总数
         UserInfoExample ue = new UserInfoExample();
@@ -145,6 +153,45 @@ public class LianxiDemoServiceApiImpl implements LianxiDemoServiceApi {
 
         return result;
     }
+
+
+    //导出操作
+    @Override
+    public String[][] userListExport(UserInfoListVo userInfoListVo) {
+       // List<List<Object>> data = new ArrayList<List<Object>>();
+
+        List<UserInfo> userInfoList = myUserMapper.queryUser(userInfoListVo);
+
+        String[][] strings = new String[userInfoList.size()][5];
+        int i = 0;
+        for(UserInfo vo :userInfoList){
+            String[] arr = {
+                    vo.getUserId()+"",
+                    vo.getUserName(),
+                    vo.getPassWord(),
+                    vo.getIsUse()+"",
+                    CldCommonUntils.dataToString(vo.getCreatDate(),CldCommonUntils.yyyy_MM_dd_HH_mm_ss)
+            };
+            strings[i]=arr;
+            i++;
+        }
+        return strings;
+    }
+
+
+    /**
+     * 打印预览
+     * @param userId
+     * @return
+     */
+    @Override
+    public MessageResult userListPrint(int userId) {
+        MessageResult result  = new MessageResult();
+        UserInfo userInfo = userInfoMapper.selectByPrimaryKey(userId);
+        result.setData(userInfo);
+        return result;
+    }
+
 
 
 }

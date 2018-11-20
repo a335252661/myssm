@@ -7,7 +7,7 @@
   <!-- Spring和mybatis的配置文件 -->
   <context-param>
     <param-name>contextConfigLocation</param-name>
-    <param-value>classpath:spring-mybatis.xml</param-value>
+    <param-value>classpath:applicationContext.xml</param-value>
   </context-param>
   <!-- 编码过滤器 -->
   <filter>
@@ -48,6 +48,20 @@
     <!-- 此处可以可以配置成*.do，对应struts的后缀习惯 -->
     <url-pattern>/</url-pattern>
   </servlet-mapping>
+
+
+  <servlet>
+    <servlet-name>initServlet</servlet-name>
+    <servlet-class>cn.cld.servlet.InitServlet</servlet-class>
+    <load-on-startup>10</load-on-startup>
+  </servlet>
+
+
+
+
+
+
+
 
 
 

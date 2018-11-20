@@ -1,9 +1,13 @@
 package cn.cld.pojo.basic;
 
+
+import org.apache.poi.ss.formula.functions.T;
+
 public class MessageResult {
     private Boolean result;
     private String message;
     private String remarks;
+    private Object data;
 
 
     public MessageResult() {
@@ -11,10 +15,11 @@ public class MessageResult {
         result = true;
     }
 
-    public MessageResult(Boolean result, String message, String remarks) {
+    public MessageResult(Boolean result, String message, String remarks , T data) {
         this.result = result;
         this.message = message;
         this.remarks = remarks;
+        this.data = data;
     }
 
     public Boolean getResult() {
@@ -39,5 +44,13 @@ public class MessageResult {
 
     public void setRemarks(String remarks) {
         this.remarks = remarks;
+    }
+
+    public Object getData() {
+        return data;
+    }
+
+    public void setData(Object data) {
+        this.data = data;
     }
 }

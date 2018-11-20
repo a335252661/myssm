@@ -70,7 +70,7 @@ $.requestJson = function(uri,param, okCallback, failCallback){
         success:function(data, textStatus, jqXHR){
             okCallback(data, textStatus, jqXHR);
         },
-        error:function(jqXHR, textStatus, errorThrown){
+        error:function(data, textStatus, errorThrown){
             failCallback(data, textStatus, errorThrown);
         }
     });

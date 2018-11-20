@@ -18,4 +18,9 @@ public interface LianxiDemoServiceApi {
     MessageResult deleteUserInfo(List<UserInfo> userInfo);
 
     MessageResult userListUplode(List<Map<String,String>> myData);
+
+    String[][] userListExport(UserInfoListVo userInfoListVo);
+
+    //打印预览
+    MessageResult userListPrint(int userId);
 }

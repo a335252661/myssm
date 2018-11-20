@@ -140,6 +140,47 @@ $(function () {
             }
         })
     })
+    
+    //导出操作
+    $('#userListExport').click(function () {
+        $.messager.confirm('Confirm','是否按照条件进行导出操作?',function(r){
+            if (r){
+                var jsonDate = $("#userListForm").serializeObject(); //输出数组
+                console.info(jsonDate);
+
+                $('#userListForm').submit();
+
+            }
+        });
+
+    })
+    $('#userListExportAll').tooltip({
+        position: 'bottom',
+        content: '<span style="color:#fff">将所有用户进行导出</span>',
+        onShow: function(){
+            $(this).tooltip('tip').css({
+                backgroundColor: '#666',
+                borderColor: '#666'
+            });
+        }
+    });
+
+
+
+    //打印预览
+    $('#userListPrint').click(function () {
+        var selections = $("#userListDataTable").datagrid('getChecked');
+        if(selections.length !=1){
+           $.messager.alert('Warning',"请选择一条数据");
+            return;
+        }
+        console.info(selections)
+        var userId = selections[0].userId;
+
+        window.open('userListPrint?userId='+userId);
+
+    })
+
 
     /**
      * 选中datagrid转json

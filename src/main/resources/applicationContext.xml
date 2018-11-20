@@ -62,4 +62,14 @@
 		<property name="dataSource" ref="dataSource" />
 	</bean>
 
+
+	<!-- Quartz -->
+	<bean id="jobFactoryBean" class="cn.cld.batch.AutowiringSpringBeanJobFactory">
+	</bean>
+
+	<bean id="schedulerFactoryBean" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="configLocation" value="classpath:quartz.properties"/>
+		<property name="jobFactory" ref="jobFactoryBean"/>
+	</bean>
+
 </beans>
