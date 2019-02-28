@@ -6,20 +6,26 @@ import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
+import org.apache.commons.codec.binary.Base64;
 import org.apache.poi.hssf.usermodel.*;
 import org.apache.poi.hssf.util.HSSFColor;
 import org.apache.poi.ss.util.CellRangeAddress;
+import sun.misc.BASE64Decoder;
+import sun.misc.BASE64Encoder;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.net.URLEncoder;
 import java.nio.file.Path;
+import java.security.MessageDigest;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.zip.GZIPInputStream;
+import java.util.zip.GZIPOutputStream;
 
 public  class CldCommonUntils {
 
@@ -96,7 +102,121 @@ public  class CldCommonUntils {
         return returnList;
     }
 
-/**********************************************处理时间格式**********************************************************************/
+
+
+    /**
+     * MD5加密()
+     * @param res
+     * @return
+     */
+    public static String encodeMD5(String res) {
+        MessageDigest md = null;
+        try {
+            md = MessageDigest.getInstance("MD5");
+            byte[] bytes = md.digest(res.getBytes("utf-8"));
+            final char[] HEX_DIGITS = "0123456789ABCDEF".toCharArray();
+            StringBuilder ret = new StringBuilder(bytes.length * 2);
+            for (int i = 0; i < bytes.length; i++) {
+                ret.append(HEX_DIGITS[(bytes[i] >> 4) & 0x0f]);
+                ret.append(HEX_DIGITS[bytes[i] & 0x0f]);
+            }
+            return ret.toString();
+        }catch (Exception e){
+            return null;
+        }
+    }
+
+    /**
+     * base64编码
+     * @param res
+     * @return
+     */
+    public static String encode(String res) {
+        return new String(Base64.encodeBase64(res.getBytes()));
+    }
+
+
+    /**
+     * 流转 字节数组
+     * @param is
+     * @return
+     * @throws IOException
+     */
+    private byte[] InputStreamToByte(InputStream is) throws IOException {
+        ByteArrayOutputStream bytestream = new ByteArrayOutputStream();
+        byte[] buffer=new byte[1024];
+        int ch;
+        while ((ch = is.read(buffer)) != -1) {
+            bytestream.write(buffer,0,ch);
+        }
+        byte data[] = bytestream.toByteArray();
+        bytestream.close();
+        return data;
+    }
+
+
+    /**
+     * 压缩
+     * @param str
+     * @return
+     * @throws IOException
+     */
+    public static String newcompress(String str) throws IOException {
+        if (str == null || str.length() == 0) {
+            return "";
+        }
+
+        byte[] tArray;
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        GZIPOutputStream gzip = new GZIPOutputStream(out);
+        try {
+            gzip.write(str.getBytes("UTF-8"));
+            gzip.flush();
+        } catch (Exception e){
+
+        }finally {
+            gzip.close();
+        }
+
+        tArray = out.toByteArray();
+        out.close();
+
+        BASE64Encoder tBase64Encoder = new BASE64Encoder();
+        return tBase64Encoder.encode(tArray);
+    }
+
+    /**
+     * 解压
+     * @param str
+     * @return
+     * @throws IOException
+     */
+    public static String newuncompress(String str) throws IOException {
+        if (str == null || str.length() == 0) {
+            return "";
+        }
+
+        BASE64Decoder tBase64Decoder = new BASE64Decoder();
+        byte[] t = tBase64Decoder.decodeBuffer(str);
+
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        ByteArrayInputStream in = new ByteArrayInputStream(t);
+        GZIPInputStream gunzip = new GZIPInputStream(in);
+        try {
+            byte[] buffer = new byte[256];
+            int n;
+            while ((n = gunzip.read(buffer)) >= 0) {
+                out.write(buffer, 0, n);
+            }
+        }finally{
+            gunzip.close();
+        }
+        in.close();
+        out.close();
+        return out.toString("UTF-8");
+    }
+
+    /**********************************************处理时间格式**********************************************************************/
 
     public static String yyyy_MM_dd_HH_mm_ss= "yyyy-MM-dd HH:mm:ss";
     public static String yyyy_MM_dd= "yyyy-MM-dd";

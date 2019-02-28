@@ -4,10 +4,11 @@ import cn.cld.pojo.UserInfo;
 import cn.cld.pojo.basic.MessageResult;
 import cn.cld.pojo.basic.PageQueryResult;
 import cn.cld.pojo.lianxi.UserInfoListVo;
+import cn.cld.service.layui.LayuiBaseQueryApi;
 import cn.cld.service.lianxi.LianxiDemoServiceApi;
+import cn.cld.service.logs.AddLogsApi;
 import cn.cld.untils.CldCommonUntils;
 import cn.cld.untils.XlsxReaderUtil;
-import com.alibaba.fastjson.JSONObject;
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
@@ -17,6 +18,8 @@ import net.sf.jasperreports.export.SimpleExporterInput;
 import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -25,8 +28,6 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.File;
-import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -40,6 +41,11 @@ public class LianxiDemoController {
 
     @Resource
     private LianxiDemoServiceApi lianxiDemoServiceApi;
+    @Resource
+    private AddLogsApi addLogsApi;
+
+    @Autowired
+    private Environment env;
 
 //    @RequestMapping("")
 //    public ModelAndView index(ModelAndView mav,HttpServletRequest request){
@@ -68,16 +74,25 @@ public class LianxiDemoController {
         return result;
     }
 
-    //userListUplode
+    /**
+     * 添加导入功能
+     * @param file
+     * @param request
+     * @return
+     */
     @RequestMapping(value = "userListUplode",method=RequestMethod.POST/*,headers="Content-Type=multipart/form-data"*/)
     @ResponseBody
     public MessageResult userListUplode(@RequestParam("file") MultipartFile file,HttpServletRequest request){
+        //导入功能添加日志
+        int logsId = addLogsApi.insertLogs(1,"导入","用户导入");
+
+
 
         MessageResult result = new MessageResult();
         try{
             //文件内容
             List<Map<String,String>> myData = XlsxReaderUtil.getSheetData(file.getInputStream(),0);
-             result = lianxiDemoServiceApi.userListUplode(myData);
+             result = lianxiDemoServiceApi.userListUplode(myData , logsId);
         }catch (Exception e){
             logger.error(e.getMessage());
         }

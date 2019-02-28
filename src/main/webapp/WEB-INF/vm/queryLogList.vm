@@ -4,6 +4,7 @@
     <link rel="stylesheet" href="/static/js/jquery-easyui-1.5.4.5/themes/default/easyui.css">
     <link rel="stylesheet" href="/static/js/jquery-easyui-1.5.4.5/themes/icon.css">
     <link rel="stylesheet" href="/static/js/layui/css/layui.css">
+    <link rel="stylesheet" href="/static/css/style.css">
     <script src="/static/jquery-easyui-1.5.4.5/jquery.min.js"></script>
     <script src="/static/jquery-easyui-1.5.4.5/jquery.easyui.min.js"></script>
     <script src="/static/jquery-easyui-1.5.4.5/locale/easyui-lang-zh_CN.js"></script>
@@ -42,19 +43,40 @@
 
 
 
-<table class="easyui-datagrid" title="作业日志" style="width:auto;height:250px"
-       data-options="singleSelect:true,collapsible:true,url:'datagrid_data1.json',method:'get'">
+<table id="${pageId}Table" class="easyui-datagrid" title="作业日志" style="width:auto;height:525px"
+       data-options="singleSelect:true,
+       collapsible:true,
+       url:'queryLogList/query',
+       method:'get',
+        pagination:'true',
+        striped:'true',
+rownumbers:'true'
+">
     <thead>
     <tr>
-        <th data-options="field:'empName',width:80">操作日期</th>
-        <th data-options="field:'empName',width:100">操作用户</th>
-        <th data-options="field:'transName',width:80,align:'right'">操作类型</th>
-        <th data-options="field:'operateObject',width:80,align:'right'">操作对象</th>
-        <th data-options="field:'statusName',width:250">处理状态</th>
-        <th data-options="field:'remark',width:60,align:'center'">备注</th>
+        <th data-options="field:'time',width:120,sortable:true,
+                    formatter:function(value,row,index){
+                        return DateTimeFormatter(value)
+                        }
+                                                ">操作日期</th>
+        <th data-options="field:'operator',width:100">操作用户</th>
+        <th data-options="field:'operatorType',width:80">操作类型</th>
+        <th data-options="field:'operatorObject',width:80,align:'center'">操作对象</th>
+        <th data-options="field:'operatorTrans',width:80, align:'center',
+                    formatter:function(value,row,index){
+                        return operatorTransToStr(value,row,index)
+                        }
+
+">处理状态</th>
+        <th data-options="field:'remark',width:120,align:'center'">备注</th>
     </tr>
     </thead>
 </table>
+
+
+<div id="${pageId}Dialog" closed="true" class="easyui-dialog" title="日志详细" style="width:800px;height:400px;" data-options="">
+</div>
+
 
 
 

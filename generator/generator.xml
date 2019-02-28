@@ -33,15 +33,20 @@
 			<property name="enableSubPackages" value="true" />
 		</javaClientGenerator>
 		<!-- 要生成那些表(更改tableName和domainObjectName就可以) -->
-		<table tableName="module"  domainObjectName="Module">
+		<!--<table tableName="module"  domainObjectName="Module">-->
+			<!--<property name="useActualColumnNames" value="true"/>-->
+		<!--</table>-->
+		<!--<table tableName="userInfo"  domainObjectName="UserInfo">-->
+			<!--<property name="useActualColumnNames" value="true"/>-->
+		<!--</table>-->
+
+		<!--<table tableName="logs"  domainObjectName="Logs">-->
+			<!--<property name="useActualColumnNames" value="true"/>-->
+		<!--</table>-->
+		<table tableName="logsDetail"  domainObjectName="LogsDetail">
 			<property name="useActualColumnNames" value="true"/>
 		</table>
 
-
-
-		<table tableName="userInfo"  domainObjectName="UserInfo">
-			<property name="useActualColumnNames" value="true"/>
-		</table>
 
 
 		<!-- enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"  -->

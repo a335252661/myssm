@@ -23,6 +23,20 @@ public class UserInfoListVo extends UserInfo {
     private int page;
     private int rows;
 
+    /**
+     * since 2018-12-11 layui 分页使用
+     * 和rows功能相同
+     */
+    private int limit;
+
+    public int getLimit() {
+        return limit;
+    }
+
+    public void setLimit(int limit) {
+        this.limit = limit;
+    }
+
     public int getPage() {
         return page;
     }

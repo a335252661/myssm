@@ -8,5 +8,5 @@ import java.util.Map;
 public interface HomeServiceApi {
 
 
-    List getJsonMenu();
+    List getJsonMenu2();
 }

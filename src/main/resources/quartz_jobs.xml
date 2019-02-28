@@ -10,30 +10,17 @@
     <schedule>
         <job>
             <name>HelloQuartz</name>
-            <description>计算每日费用batch</description>
+            <description>第一个Quartz</description>
             <job-class>cn.cld.batch.HelloQuartz</job-class>
         </job>
         <trigger>
             <cron>
                 <name>HelloQuartz</name>
-                <description>每天0点30分执行一次</description>
-                <job-name>CalcFeeBatch</job-name>
-                <cron-expression>0/3 * * * * ? *</cron-expression>
+                <description>每小时的44分44秒执行</description>
+                <job-name>HelloQuartz</job-name>
+                <cron-expression>0 44/44 * * * ? *</cron-expression>
             </cron>
         </trigger>
     </schedule>
-
-
-
-
-    <!--<schedule>-->
-        <!--<job>-->
-            <!--<name>LogisticsQueryBatch</name>-->
-            <!--<description>物流轨迹查询</description>-->
-            <!--<job-class>com.nextwms.batch.LogisticsQueryBatch</job-class>-->
-            <!--<durability>true</durability>-->
-            <!--<recover>false</recover>-->
-        <!--</job>-->
-    <!--</schedule>-->
 
 </job-scheduling-data>

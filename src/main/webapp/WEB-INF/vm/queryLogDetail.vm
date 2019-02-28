@@ -1,0 +1,53 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Title</title>
+    <link rel="stylesheet" href="/static/js/jquery-easyui-1.5.4.5/themes/default/easyui.css">
+    <link rel="stylesheet" href="/static/js/jquery-easyui-1.5.4.5/themes/icon.css">
+    <link rel="stylesheet" href="/static/js/layui/css/layui.css">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <script src="/static/jquery-easyui-1.5.4.5/jquery.min.js"></script>
+    <script src="/static/jquery-easyui-1.5.4.5/jquery.easyui.min.js"></script>
+    <script src="/static/jquery-easyui-1.5.4.5/locale/easyui-lang-zh_CN.js"></script>
+    <script src="/static/layui/layui.js"></script>
+</head>
+    #set($pageId = "queryLogDetail")
+<body>
+
+
+##<input type="text"  value="${logsId}">
+
+<table id="${pageId}Table" class="easyui-datagrid" title="作业日志详细" style="width:auto;height:365px"
+       data-options="singleSelect:true,
+       collapsible:true,
+       url:'queryLogDetail/query',
+
+        queryParams:{'logsId':'${logsId}'},
+
+       method:'get',
+        pagination:'true',
+striped:'true',
+rownumbers:'true'
+"
+>
+    <thead>
+        <tr>
+            <th data-options="field:'operatorTime',width:120,align:'center',
+                    formatter:function(value,row,index){
+                        return DateTimeFormatter(value)
+                        }">日志时间</th>
+##            <th data-options="field:'logsId',width:80">日志ID</th>
+            <th data-options="field:'message',width:420,align:'center'">日志内容</th>
+            <th data-options="field:'remark',width:80,align:'center'">备注</th>
+
+        </tr>
+    </thead>
+
+
+
+</table>
+
+<script src="/static/js/userDetail.js"></script>
+<script src="/static/js/common/cldCommon.js"></script>
+
+</body>
+</html>

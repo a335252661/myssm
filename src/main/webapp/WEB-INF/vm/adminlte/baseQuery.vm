@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<!--
+This is a starter template page. Use this page to start your new project from
+scratch. This page gets rid of all links and provides the needed markup only.
+-->
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>AdminLTE 2 | Starter</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+
+    <!-- Bootstrap 3.3.6 -->
+    <link rel="stylesheet" href="/static/AdminLTEDemo/bootstrap/css/bootstrap.css">
+    <!-- Font Awesome 最小化，关闭小图标-->
+    <link rel="stylesheet" href="/static/AdminLTEDemo/dist/css/font-awesome.css">
+    <!-- Select2 -->
+    <link rel="stylesheet" href="/static/AdminLTEDemo/plugins/select2/select2.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="/static/AdminLTEDemo/dist/css/AdminLTE.css">
+    <!-- AdminLTE Skins. Choose a skin from the css/skins
+         folder instead of downloading all of them to reduce the load. -->
+##    <link rel="stylesheet" href="/static/AdminLTEDemo/dist/css/skins/all-skins.css">
+    <link rel="stylesheet" href="/static/AdminLTEDemo/dist/css/skins/skin-red.css">
+
+    <!-- bootstrap datepicker -->
+    <link rel="stylesheet" href="/static/AdminLTEDemo/plugins/datepicker/datepicker3.css">
+
+
+    <!-- Google Font -->
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+</head>
+
+<body class="hold-transition skin-red sidebar-mini">
+
+#*显示位置栏*#
+<section class="content-header">
+    <h1>
+        Advanced Form Elements
+        <small>Preview</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a href="#">练习</a></li>
+        <li class="active">基础功能</li>
+    </ol>
+</section>
+
+<div class="box box-default">
+#*box标题 加 最小化和关闭按钮*#
+    <div class="box-header with-border">
+    #*box标题 *#
+        <h3 class="box-title">基础功能</h3>
+    #*最小化和关闭按钮*#
+        <div class="box-tools pull-right">
+            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+            <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
+        </div>
+    </div>
+
+##    //内容
+    <div class="box-body">
+        <div class="col-md-1">
+        <button type="button" class="btn btn-block btn-info">查询</button>
+        </div>
+    </div>
+</div>
+
+
+#*查询条件*#
+<div class="box box-default">
+#*box标题 加 最小化和关闭按钮*#
+    <div class="box-header with-border">
+    #*box标题 *#
+        <h3 class="box-title">Select2</h3>
+    #*最小化和关闭按钮*#
+        <div class="box-tools pull-right">
+            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+            <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
+        </div>
+    </div>
+    <!-- 盒子内容 -->
+    <div class="box-body">
+        <form class="form-inline">
+            <div class="form-group">
+                <label >用户ID</label>
+                <input type="text" class="form-control" id="" placeholder="Jane Doe">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputEmail2">用户名</label>
+                <input type="email" class="form-control" id="" >
+            </div>
+            <div class="form-group">
+                <label for="exampleInputEmail2">开始日期</label>
+##                <input type="email" class="form-control" id="" >
+
+
+                <div class="input-group date">
+##                    <div class="input-group-addon">
+##                        <i class="fa fa-calendar"></i>
+##                    </div>
+                    <input type="text" class="form-control pull-right" id="datepicker1">
+                </div>
+
+            </div>
+
+            <div class="input-group date">
+                <div class="input-group-addon">
+                    <i class="fa fa-calendar"></i>
+                </div>
+                <input type="text" class="form-control pull-right" id="datepicker">
+            </div>
+            <!-- /.in
+
+            <div class="form-group">
+                <label for="exampleInputEmail2">~~</label>
+                <input type="email" class="form-control" id="" >
+            </div>
+        </form>
+        <!-- /.row -->
+    </div>
+    <!-- /.box-body -->
+
+</div>
+
+
+
+<div class="box box-default">
+    #*box标题 加 最小化和关闭按钮*#
+    <div class="box-header with-border">
+        #*box标题 *#
+        <h3 class="box-title">Select2</h3>
+        #*最小化和关闭按钮*#
+        <div class="box-tools pull-right">
+            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+            <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
+        </div>
+    </div>
+    <!-- 盒子内容 -->
+    <div class="box-body">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Minimal</label>
+                    <select class="form-control select2" style="width: 100%;">
+                        <option selected="selected">Alabama</option>
+                        <option>Alaska</option>
+                        <option>California</option>
+                        <option>Delaware</option>
+                        <option>Tennessee</option>
+                        <option>Texas</option>
+                        <option>Washington</option>
+                    </select>
+                </div>
+                <!-- /.form-group -->
+                <div class="form-group">
+                    <label>Disabled</label>
+                    <select class="form-control select2" disabled="disabled" style="width: 100%;">
+                        <option selected="selected">Alabama</option>
+                        <option>Alaska</option>
+                        <option>California</option>
+                        <option>Delaware</option>
+                        <option>Tennessee</option>
+                        <option>Texas</option>
+                        <option>Washington</option>
+                    </select>
+                </div>
+                <!-- /.form-group -->
+            </div>
+            <!-- /.col -->
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Multiple</label>
+                    <select class="form-control select2" multiple="multiple" data-placeholder="Select a State" style="width: 100%;">
+                        <option>Alabama</option>
+                        <option>Alaska</option>
+                        <option>California</option>
+                        <option>Delaware</option>
+                        <option>Tennessee</option>
+                        <option>Texas</option>
+                        <option>Washington</option>
+                    </select>
+                </div>
+                <!-- /.form-group -->
+                <div class="form-group">
+                    <label>Disabled Result</label>
+                    <select class="form-control select2" style="width: 100%;">
+                        <option selected="selected">Alabama</option>
+                        <option>Alaska</option>
+                        <option disabled="disabled">California (disabled)</option>
+                        <option>Delaware</option>
+                        <option>Tennessee</option>
+                        <option>Texas</option>
+                        <option>Washington</option>
+                    </select>
+                </div>
+                <!-- /.form-group -->
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.box-body -->
+    <div class="box-footer">
+        Visit <a href="https://select2.github.io/">Select2 documentation</a> for more examples and information about
+        the plugin.
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- jQuery 2.2.3 -->
+<script src="/static/AdminLTEDemo/plugins/jQuery/jquery-2.2.3.min.js"></script>
+<!-- Bootstrap 3.3.6 -->
+<script src="/static/AdminLTEDemo/bootstrap/js/bootstrap.min.js"></script>
+<!-- Select2 -->
+<script src="/static/AdminLTEDemo/plugins/select2/select2.full.min.js"></script>
+
+<script src="/static/AdminLTEDemo/dist/js/demo.js"></script>
+
+<script src="/static/AdminLTEDemo/plugins/datepicker/bootstrap-datepicker.js"></script>
+<!-- iCheck 1.0.1 -->
+<script src="/static/AdminLTEDemo/plugins/iCheck/icheck.min.js"></script>
+<!-- AdminLTE App 小图标收起关闭功能-->
+<script src="/static/AdminLTEDemo/dist/js/app.min.js"></script>
+<!-- Page script -->
+<script>
+    $(function () {
+        //Initialize Select2 Elements
+        $(".select2").select2();
+
+        //Datemask dd/mm/yyyy
+        $("#datemask").inputmask("dd/mm/yyyy", {"placeholder": "dd/mm/yyyy"});
+        //Datemask2 mm/dd/yyyy
+        $("#datemask2").inputmask("mm/dd/yyyy", {"placeholder": "mm/dd/yyyy"});
+        //Money Euro
+        $("[data-mask]").inputmask();
+
+        //Date range picker
+        $('#reservation').daterangepicker();
+        //Date range picker with time picker
+        $('#reservationtime').daterangepicker({timePicker: true, timePickerIncrement: 30, format: 'MM/DD/YYYY h:mm A'});
+        //Date range as a button
+        $('#daterange-btn').daterangepicker(
+                {
+                    ranges: {
+                        'Today': [moment(), moment()],
+                        'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                        'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+                        'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+                        'This Month': [moment().startOf('month'), moment().endOf('month')],
+                        'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+                    },
+                    startDate: moment().subtract(29, 'days'),
+                    endDate: moment()
+                },
+                function (start, end) {
+                    $('#daterange-btn span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+                }
+        );
+
+        //Date picker
+        $('#datepicker').datepicker({
+            autoclose: true
+        });
+
+        //iCheck for checkbox and radio inputs
+        $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
+            checkboxClass: 'icheckbox_minimal-blue',
+            radioClass: 'iradio_minimal-blue'
+        });
+        //Red color scheme for iCheck
+        $('input[type="checkbox"].minimal-red, input[type="radio"].minimal-red').iCheck({
+            checkboxClass: 'icheckbox_minimal-red',
+            radioClass: 'iradio_minimal-red'
+        });
+        //Flat red color scheme for iCheck
+        $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
+            checkboxClass: 'icheckbox_flat-green',
+            radioClass: 'iradio_flat-green'
+        });
+
+        //Colorpicker
+        $(".my-colorpicker1").colorpicker();
+        //color picker with addon
+        $(".my-colorpicker2").colorpicker();
+
+        //Timepicker
+        $(".timepicker").timepicker({
+            showInputs: false
+        });
+    });
+</script>
+</body>
+</html>

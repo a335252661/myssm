@@ -2,23 +2,20 @@ package cn.cld.serviceImpl.lianxi;
 
 import cn.cld.dao.MyUserMapper;
 import cn.cld.dao.UserInfoMapper;
+import cn.cld.pojo.LogsDetail;
 import cn.cld.pojo.UserInfo;
 import cn.cld.pojo.UserInfoExample;
 import cn.cld.pojo.basic.MessageResult;
 import cn.cld.pojo.basic.PageQueryResult;
-import cn.cld.pojo.basic.SimpleServiceResult;
 import cn.cld.pojo.lianxi.UserInfoListVo;
 import cn.cld.service.lianxi.LianxiDemoServiceApi;
+import cn.cld.service.logs.AddLogsApi;
 import cn.cld.untils.CldCommonUntils;
 import cn.cld.untils.DateTimeUtils;
 import cn.cld.untils.StringUtils;
 import org.apache.ibatis.session.RowBounds;
-import org.apache.poi.hssf.usermodel.*;
-import org.apache.poi.hssf.util.HSSFColor;
-import org.apache.poi.ss.util.CellRangeAddress;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -29,6 +26,8 @@ public class LianxiDemoServiceApiImpl implements LianxiDemoServiceApi {
 
     @Resource
     private MyUserMapper myUserMapper;
+    @Resource
+    private AddLogsApi addLogsApi;
 
     public PageQueryResult<UserInfo> queryUserInfo(UserInfoListVo params) {
 
@@ -120,7 +119,12 @@ public class LianxiDemoServiceApiImpl implements LianxiDemoServiceApi {
 }
 
     @Override
-    public MessageResult userListUplode(List<Map<String, String>> myData) {
+    public MessageResult userListUplode(List<Map<String, String>> myData ,int logsId) {
+
+        LogsDetail ld = new LogsDetail();
+        ld.setLogsId(logsId);
+
+
         MessageResult result = new MessageResult();
         int total = 0;
         int updatetotal=0;
@@ -150,6 +154,10 @@ public class LianxiDemoServiceApiImpl implements LianxiDemoServiceApi {
 
         }
         result.setMessage("新增用户"+total+"位，更新用户"+updatetotal+"位！");
+
+        ld.setMessage("新增用户"+total+"位，更新用户"+updatetotal+"位！");
+        ld.setOperatorTrans(2);//处理成功
+        addLogsApi.insertLogsDetail(ld);
 
         return result;
     }

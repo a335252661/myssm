@@ -278,8 +278,8 @@ public class DateTimeUtils {
 
 	public static Date getDateWithoutTime(Date date) {
 		Date result = null;
-		String dateStr = format(date, dateString);
-		result = parseStr(dateStr, dateString);
+		String dateStr = format(date, YYYY_MM_DD_HH_mm_ss);
+		result = parseStr(dateStr, YYYY_MM_DD_HH_mm_ss);
 		return result;
 	}
 
