@@ -1,5 +1,6 @@
 package cn.cld.untils;
 
+import cn.cld.controller.lianxi.LianxiDemoController;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.EncodeHintType;
 import com.google.zxing.MultiFormatWriter;
@@ -10,6 +11,8 @@ import org.apache.commons.codec.binary.Base64;
 import org.apache.poi.hssf.usermodel.*;
 import org.apache.poi.hssf.util.HSSFColor;
 import org.apache.poi.ss.util.CellRangeAddress;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;
 
@@ -27,7 +30,9 @@ import java.util.List;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
 
-public  class CldCommonUntils {
+public class CldCommonUntils {
+
+    protected static final Logger logger = LoggerFactory.getLogger(CldCommonUntils.class);
 
     /**
      * 在c盘文件夹中生成二维码
@@ -142,7 +147,7 @@ public  class CldCommonUntils {
      * @return
      * @throws IOException
      */
-    private byte[] InputStreamToByte(InputStream is) throws IOException {
+    public byte[] InputStreamToByte(InputStream is) throws IOException {
         ByteArrayOutputStream bytestream = new ByteArrayOutputStream();
         byte[] buffer=new byte[1024];
         int ch;
@@ -152,6 +157,79 @@ public  class CldCommonUntils {
         byte data[] = bytestream.toByteArray();
         bytestream.close();
         return data;
+    }
+
+    /**
+     * 删除文件
+     * @param f
+     */
+    public static void delete(File f,String format) {
+        File[] fi=f.listFiles();
+        if(fi!=null){
+            for (File file : fi) {
+                if(file.isDirectory()){
+                    delete(file , format);
+                }else if(file.getName().substring(file.getName().lastIndexOf(".")+1).equals(format)){
+                    logger.info("成功删除"+file.getName());
+                    file.delete();
+                }
+            }
+        }
+    }
+
+    /**
+     * 格式化json
+     * @param jsonStr
+     * @return
+     */
+    public  String formatJson(String jsonStr) {
+        if (null == jsonStr || "".equals(jsonStr)) return "";
+        StringBuilder sb = new StringBuilder();
+        char last = '\0';
+        char current = '\0';
+        int indent = 0;
+        for (int i = 0; i < jsonStr.length(); i++) {
+            last = current;
+            current = jsonStr.charAt(i);
+            switch (current) {
+                case '{':
+                case '[':
+                    sb.append(current);
+                    sb.append('\n');
+                    indent++;
+                    addIndentBlank(sb, indent);
+                    break;
+                case '}':
+                case ']':
+                    sb.append('\n');
+                    indent--;
+                    addIndentBlank(sb, indent);
+                    sb.append(current);
+                    break;
+                case ',':
+                    sb.append(current);
+                    if (last != '\\') {
+                        sb.append('\n');
+                        addIndentBlank(sb, indent);
+                    }
+                    break;
+                default:
+                    sb.append(current);
+            }
+        }
+
+        return sb.toString();
+    }
+
+    /**
+     * 添加space
+     * @param sb
+     * @param indent
+     */
+    private  void addIndentBlank(StringBuilder sb, int indent) {
+        for (int i = 0; i < indent; i++) {
+            sb.append('\t');
+        }
     }
 
 
@@ -627,8 +705,42 @@ public  class CldCommonUntils {
                 }
 
             }
+    }
 
 
+
+    /**
+     * 写入txt文件
+     *
+     * @param filePath
+     * @param detailList
+     * @throws Exception
+     */
+    public static boolean txtWriter(String filePath,List<String> detailList) throws Exception{
+        BufferedWriter br = null;
+        try{
+            File file = new File(filePath);
+            // 获取目录
+            File fileT = new File(file.getParent());
+
+            // 文件不存在，建立文件
+            if(!file.exists()){
+                fileT.mkdirs();
+                file.createNewFile();//不存在则创建
+            }
+            // 往文件里面写内容
+            OutputStreamWriter writer = new OutputStreamWriter(new FileOutputStream(file),"x-UTF-16LE-BOM");
+            br = new BufferedWriter(writer);
+            for(String temp:detailList){
+                br.write(temp+"\r\n");
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+            return false;
+        }finally{
+            br.close();
+        }
+        return true;
     }
 
 }

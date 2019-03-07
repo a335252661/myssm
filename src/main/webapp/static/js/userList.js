@@ -152,8 +152,9 @@ $(function () {
 
             }
         });
-
     })
+
+
     $('#userListExportAll').tooltip({
         position: 'bottom',
         content: '<span style="color:#fff">将所有用户进行导出</span>',
@@ -178,6 +179,43 @@ $(function () {
         var userId = selections[0].userId;
 
         window.open('userListPrint?userId='+userId);
+
+    })
+
+
+
+    //txt下载
+    $('#userListDownLoad').click(function () {
+        // 获取选中的row
+        //是一个json数组
+        var selections = $('#userListDataTable').datagrid('getChecked');
+
+        console.info(selections[0]);
+
+        // 未选中任何信息
+        if(selections == null || selections.length == 0){
+            $.messager.alert('Warning','未选择信息');
+            return;
+        }
+        if (selections.length!=1){
+            $.messager.alert('Warning','请选择一条数据');
+            return;
+        }
+
+        // $.requestJson('downLoadTxt', selections[0], function(data){
+        //     var result = data.result;
+        //     // $.showMessage('I000000005', ['修改可重发']);
+        // });
+
+        downloadSubmit({
+            url:'downLoadTxt',
+            queryData: selections[0],
+            okCallback: function(data){
+                // 导出成功
+                // $.showMessage('I000000005', ['导出']);
+            }
+        });
+
 
     })
 

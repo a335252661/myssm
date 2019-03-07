@@ -12,6 +12,11 @@
 </head>
 <body>
 
+<!-- 文件下载用 form -->
+<div>
+    <form method="post" id="downloadForm" target="frameDownload"></form>
+</div>
+
 
 <div class="easyui-panel" title="基础功能">
     <a href="#" style="margin: 10px" id="userListAdd" class="easyui-linkbutton" data-options="iconCls:'icon-add'">新增</a>
@@ -20,6 +25,7 @@
     <a href="#" style="margin: 10px" id="userListExport"  class="easyui-linkbutton" data-options="iconCls:'icon-tip' ">按条件导出</a>
     <a href="#" style="margin: 10px" id="userListExportAll"  class="easyui-linkbutton" data-options="iconCls:'icon-tip' ">全部导出</a>
     <a href="#" style="margin: 10px" id="userListPrint"  class="easyui-linkbutton" data-options="iconCls:'icon-print' ">打印预览</a>
+    <a href="#" style="margin: 10px" id="userListDownLoad"  class="easyui-linkbutton" data-options="iconCls:'icon-download' ">txt下载</a>
 </div>
 
 <div class="easyui-panel" title="查询条件">
@@ -50,6 +56,7 @@
 
     </form>
 </div>
+
 
 <div class="easyui-panel" title="文件上传" style="padding: 13px;float: left">
     <form id="userUploadForm"  method="post" enctype="multipart/form-data">

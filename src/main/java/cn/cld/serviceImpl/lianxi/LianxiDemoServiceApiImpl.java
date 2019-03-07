@@ -14,12 +14,19 @@ import cn.cld.untils.CldCommonUntils;
 import cn.cld.untils.DateTimeUtils;
 import cn.cld.untils.StringUtils;
 import org.apache.ibatis.session.RowBounds;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.annotation.Resource;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
 public class LianxiDemoServiceApiImpl implements LianxiDemoServiceApi {
+
+    protected static final Logger logger = LoggerFactory.getLogger(LianxiDemoServiceApiImpl.class);
 
     @Resource
     private UserInfoMapper userInfoMapper;
@@ -200,6 +207,43 @@ public class LianxiDemoServiceApiImpl implements LianxiDemoServiceApi {
         return result;
     }
 
+    /**
+     * TXT下载
+     * @param userInfoListVo
+     * @param path2
+     * @return
+     */
+    @Override
+    public MessageResult downLoadTxt(UserInfoListVo userInfoListVo, String path2) {
+        MessageResult result  = new MessageResult();
+        result.setResult(true);
+        //删除之前生成的文件
+        CldCommonUntils.delete(new File(path2),"txt");
+
+        List<String> detailList = new ArrayList<>();
+
+        //需要写入的信息
+        detailList.add("用户名 ："+userInfoListVo.getUserName());
+        detailList.add("密  码 ："+userInfoListVo.getPassWord());
+        detailList.add("end!!");
+
+
+
+        String format = DateTimeUtils.format(new Date(), DateTimeUtils.YY_MM_DD_HH_mm);
+        String name = "用户信息".concat(format).concat(".txt");
+        String path = path2+"\\"+name;
+        logger.info("生成的txt文件所在位置："+path);
+
+        try {
+            //指定到具体文件
+            CldCommonUntils.txtWriter(path,detailList);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        result.setRemarks(path);
+        return result;
+    }
 
 
 }

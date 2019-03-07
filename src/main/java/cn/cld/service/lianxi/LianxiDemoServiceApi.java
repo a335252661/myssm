@@ -23,4 +23,12 @@ public interface LianxiDemoServiceApi {
 
     //打印预览
     MessageResult userListPrint(int userId);
+
+    /**
+     * txt下载
+     * @param userInfoListVo
+     * @param path2
+     * @return
+     */
+    MessageResult downLoadTxt(UserInfoListVo userInfoListVo, String path2);
 }

@@ -162,6 +162,7 @@ function selectionsToJson(selections) {
  */
 $.requestJson = function(uri,param, okCallback, failCallback){
     param = param ? param :{};
+    console.info(JSON.stringify(param));
     $.ajax({
         url:uri,
         dataType:"json",
@@ -172,7 +173,47 @@ $.requestJson = function(uri,param, okCallback, failCallback){
             okCallback(data, textStatus, jqXHR);
         },
         error:function(data, textStatus, errorThrown){
-            failCallback(data, textStatus, errorThrown);
+            $.messager.alert('Warning','发送请求失败');
+            // failCallback(data, textStatus, errorThrown);
         }
     });
 };
+
+/**
+ * form submit 提交，下载文件时提交
+ *
+ * options ：{}
+ * 		   	属性：
+ * 			url							地址
+ * 			queryData		            可以在from参数的基础上再做处理
+ * 			okCallback:function()
+ * 										操作成功: JsonResult.isOk() == true
+ * 			failCallback:function()
+ * 										操作失败: JsonResult.isOk() == false
+ */
+function downloadSubmit(options){
+    $('#downloadForm').form('submit', {
+        url:options.url,
+        onSubmit: function(param){
+            if(options.queryData!=null){
+                param = $.extend(param, options.queryData);
+            }
+        },
+        success:function(data){
+            // 反转义
+            data = HTMLDecode(data);
+            var dataObj = JSON.parse(data);
+           // commonReqSuccessHandler(dataObj, options.okCallback, options.failCallback, true);
+        }
+    });
+}
+
+//HTML反转义
+function HTMLDecode(text)
+{
+    var temp = document.createElement("div");
+    temp.innerHTML = text;
+    var output = temp.innerText || temp.textContent;
+    temp = null;
+    return output;
+}

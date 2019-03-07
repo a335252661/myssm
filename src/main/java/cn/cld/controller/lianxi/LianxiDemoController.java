@@ -20,6 +20,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
+import org.springframework.data.redis.core.ListOperations;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -28,7 +29,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.OutputStream;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -46,6 +47,10 @@ public class LianxiDemoController {
 
     @Autowired
     private Environment env;
+
+
+    @Resource(name="redisTemplate")
+    protected ListOperations<String, String> redis;
 
 //    @RequestMapping("")
 //    public ModelAndView index(ModelAndView mav,HttpServletRequest request){
@@ -156,6 +161,54 @@ public class LianxiDemoController {
             return;
         }
 
+    }
+
+
+    /**
+     * txt下载功能
+     * @param userInfoListVo
+     * @param request
+     * @param response
+     * @return
+     */
+    @RequestMapping("downLoadTxt")
+    @ResponseBody
+    public MessageResult downLoadTxt(UserInfoListVo userInfoListVo,HttpServletRequest request,HttpServletResponse response){
+        String path2 = request.getSession().getServletContext().getRealPath("/WEB-INF/txtTemp/");
+        File filePath = new File(path2);
+        if(!filePath.exists()){
+            //不存在
+            filePath.mkdirs();
+        }
+        MessageResult messageResult = lianxiDemoServiceApi.downLoadTxt(userInfoListVo,path2);
+
+        //文件所在位置
+        String path = messageResult.getRemarks();
+        File file = new File(path);
+        try {
+            // 设置数据类型
+            response.setContentType("application/octet-stream;charset=UTF-8");
+            // 设置头部
+            response.setHeader("Content-Disposition", "attachment; filename="  + file.getName());
+            // 输入流
+            BufferedInputStream br = new BufferedInputStream(new FileInputStream(file));
+            // 字节数组
+            byte[] buf = new byte[1024];
+            int len = 0;
+            // 输出流把文件内容写到客户端
+            OutputStream out = response.getOutputStream();
+            // 读取数据
+            while((len = br.read(buf)) >0)
+                out.write(buf,0,len);
+            // 关闭输入流
+            br.close();
+            // 关闭输出流
+            out.close();
+        } catch (IOException e) {
+            logger.error("下载异常 ----", e);
+        }
+
+        return messageResult;
     }
 
 }
