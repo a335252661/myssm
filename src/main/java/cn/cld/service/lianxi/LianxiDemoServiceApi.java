@@ -31,4 +31,11 @@ public interface LianxiDemoServiceApi {
      * @return
      */
     MessageResult downLoadTxt(UserInfoListVo userInfoListVo, String path2);
+
+    /**
+     * txt下载不生成临时文件
+     * @param userInfoListVo
+     * @return
+     */
+    MessageResult downLoadTxt2(UserInfoListVo userInfoListVo);
 }

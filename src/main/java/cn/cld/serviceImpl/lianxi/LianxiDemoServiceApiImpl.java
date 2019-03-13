@@ -222,7 +222,9 @@ public class LianxiDemoServiceApiImpl implements LianxiDemoServiceApi {
 
         List<String> detailList = new ArrayList<>();
 
+
         //需要写入的信息
+        detailList.add("用户id ："+userInfoListVo.getUserId());
         detailList.add("用户名 ："+userInfoListVo.getUserName());
         detailList.add("密  码 ："+userInfoListVo.getPassWord());
         detailList.add("end!!");
@@ -242,6 +244,35 @@ public class LianxiDemoServiceApiImpl implements LianxiDemoServiceApi {
         }
 
         result.setRemarks(path);
+        return result;
+    }
+
+    /**
+     * txt下载不生成临时文件
+     * @param userInfoListVo
+     * @return
+     */
+    @Override
+    public MessageResult downLoadTxt2(UserInfoListVo userInfoListVo) {
+        MessageResult result  = new MessageResult();
+        result.setResult(true);
+
+        String data = "用户id ："+userInfoListVo.getUserId()
+                +"\r\n"+
+                "用户名 ："+userInfoListVo.getUserName()
+                +"\r\n"+
+                "密  码 ："+userInfoListVo.getPassWord()
+                +"\r\n"+
+                "end!!";
+
+
+
+        String format = DateTimeUtils.format(new Date(), DateTimeUtils.YY_MM_DD_HH_mm);
+        String name = "用户信息".concat(format).concat(".txt");
+
+
+        result.setData(data);
+        result.setRemarks(name);
         return result;
     }
 

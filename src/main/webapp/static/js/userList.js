@@ -191,6 +191,12 @@ $(function () {
         var selections = $('#userListDataTable').datagrid('getChecked');
 
         console.info(selections[0]);
+        console.info({
+            userId: selections[0].userId,
+            userName: selections[0].userName,
+            passWord: selections[0].passWord
+        });
+        console.info(selectionToJson(selections[0]));
 
         // 未选中任何信息
         if(selections == null || selections.length == 0){
@@ -202,54 +208,90 @@ $(function () {
             return;
         }
 
-        // $.requestJson('downLoadTxt', selections[0], function(data){
-        //     var result = data.result;
-        //     // $.showMessage('I000000005', ['修改可重发']);
-        // });
 
         downloadSubmit({
             url:'downLoadTxt',
-            queryData: selections[0],
+            queryData: {
+                userId: selections[0].userId,
+                userName: selections[0].userName,
+                passWord: selections[0].passWord
+            },
             okCallback: function(data){
-                // 导出成功
-                // $.showMessage('I000000005', ['导出']);
+
             }
         });
 
 
     })
 
-//
-// // 基于准备好的dom，初始化echarts实例
-// var myChart = echarts.init(document.getElementById('main'));
-//
-// // 指定图表的配置项和数据
-// var option = {
-//     title: {
-//         text: 'ECharts 入门示例'
-//     },
-//     tooltip: {},
-//     legend: {
-//         data:['销量']
-//     },
-//     xAxis: {
-//         data: ["衬衫","羊毛衫","雪纺衫","裤子","高跟鞋","袜子"]
-//     },
-//     yAxis: {},
-//     series: [{
-//         name: '销量',
-//         type: 'bar',
-//         data: [5, 20, 36, 10, 10, 20]
-//     }]
-// };
-//
-// // 使用刚指定的配置项和数据显示图表。
-// myChart.setOption(option);
-//
-//
-//
-//
-//
+    //txt下载
+    $('#userListDownLoad2').click(function () {
+        // 获取选中的row
+        //是一个json数组
+        var selections = $('#userListDataTable').datagrid('getChecked');
+
+        console.info(selections[0]);
+        console.info({
+            userId: selections[0].userId,
+            userName: selections[0].userName,
+            passWord: selections[0].passWord
+        });
+        console.info(selectionToJson(selections[0]));
+
+        // 未选中任何信息
+        if(selections == null || selections.length == 0){
+            $.messager.alert('Warning','未选择信息');
+            return;
+        }
+        if (selections.length!=1){
+            $.messager.alert('Warning','请选择一条数据');
+            return;
+        }
+
+
+        downloadSubmit({
+            url:'downLoadTxt2',
+            queryData: {
+                userId: selections[0].userId,
+                userName: selections[0].userName,
+                passWord: selections[0].passWord
+            },
+            okCallback: function(data){
+
+            }
+        });
+
+
+    })
+
+
+
+    /**
+     * 选中datagrid转json
+     */
+    function selectionsToJson(selections) {
+        var deleteObj = new Array();
+        $.each(selections, function(index) {
+            deleteObj.push({
+                "userId" : this.userId,
+                "userName" : this.userName
+            });
+        });
+        return deleteObj;
+    }
+
+    /**
+     * 选中datagrid转json
+     */
+    function selectionToJson(selection) {
+        var deleteObj = new Array();
+        $.each(selection, function(key,value) {
+            deleteObj.push({
+                key : value
+            });
+        });
+        return deleteObj;
+    }
 
 
 // 基于准备好的dom，初始化echarts实例
@@ -335,24 +377,4 @@ myChart.setOption(option);
 
 
 
-
-
-
-
-
-
-    /**
-     * 选中datagrid转json
-     */
-    function selectionsToJson(selections) {
-        var deleteObj = new Array();
-        $.each(selections, function(index) {
-            deleteObj.push({
-                "userId" : this.userId,
-                "userName" : this.userName
-            });
-        });
-        return deleteObj;
-    }
-    
 })

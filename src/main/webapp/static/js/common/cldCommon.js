@@ -201,8 +201,8 @@ function downloadSubmit(options){
         },
         success:function(data){
             // 反转义
-            data = HTMLDecode(data);
-            var dataObj = JSON.parse(data);
+            // data = HTMLDecode(data);
+            // var dataObj = JSON.parse(data);
            // commonReqSuccessHandler(dataObj, options.okCallback, options.failCallback, true);
         }
     });

@@ -30,6 +30,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -204,6 +205,38 @@ public class LianxiDemoController {
             br.close();
             // 关闭输出流
             out.close();
+        } catch (IOException e) {
+            logger.error("下载异常 ----", e);
+        }
+
+        return messageResult;
+    }
+
+    /**
+     * txt下载功能，不生成临时文件
+     * @param userInfoListVo
+     * @param request
+     * @param response
+     * @return
+     */
+    @RequestMapping("downLoadTxt2")
+    @ResponseBody
+    public MessageResult downLoadTxt2(UserInfoListVo userInfoListVo,HttpServletRequest request,HttpServletResponse response){
+        MessageResult messageResult = lianxiDemoServiceApi.downLoadTxt2(userInfoListVo);
+
+        //文件所在位置
+        String filename = messageResult.getRemarks();
+        //文件内容
+        String datda = (String)messageResult.getData();
+        try {
+            // 设置数据类型
+            response.setContentType("application/octet-stream;charset=UTF-8");
+            // 下载的文件名如果带有中文的话需要用url编码，不然会不显示中文
+            String name = URLEncoder.encode(filename,"UTF-8");
+            response.setHeader("Content-Disposition", "attachment; filename="+name);
+
+            response.getWriter().print(datda);
+            response.getWriter().close();
         } catch (IOException e) {
             logger.error("下载异常 ----", e);
         }
