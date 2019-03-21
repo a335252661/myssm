@@ -16,8 +16,15 @@
 	<!--引入redis配置文件-->
 	<import resource="redis-config.xml"/>
 
-	<context:annotation-config/>
+	<!-- import activemq config -->
+	<import resource="activemq-consumer-config.xml" />
+	<import resource="activemq-producter-config.xml" />
 
+
+
+
+
+	<context:annotation-config/>
 	<!-- 自动扫描 -->
 	<!--将标注Spring注解的类自动转化Bean，同时完成Bean的注入-->
 	<context:component-scan base-package="cn.cld.controller" />

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:amq="http://activemq.apache.org/schema/core" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+        http://activemq.apache.org/schema/core http://activemq.apache.org/schema/core/activemq-core.xsd">
+	<!--
+	    使用spring的listenerContainer，消息用持久化保存，服务器重启不会丢失
+	-->
+	
+     <!-- 连接外部的activeMQ  
+	<bean id="jmsConnectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory">
+             <property name="brokerURL" value="${brokerUrl}">
+             </property>
+             <property name="useAsyncSend" value="true"></property>
+     </bean>-->
+    
+    <!--  Spring JmsTemplate config
+    <bean id="jmsTemplate" class="org.springframework.jms.core.JmsTemplate">
+        <property name="connectionFactory">
+            <bean class="org.springframework.jms.connection.SingleConnectionFactory">
+                <property name="targetConnectionFactory" ref="jmsConnectionFactory" />
+            </bean>
+        </property>
+        <property name="messageConverter" ref="defaultMessageConverter" />
+    </bean>
+    -->
+     
+    <!-- converter 
+    <bean id="defaultMessageConverter" class="com.mq.DefaultMessageConverter" />
+     -->
+    
+	<!--  使用topic\QUEUE方式 ==>TOPIC通道有多个消息消费者, QUEUE有一个消息消费者
+	MS Queue实现了负载均衡，一个消息只能被一个消费者接受，当没有消费者可用时，这个消息会被保存直到有 一个可用的消费者，
+	一个queue可以有很多消费者，他们之间实现了负载均衡，所以Queue实现了一个可靠的JMS负载均衡
+ 	<amq:topic name="TOPIC" physicalName="XXTOPIC" />
+	-->
+
+    <!-- Message Driven POJO (MDP) -->
+    <!-- 测试消息处理  -->
+    <bean id="testQueueConsumer" class="cn.cld.mq.consumer.TestQueueConsumer" />
+    <bean id="testQueueListener" class="org.springframework.jms.listener.adapter.MessageListenerAdapter">
+        <constructor-arg ref="testQueueConsumer" />
+        <!-- may be other method -->
+        <property name="defaultListenerMethod" value="receive" />
+        <!-- custom MessageConverter define -->
+        <property name="messageConverter" ref="defaultMessageConverter" />
+    </bean>
+    <bean id="testQueueListenerContainer" class="org.springframework.jms.listener.DefaultMessageListenerContainer">
+        <property name="connectionFactory" ref="jmsConnectionFactory" />
+        <property name="destination" ref="TEST_QUEUE" />
+        <property name="messageListener" ref="testQueueListener" />
+    </bean>
+
+</beans>

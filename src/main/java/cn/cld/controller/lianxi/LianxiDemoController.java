@@ -1,5 +1,7 @@
 package cn.cld.controller.lianxi;
 
+import cn.cld.mq.PublisherServiceApi;
+import cn.cld.mq.messageVo.TestQueueMessage;
 import cn.cld.pojo.UserInfo;
 import cn.cld.pojo.basic.MessageResult;
 import cn.cld.pojo.basic.PageQueryResult;
@@ -45,11 +47,10 @@ public class LianxiDemoController {
     private LianxiDemoServiceApi lianxiDemoServiceApi;
     @Resource
     private AddLogsApi addLogsApi;
-
     @Autowired
     private Environment env;
-
-
+    @Resource
+    private PublisherServiceApi publisherService;
     @Resource(name="redisTemplate")
     protected ListOperations<String, String> redis;
 
@@ -67,7 +68,11 @@ public class LianxiDemoController {
     @RequestMapping("query")
     @ResponseBody
     public PageQueryResult<UserInfo> query(UserInfoListVo userInfo){
-        System.out.println("开始查询");
+        //测试MQ异步消息
+        TestQueueMessage message = new TestQueueMessage();
+        message.setTestMQParam("我是MQ!");
+        publisherService.publishQueue(message);
+
         PageQueryResult<UserInfo> resultUserInfo = lianxiDemoServiceApi.queryUserInfo(userInfo);
         return resultUserInfo;
     }

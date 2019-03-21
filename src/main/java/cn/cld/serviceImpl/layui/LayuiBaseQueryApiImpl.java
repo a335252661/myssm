@@ -8,7 +8,6 @@ import cn.cld.pojo.basic.MessageResult;
 import cn.cld.pojo.lianxi.UserInfoListVo;
 import cn.cld.service.layui.LayuiBaseQueryApi;
 import cn.cld.untils.DateTimeUtils;
-import cn.cld.untils.FtpUtil;
 import cn.cld.untils.StringUtils;
 import org.apache.ibatis.session.RowBounds;
 
@@ -98,8 +97,8 @@ public class LayuiBaseQueryApiImpl implements LayuiBaseQueryApi {
     public MessageResult ftpDowmLoad() {
         MessageResult result = new MessageResult();
 
-        FtpUtil.downloadFtpFile("192.168.110.124",null,null,
-                21,"downLoad","C:\\tmp","11.txt");
+//        FtpUtil.downloadFtpFile("192.168.110.124",null,null,
+//                21,"downLoad","C:\\tmp","11.txt");
 
 
 
