@@ -16,11 +16,18 @@
         <trigger>
             <cron>
                 <name>HelloQuartz</name>
-                <description>每小时的44分44秒执行</description>
+                <description>0秒开始，每隔四秒</description>
                 <job-name>HelloQuartz</job-name>
-                <cron-expression>0 44/44 * * * ? *</cron-expression>
+                <cron-expression>0/4 * * * * ? *</cron-expression>
             </cron>
         </trigger>
     </schedule>
 
 </job-scheduling-data>
+
+
+<!--
+ <cron-expression>0 44/44 * * * ? *</cron-expression>
+ 秒  分   时   天   月
+
+-->

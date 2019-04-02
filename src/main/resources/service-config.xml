@@ -14,6 +14,9 @@
     <bean id="MQTestService" class="cn.cld.serviceImpl.MQTestServiceApiImpl" />
     <bean id="publisherService" class="cn.cld.mq.PublisherManager" />
 
+    <bean id="commonService"  class="cn.cld.serviceImpl.commen.CommonServiceImpl"/>
+
+
     <bean id="homeServiceApi" class="cn.cld.serviceImpl.login.HomeServiceApiImpl" />
     <bean id="lianxiDemoServiceApi" class="cn.cld.serviceImpl.lianxi.LianxiDemoServiceApiImpl" />
     <bean id="queryLogListApi" class="cn.cld.serviceImpl.logs.QueryLogListApiImpl" />

@@ -3,12 +3,53 @@
          xmlns="http://java.sun.com/xml/ns/javaee"
          xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
          version="3.0">
+  <!--display-name：定义web应用的名称-->
   <display-name>Archetype Created Web Application</display-name>
+
+  <!--写在前面-->
+  <!--
+  web.xml的加载顺序是: <context-param>-> <listener> -> <filter> -> <servlet>。其中，如果web.xml中出现了相同的元素，则按照在配置文件中出现的先后顺序来加载。
+  -->
+
+
+  <!--第一个加载-->
+  <!--******************************************context-param：上下文初始化参数配置***********************************************************-->
   <!-- Spring和mybatis的配置文件 -->
+
   <context-param>
     <param-name>contextConfigLocation</param-name>
     <param-value>classpath:applicationContext.xml</param-value>
   </context-param>
+  <!--<context-param>-->
+    <!--<param-name>name1</param-name>-->
+    <!--<param-value>value1</param-value>-->
+  <!--</context-param>-->
+    <!-- 全局配置参数，因为不属于任何一个servlet，但是所有的servlet都可以通过servletContext读取这个数据 -->
+
+
+
+
+  <!--第二个加载-->
+  <!-- 防止Spring内存溢出监听器 -->
+  <listener>
+    <listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>
+  </listener>
+  <!-- Spring监听器 -->
+  <!--  <listener>
+      <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>-->
+  <!-- 继承了Spring监听器 -->
+  <!--系统启动加载类。所有需要初始化的数据请放在这里。-->
+  <listener>
+    <listener-class>cn.cld.web.SystemContextListener</listener-class>
+  </listener>
+
+  <listener>
+    <listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>
+  </listener>
+
+
+  <!--第三个加载-->
   <!-- 编码过滤器 -->
   <filter>
     <filter-name>encodingFilter</filter-name>
@@ -24,21 +65,8 @@
     <url-pattern>/*</url-pattern>
   </filter-mapping>
 
-  <!-- 防止Spring内存溢出监听器 -->
-  <listener>
-    <listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>
-  </listener>
 
-  <!-- Spring监听器 -->
-<!--  <listener>
-    <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-  </listener>-->
-  <!-- 继承了Spring监听器 -->
-  <!--系统启动加载类。所有需要初始化的数据请放在这里。-->
-  <listener>
-    <listener-class>cn.cld.web.SystemContextListener</listener-class>
-  </listener>
-
+  <!--最后加载-->
   <!-- Spring MVC servlet -->
   <servlet>
     <servlet-name>SpringMVC</servlet-name>

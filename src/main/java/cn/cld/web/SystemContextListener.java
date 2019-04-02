@@ -12,7 +12,6 @@ import javax.servlet.ServletContextEvent;
  *
  */
 public class SystemContextListener extends ContextLoaderListener {
-
 	/**
 	 * 系统上下文统初始化
 	 *
