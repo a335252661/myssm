@@ -17,3 +17,30 @@
      $('#queryLogListDialog').dialog({'href' : 'queryLogDetail?id='+id}).dialog('open');
 
  }
+ 
+ $('#queryLogListSearch').click(function () {
+     console.info($("#queryLogListForm").serializeArray()); //输出数组
+     var name = $("#operatorType").val();
+     console.log(name);
+     $('#queryLogListTable').datagrid('options').url = 'queryLogList/query';
+     $('#queryLogListTable').datagrid('load', $('#queryLogListForm').serializeObject());
+
+ })
+
+ //table
+ // $('#queryLogListTable').datagrid({
+ //     url:'queryLogList/query',
+ //     onBeforeLoad:function(param){
+ //         var queryData = $('#queryLogListForm').serializeObject();
+ //         param = $.extend(param, queryData);
+ //         //清空定时器
+ //         destroyTimers("webLogList");
+ //     },
+ //     exOnClickLinkCell:function(rowIndex, field, value){
+ //         // 弹出编辑画面
+ //         var rows = $('#webLogListTable').datagrid('getRows');
+ //         var id = rows[rowIndex]['id'];
+ //         $('#webLogListDialog').dialog({'href' : 'fileImportLog?id=' + id}).dialog('open');
+ //
+ //     }
+ // });

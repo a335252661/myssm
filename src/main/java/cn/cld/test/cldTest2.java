@@ -5,6 +5,8 @@ import cn.cld.untils.FTPUtil;
 import cn.cld.untils.PropertyUtils;
 import cn.cld.untils.fastdfs.FastDFSClient;
 import cn.cld.untils.fastdfs.FastDFSUtil;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,7 +23,7 @@ public class cldTest2 {
         Date beg1 = new Date(System.currentTimeMillis());
 
         //度本地文件
-        File file = new File("C:\\temp\\报错11单.txt");
+        File file = new File("C:\\temp\\入库实绩重复.txt");
 
         int filelen = 0;
         //创建byte字节数组
@@ -48,6 +50,34 @@ public class cldTest2 {
         System.out.println(data);
         Date end1 = new Date(System.currentTimeMillis());
         logger.info("读文件用时："+DateTimeUtils.getTimeDifference(end1,beg1));
+
+        JSONArray arr = JSONArray.parseArray(data);
+        JSONArray dataList  = arr.getJSONArray(0);
+
+        String key = "";
+        List<String> listkey = new ArrayList<String>();
+        for(int i=0 ; i<dataList.size() ; i++) {
+
+
+            JSONObject jsonObject = dataList.getJSONObject(i);
+            String CenterCode = jsonObject.get("CenterCode") + "";
+            String DenpyouNo = jsonObject.get("DenpyouNo") + "";
+            String OrderCode = jsonObject.get("OrderCode") + "";
+            key = CenterCode+"-"+DenpyouNo+"-"+OrderCode;
+            listkey.add(key);
+
+        }
+
+        Set<String> set = new HashSet<>();
+        List<String> newList = new ArrayList<>();
+
+        for(String mm :listkey){
+            if(!set.add(mm)){
+                newList.add(mm);
+            }
+        }
+        System.out.println(newList);
+
 
     }
 }

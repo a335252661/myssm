@@ -21,21 +21,16 @@
 </div>
 
 <div class="easyui-panel" title="查询条件">
-    <form  id="${pageId}Form">
-
-
+    <form  id="queryLogListForm">
         <div class="" style="padding: 13px;float: left">
             <lable class="">查询日期：</lable>
-            <input type="text" name="registerStart" class="easyui-datebox" data-options="validType:'dateType'">
+            <input type="text" name="time" class="easyui-datebox" data-options="validType:'dateType'">
         </div>
 
         <div class="" style="padding: 13px ;float: left">
             <lable class="">操作类型：</lable>
-            <input type="text" name="userName" placeholder="请输入" class="easyui-textbox">
+            <input type="text" name="operatorType" placeholder="请输入" class="easyui-textbox">
         </div>
-
-
-
     </form>
 </div>
 

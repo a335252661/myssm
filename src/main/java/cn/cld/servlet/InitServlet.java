@@ -27,6 +27,7 @@ public class InitServlet extends HttpServlet {
     public void init(ServletConfig config) throws ServletException {
 
         WebApplicationContext context = WebApplicationContextUtils.getWebApplicationContext(config.getServletContext());
+        logger.info("config.getServletContext()  :"+ config.getServletContext());
 
         //servlet上下文
         //服务器会为每一个工程创建一个对象，这个对象就是ServletContext对象。这个对象全局唯一，

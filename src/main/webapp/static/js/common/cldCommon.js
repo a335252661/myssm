@@ -217,3 +217,4 @@ function HTMLDecode(text)
     temp = null;
     return output;
 }
+

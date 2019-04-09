@@ -74,6 +74,8 @@ public class AddLogsApiImpl implements AddLogsApi {
             logsMapper.updateByExampleSelective(ll,le);
         }
 
+//        int mm = 1/0;
+
 
     }
 }

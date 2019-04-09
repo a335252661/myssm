@@ -16,9 +16,9 @@
         <trigger>
             <cron>
                 <name>HelloQuartz</name>
-                <description>0秒开始，每隔四秒</description>
+                <description>22秒开始，每隔五分钟运行一次</description>
                 <job-name>HelloQuartz</job-name>
-                <cron-expression>0/4 * * * * ? *</cron-expression>
+                <cron-expression>22 0/5 * * * ? *</cron-expression>
             </cron>
         </trigger>
     </schedule>
