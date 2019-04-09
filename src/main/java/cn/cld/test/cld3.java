@@ -12,5 +12,8 @@ import java.util.Set;
 
 public class cld3 {
     public static void main(String[] args) {
+         String mm = "22";
+        mm="2";
+
     }
 }
