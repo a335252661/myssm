@@ -505,9 +505,9 @@ public class DateTimeUtils {
 		}
 
 		//秒为0，时就不显示秒
-		if(second==0){
-			return hourStr + ":" + minuteStr;
-		}
+//		if(second==0){
+//			return hourStr + ":" + minuteStr;
+//		}
 		return hourStr + ":" + minuteStr + ":" + secondStr;
 	}
 

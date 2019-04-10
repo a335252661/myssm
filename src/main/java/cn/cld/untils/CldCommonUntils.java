@@ -147,7 +147,7 @@ public class CldCommonUntils {
      * @return
      * @throws IOException
      */
-    public byte[] InputStreamToByte(InputStream is) throws IOException {
+    public static byte[] InputStreamToByte(InputStream is) throws IOException {
         ByteArrayOutputStream bytestream = new ByteArrayOutputStream();
         byte[] buffer=new byte[1024];
         int ch;
