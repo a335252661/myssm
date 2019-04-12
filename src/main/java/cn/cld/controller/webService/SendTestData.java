@@ -49,7 +49,7 @@ public class SendTestData {
         MediaType JSON = MediaType.parse("application/json; charset=utf-8");
         okhttp3.RequestBody body = okhttp3.RequestBody.create(JSON, newdata);
 
-        HttpUrl url = HttpUrl.parse(requestURL).newBuilder() //请求尾部链接
+        HttpUrl url = HttpUrl.parse(requestURL).newBuilder() //请求附带的参数
                 .addQueryParameter("companygroupid", "01")
                 .addQueryParameter("signature", "EDFCNAJSAUIDWUQIHZ")
                 .build();

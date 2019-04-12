@@ -1,19 +1,17 @@
 package cn.cld.test;
 
-import cn.cld.pojo.basic.MessageResult;
-import cn.cld.pojo.lianxi.UserInfoListVo;
-import cn.cld.service.lianxi.LianxiDemoServiceApi;
-import org.apache.xbean.spring.context.ClassPathXmlApplicationContext;
-import org.springframework.context.ApplicationContext;
 
-import java.io.File;
-import java.util.HashSet;
-import java.util.Set;
+import org.springframework.stereotype.Controller;
 
-public class cld3 {
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+public class cld3  {
     public static void main(String[] args) {
-         String mm = "22";
-        mm="2";
+        StringBuilder ss = new StringBuilder();
+        ss.append("pppp");
+        System.out.println(ss);
 
     }
 }

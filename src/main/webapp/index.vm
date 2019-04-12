@@ -33,6 +33,10 @@
     <button type="button" id="myButtonlayui" data-loading-text="Bootstrap" class="btn btn-primary" autocomplete="off">
         layui
     </button>
+
+    <button type="button" id="myButtonVueJs" data-loading-text="Bootstrap" class="btn btn-primary" autocomplete="off">
+        Vue.js
+    </button>
 </center>
 <script>
     $('#myButtonEasyui').click(function () {
@@ -49,6 +53,9 @@
     })
     $('#myButtonlayui').click(function () {
         window.location.href="http://localhost:8087/layui";     //在当前窗口中打开窗口
+    })
+    $('#myButtonVueJs').click(function () {
+        window.location.href="http://localhost:8087/vuejs";     //在当前窗口中打开窗口
     })
 </script>
 </body>

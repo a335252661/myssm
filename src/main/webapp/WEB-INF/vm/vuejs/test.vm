@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<style>
+    .class1{
+        background: #444;
+        color: #eee;
+    }
+</style>
+
+<body>
+<!--这是我们的View-->
+<div id="app">
+    <p>{{ message }}</p>
+    <input type="text" v-model="message"/>
+</div>
+
+<div id="vue_det">
+    <h4>site : {{site}}</h4>
+    <h4>url : {{url}}</h4>
+    <h4>{{details()}}</h4>
+</div>
+
+<div id="v-html">
+    <p v-html="mydata"></p>
+</div>
+
+<div id="v-bind">
+    #*
+    * <a v-bind:href="url">修改颜色</a>
+    *
+    * 缩写
+    * <a :href="url">修改颜色</a>
+    * *#
+    <label for="r1"><a v-bind:href="url">修改颜色</a></label><input type="checkbox" v-model="use" id="r1">
+    <br><br>
+    <div v-bind:class="{'class1': use}">
+        v-bind:class 指令
+    </div>
+</div>
+
+
+<div id="app2">
+    {{5+5}}<br>
+    {{ ok ? 'YES' : 'NO' }}<br>
+    {{ message.split('').reverse().join('') }}
+    <div v-bind:id="'list-' + id">菜鸟教程</div>
+</div>
+
+<div id="v-if">
+    <label for="r1">消失和显示</label><input type="checkbox" v-model="seen" id="r1">
+    <p v-if="seen">现在你看到我了</p>
+</div>
+
+<div id="v-on">
+    <p>{{ mess }}</p>
+##    <button v-on:click="add">+1</button>
+    #*缩写*#
+    <button @click="add">+1</button>
+</div>
+
+
+<div id="filters">
+    {{ address | touppcase }}
+    <br>
+    {{ address | touppcase | add }}
+</div>
+
+<div id="v-for">
+    <ol>
+        <li v-for="site in sites">
+            {{ site.name }}
+        </li>
+
+        <li v-for="(value,key) in sites">
+            {{ key }} -------{{value}}
+        </li>
+
+        <li v-for="(value, key, index) in sites">
+            {{ index }}. {{ key }} : {{ value }}
+        </li>
+
+        <li v-for="n in 10">
+            {{ n }}
+        </li>
+    </ol>
+</div>
+
+
+
+
+
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script src="/static/js/vuetest/test.js"></script>
+</html>
