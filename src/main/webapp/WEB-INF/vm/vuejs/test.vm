@@ -3,12 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <title></title>
+##    <script src="https://cdn.staticfile.org/vue/2.4.2/vue.min.js"></script>
+##    <script src="https://cdn.staticfile.org/vue-router/2.7.0/vue-router.min.js"></script>
+    <script src="/static/js/jquery-easyui-1.5.4.5/jquery.min.js"></script>
+    <script src="/static/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+    <link href="/static/bootstrap-3.3.7-dist/css/bootstrap.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="/static/css/commonStyle.css">
 </head>
 <style>
     .class1{
         background: #444;
         color: #eee;
     }
+
+    table {
+        border: 1px solid black;
+    }
+    table {
+        width: 100%;
+    }
+
+    th {
+        height: 50px;
+    }
+    th, td {
+        border-bottom: 1px solid #ddd;
+    }
+
 </style>
 
 <body>
@@ -86,14 +107,181 @@
         <li v-for="n in 10">
             {{ n }}
         </li>
+
+        <li v-for="n in jsondata">
+            {{ n.name }}
+        </li>
     </ol>
+</div>
+
+##<div id="shopping">
+##    <table>
+##        <tr>
+##            <th>序号</th>
+##            <th>商品名称</th>
+##            <th>商品价格</th>
+##            <th>购买数量</th>
+##            <th>操作</th>
+##        </tr>
+##        <tr v-for="iphone in Ip_Json">
+##            <td>{{ iphone.id }}</td>
+##            <td>{{ iphone.name }}</td>
+##            <td>{{ iphone.price }}</td>
+##            <td>
+##                <button v-bind:disabled="iphone.count === 0" v-on:click="iphone.count-=1">-</button>
+##                {{ iphone.count }}
+##                <button v-on:click="iphone.count+=1">+</button>
+##            </td>
+##            <td>
+##                <button v-on:click="iphone.count=0">移除</button>
+##            </td>
+##        </tr>
+##    </table>
+##    总价：${{totalPrice()}}
+##</div>
+
+<div id="shopping">
+    <table>
+        <tr>
+            <th>序号</th>
+            <th>商品名称</th>
+            <th>商品价格</th>
+            <th>购买数量</th>
+            <th>操作</th>
+        </tr>
+            <tr v-for="iphone in Ip_Json">
+                <td>{{ iphone.id }}</td>
+                <td>{{ iphone.name }}</td>
+                <td>{{ iphone.price }}</td>
+                <td>
+                    <button v-bind:disabled="iphone.count === 0" v-on:click="iphone.count-=1">-</button>
+                    {{ iphone.count }}
+                    <button v-on:click="iphone.count+=1">+</button>
+                </td>
+                <td>
+                    <button v-on:click="iphone.count=0">移除</button>
+                </td>
+            </tr>
+    </table>
+    总价$：{{totalPrice()}}
+</div>
+
+<div id = "computed_props">
+    千米 : <input type = "text" v-model = "kilometers">
+    米 : <input type = "text" v-model = "meters">
+</div>
+
+<div id="activeColor">
+    <button v-on:click="fontSize--">-</button>
+    <button v-on:click="fontSize++">+</button>
+    <p>fontSize:{{fontSize}}</p>
+    <div v-bind:style="{ color: activeColor, fontSize: fontSize + 'px' }">菜鸟教程</div>
+
+</div>
+
+
+<div id="appForm">
+    <p>单个复选框：</p>
+    <input type="checkbox" id="checkbox" v-model="checked">
+    <label for="checkbox">{{ checked }}</label>
+
+    <p>多个复选框：</p>
+    <input type="checkbox" id="runoob" value="Runoob" v-model="checkedNames">
+    <label for="runoob">Runoob</label>
+    <input type="checkbox" id="google" value="Google" v-model="checkedNames">
+    <label for="google">Google</label>
+    <input type="checkbox" id="taobao" value="Taobao" v-model="checkedNames">
+    <label for="taobao">taobao</label>
+    <br>
+    <span>选择的值为: {{ checkedNames }}</span>
+    <p>-------------------------------------------------------------</p>
+    <p>点击的时候获取input的value，并将data中的picked的属性改为选中的value</p>
+    <input type="radio" id="runoob" value="Runoob" v-model="picked">
+    <label for="runoob">Runoob</label>
+    <br>
+    <input type="radio" id="google" value="Google" v-model="picked">
+    <label for="google">Google</label>
+    <br>
+    <span>选中值为: {{ picked }}</span>
+    <p>-------------------------------------------------------------</p>
+    <select v-model="selected" name="fruit">
+        <option value="">选择一个网站</option>
+        <option value="www.runoob.com">Runoob</option>
+        <option value="www.google.com">Google</option>
+    </select>
+    <div id="output">
+        选择的网站是: {{selected}}
+    </div>
+</div>
+
+
+<p>===========================Vue自定义组件==========================</p>
+<div id="comm">
+    <child message="hello0000000000!"></child>
+</div>
+
+<div id="parentMsg">
+    <div>
+        <input v-model="parentMsg">
+        <br>
+        <child v-bind:message="parentMsg"></child>
+    </div>
+</div>
+
+<div id="olli">
+    <ol>
+        <todo-item v-for="item in sites" v-bind:todo="item"></todo-item>
+    </ol>
+</div>
+
+<div id="div_col">
+    <p>自定义事件</p>
+    <p>{{total}}</p>
+    <example1 v-on:newevert="incretmentTotal" value="点击"></example1>
+</div>
+
+<p>===========================Vue.js 自定义指令==========================</p>
+
+<div id="app-focus">
+    <p>页面载入时，input 元素自动获取焦点：</p>
+##    <input v-focus>
+</div>
+
+<div id="app-focus2">
+    <p>局部指令，只在实例中有效 ，页面载入时，input 元素自动获取焦点：</p>
+    <input v-focus>
+</div>
+
+<p>===========================Vue.js 路由功能==========================</p>
+<div id="app-router">
+    <h1>Hello App!</h1>
+    <p>
+        <!-- 使用 router-link 组件来导航. -->
+        <!-- 通过传入 `to` 属性指定链接. -->
+        <!-- <router-link> 默认会被渲染成一个 `<a>` 标签 -->
+        <router-link to="/foo">Go to Foo</router-link>
+        <router-link to="/bar">Go to Bar</router-link>
+    </p>
+    <!-- 路由出口 -->
+    <!-- 路由匹配到的组件将渲染在这里 -->
+    <router-view></router-view>
+</div>
+
+<p>===========================Vue.js 实例==========================</p>
+
+<div id="vue-button" class="col-sm-offset-2 col-sm-10">
+    <!-- 标准的按钮 -->
+    <a href="static/directView/nav.html" target="_blank"><button type="button" class="btn btn-info">导航实例</button></a>
+    <a href="static/directView/editText.html" target="_blank"><button type="button" class="btn btn-info">编辑文本实例</button></a>
+    <a href="static/directView/orderList.html" target="_blank"><button type="button" class="btn btn-info">订单列表实例</button></a>
+    <a href="static/directView/searchString.html" target="_blank"> <button type="button" class="btn btn-info">搜索文本实例</button></a>
+    <a href="static/directView/switchLayout.html" target="_blank"><button type="button" class="btn btn-info">切换布局实例</button></a>
 </div>
 
 
 
-
-
 </body>
+<script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/vue"></script>
 <script src="/static/js/vuetest/test.js"></script>
 </html>
