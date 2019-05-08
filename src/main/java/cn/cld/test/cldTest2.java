@@ -23,7 +23,7 @@ public class cldTest2 {
         Date beg1 = new Date(System.currentTimeMillis());
 
         //度本地文件
-        File file = new File("C:\\temp\\入库实绩重复.txt");
+        File file = new File("C:\\temp\\PurchaseOrderResult1904261529.txt");
 
         int filelen = 0;
         //创建byte字节数组

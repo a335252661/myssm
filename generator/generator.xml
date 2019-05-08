@@ -9,7 +9,8 @@
 		<plugin type="org.mybatis.generator.plugins.RowBoundsPlugin">
 		</plugin>
 		<commentGenerator>
-			<property name="suppressAllComments" value="true" />
+			<!--true : 去除注释，但是xml会重复   设置成false，会生成注释，重复生成时候xml不会重复                &lt;!&ndash;&ndash;&gt;-->
+			<property name="suppressAllComments" value="false" />
 		</commentGenerator>
 		<!-- mysql数据库链接URL、用户名、密码 -->
 		<jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://localhost:3306/maventest" userId="root" password="root">
@@ -43,8 +44,9 @@
 		<!--<table tableName="logs"  domainObjectName="Logs">-->
 			<!--<property name="useActualColumnNames" value="true"/>-->
 		<!--</table>-->
-		<table tableName="logsDetail"  domainObjectName="LogsDetail">
-			<property name="useActualColumnNames" value="true"/>
+		<table tableName="shop_order_detail"  domainObjectName="shopOrderDetail">
+			<!--useActualColumnNames ： true ：数据库是什么就是什么   false 驼峰原则-->
+			<property name="useActualColumnNames" value="false"/>
 		</table>
 
 

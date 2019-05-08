@@ -44,4 +44,6 @@ public interface LianxiDemoServiceApi {
      * @return
      */
     MessageResult downLoadTxt2(UserInfoListVo userInfoListVo);
+
+    String[][] add(UserInfoListVo userInfoListVo);
 }

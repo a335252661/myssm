@@ -369,6 +369,13 @@
       <version>3.10.0</version>
     </dependency>
 
+    <!-- mybatis物理分页 -->
+    <dependency>
+      <groupId>org.mybatis</groupId>
+      <artifactId>mybatis-pagination</artifactId>
+      <version>0.0.5</version>
+    </dependency>
+
 
   </dependencies>
 

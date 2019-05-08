@@ -108,10 +108,19 @@
             {{ n }}
         </li>
 
-        <li v-for="n in jsondata">
-            {{ n.name }}
+        <li v-for="(value, key, index) in object">
+            这是第{{index+1}}个字母：{{value}}，键为{{key}}
         </li>
+
     </ol>
+
+    <template v-for="item in items">
+        <div>
+            <h2>{{item.title}}</h2>
+            <p>{{item.content}}</p>
+        </div>
+    </template>
+
 </div>
 
 ##<div id="shopping">
@@ -265,6 +274,33 @@
     <!-- 路由出口 -->
     <!-- 路由匹配到的组件将渲染在这里 -->
     <router-view></router-view>
+</div>
+
+
+<p>===========================计算属性(computed)==========================</p>
+<div id="app-computed">
+    a={{ a }}, b={{ b }}
+</div>
+
+<p>===========================Vue.js 观察者(watch)==========================</p>
+<div id="appwatch">
+    <p>watch 属性用于监视 vue 实例上的数据变动，并相应的改变其他变量的值。</p>
+    <input type="text" v-model="firstName"/>
+    <input type="text" v-model="lastName"/>
+    <p>我的名字是：{{fullName}}</p>
+</div>
+
+<div id="appwatch2">
+    <input type="text" v-model="number"/>
+    <p>result：{{result}}</p>
+</div>
+
+<div id="appwatch3">
+    <p>类型是对象的变量，当键值发生变化时，为了监听到数据变化，需要设置deep选项为true</p>
+    <input type="text" v-model="fruits.count"/>
+    <input type="text" v-model="fruits.name"/>
+    <p>{{fruits.count}}根{{fruits.name}}</p>
+    <p>fruits：{{message}}</p>
 </div>
 
 <p>===========================Vue.js 实例==========================</p>

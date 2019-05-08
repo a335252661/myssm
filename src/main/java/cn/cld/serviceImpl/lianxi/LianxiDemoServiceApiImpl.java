@@ -193,6 +193,39 @@ public class LianxiDemoServiceApiImpl implements LianxiDemoServiceApi {
         return strings;
     }
 
+    @Override
+    public String[][] add(UserInfoListVo userInfoListVo) {
+
+        String[][] strings = new String[8000][20];
+//        int i = 0;
+        for(int i=0;i<8000;i++){
+            String[] arr = {
+                    "RKYB201904180000078",
+                    "11550074902",
+                    "未处理",
+                   "正常入库",
+                    "华联罗森",
+                    "华联罗森",
+                    "华联罗森",
+                    "华联罗森",
+                    "华联罗森",
+                    "华联罗森",
+                    "华联罗森",
+                    "华联罗森",
+                    "华联罗森",
+                    "华联罗森",
+                    "华联罗森",
+                    "华联罗森",
+                    "华联罗森",
+                    "华联罗森",
+                    "华联罗森",
+                    "华联罗森",
+            };
+            strings[i]=arr;
+        }
+        return strings;
+    }
+
 
     /**
      * 打印预览
@@ -275,6 +308,8 @@ public class LianxiDemoServiceApiImpl implements LianxiDemoServiceApi {
         result.setRemarks(name);
         return result;
     }
+
+
 
 
 }

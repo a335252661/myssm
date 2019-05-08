@@ -218,3 +218,27 @@ function HTMLDecode(text)
     return output;
 }
 
+
+/**
+ * 给详细添加链接
+ */
+function linkCellFormatter() {
+    if(hasText(value)){
+        return '<a class=\'table-link-cell\' field=\'' + this.field + '\' index=\''+index+'\' onclick=\'commonLinkCellClick(event);\'>'+value+'</a>';
+    }
+    return '';
+}
+
+function commonLinkCellClick(event){
+    event = event || window.event;
+    var t = event.target || event.srcElement;
+    var $a = $(t);
+    var grid = $a.parents('.datagrid-view').eq(0).children('table').eq(0);
+    grid.datagrid('options').exOnClickLinkCell.call(grid[0], $a.parents('tr').attr('datagrid-row-index'), $a.attr('field'), $a.text());
+    if (window.event) {
+        event.cancelBubble=true;     // ie下阻止冒泡
+    } else {
+        event.stopPropagation();     // 其它浏览器下阻止冒泡
+    }
+}
+

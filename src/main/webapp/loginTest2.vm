@@ -1,0 +1,49 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <meta charset="utf-8" />
+    <title>用户登录</title>
+
+    <link href="/static/bootstrap-3.3.7-dist/css/bootstrap.css" rel="stylesheet" type="text/css" />
+    <script src="/static/js/jquery-easyui-1.5.4.5/jquery.min.js"></script>
+    <script src="/static/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+
+
+</head>
+<body>
+<center style="margin-top: 300px">
+    <form action="/login" id="loginForm" method="post">
+        <div class="userName">
+            <laber>用户：</laber>
+            <input type="text" id="user"  class="pwd" name="user"/>
+        </div>
+        <div class="userPwd">
+            <laber>密码：</laber>
+            <input type="text" id="password"  class="pwd" name="password"/>
+        </div>
+
+        <div>
+            <laber>验证码</laber>
+            <input type="text" id="captcha" name="captcha"/></div>
+            <dev class="yzmImg">
+                <img id="captchaImage" src="/captchaImage.htm"/>
+            </dev>
+
+        </div>
+
+        <input type="submit" value="登录">
+    </form>
+</center>
+</body>
+
+
+<script>
+    // 刷新验证码
+    $('#captchaImage').click(function(){
+        var date = new Date();
+        $(this).attr("src","captchaImage.htm?timestamp="+date.getTime());
+        $("#captcha").focus().select();
+    });
+</script>
+</html>

@@ -116,21 +116,45 @@ public class LianxiDemoController {
     @ResponseBody
     public MessageResult userListExport(UserInfoListVo userInfoListVo,HttpServletResponse response){
 
-        String[][] dataList = lianxiDemoServiceApi.userListExport(userInfoListVo);
+//        String[][] dataList = lianxiDemoServiceApi.userListExport(userInfoListVo);
+
+
+        String[][] dataList = lianxiDemoServiceApi.add(userInfoListVo);
         String sheetName = "用户";
         //标题
         String titleName = "用户统计";
         //下载文件名
         String fileName = "用户统计";
         //每列宽
-        int[] columnWidth = { 10, 20, 30 ,40,50};
+        int[] columnWidth = { 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 20, 30 ,40,50,10};
+//        int[] columnWidth = { 10, 10, 10, 10, 10};
         //列名称
-        String[] columnName = { "用户ID", "用户名称", "用户密码","是否有效","创建时间" };
+//        String[] columnName = { "用户ID", "用户名称", "用户密码","是否有效","创建时间" };
+        String[] columnName = { "入库预报单号",
+                "用户名称",
+                "用户名称",
+                "用户名称",
+                "用户名称",
+                "用户名称",
+                "用户名称",
+                "用户名称",
+                "用户名称",
+                "用户名称",
+                "用户名称",
+                "用户名称",
+                "用户名称",
+                "用户名称",
+                "用户名称",
+                "用户名称",
+                "用户名称",
+                "用户密码",
+                "是否有效",
+                "创建时间" };
         try{
             CldCommonUntils.ExportWithResponse2(50,37,sheetName, titleName, fileName,
                     columnWidth, columnName, dataList,response);
         }catch (Exception e){
-
+            e.printStackTrace();
         }
 
         return null;

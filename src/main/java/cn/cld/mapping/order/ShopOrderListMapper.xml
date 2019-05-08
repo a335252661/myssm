@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.cld.dao.order.ShopOrderListMapper">
+
+
+  <select id="queryshopOrderListCount" parameterType="cn.cld.pojo.order.ShopOrderListVo" resultType="java.lang.Integer">
+    select count(*)
+    from
+    shop_order a
+    <include refid="FROM_WHERE" />
+  </select>
+
+  <select id="queryshopOrderList" parameterType="cn.cld.pojo.order.ShopOrderListVo" resultType="cn.cld.pojo.order.ShopOrderListVo">
+    select
+      a.id,
+      a.sell_order_no as sellOrderNo,
+      a.shop_id AS shopId,
+      a.order_amout as orderAmout,
+      a.create_date as createDate,
+      a.update_date as updateDate
+    from
+      shop_order a
+    <include refid="FROM_WHERE" />
+  </select>
+
+  <sql id="FROM_WHERE">
+    <where>
+      <if test="sellOrderNo != null and sellOrderNo!='' ">
+          and a.sell_order_no LIKE CONCAT('%',#{sellOrderNo}, '%')
+      </if>
+  </where>
+  </sql>
+</mapper>

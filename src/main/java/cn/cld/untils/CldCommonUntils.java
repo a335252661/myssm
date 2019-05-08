@@ -634,13 +634,15 @@ public class CldCommonUntils {
 
 
         /**********************************************设置数据行样式*****************************************************/
+        HSSFCellStyle zidonghuanhang = wb.createCellStyle();
+        HSSFCellStyle zidonghuanhang2 = wb.createCellStyle();
             // 第五步，创建单元格，并设置值
             for (int i = 0; i < dataList.length; i++)
             {
                 //标题行，表头行，已用去
                 HSSFRow dataRow = sheet.createRow((int) i + 2);
                 // 为数据内容设置特点新单元格样式1 自动换行 上下居中
-                HSSFCellStyle zidonghuanhang = wb.createCellStyle();
+//                HSSFCellStyle zidonghuanhang = wb.createCellStyle();
                 zidonghuanhang.setWrapText(true);// 设置自动换行
                 zidonghuanhang.setVerticalAlignment(HSSFCellStyle.VERTICAL_CENTER); // 创建一个居中格式
 
@@ -652,7 +654,7 @@ public class CldCommonUntils {
                 zidonghuanhang.setBorderTop(HSSFCellStyle.BORDER_THIN);
 
                 // 为数据内容设置特点新单元格样式2 自动换行 上下居中左右也居中
-                HSSFCellStyle zidonghuanhang2 = wb.createCellStyle();
+
                 zidonghuanhang2.setWrapText(true);// 设置自动换行
                 zidonghuanhang2
                         .setVerticalAlignment(HSSFCellStyle.VERTICAL_CENTER); // 创建一个上下居中格式

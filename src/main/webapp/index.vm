@@ -40,7 +40,7 @@
 </center>
 <script>
     $('#myButtonEasyui').click(function () {
-        window.location.href="http://localhost:8087/index.jsp";     //在当前窗口中打开窗口
+        window.location.href="http://localhost:8087/loginTest2.vm";     //在当前窗口中打开窗口
     })
     $('#myButtonBootstrap').click(function () {
         window.location.href="http://localhost:8087/bootstrap";     //在当前窗口中打开窗口

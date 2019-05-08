@@ -25,6 +25,8 @@
 
     <bean id="layuiBaseQueryApi" class="cn.cld.serviceImpl.layui.LayuiBaseQueryApiImpl" />
 
+    <bean id="shopOrderListService" class="cn.cld.serviceImpl.order.ShopOrderListServiceImpl" />
+
     <!--mq消息-->
     <bean id="MQTestService" class="cn.cld.serviceImpl.MQTestServiceApiImpl" />
 

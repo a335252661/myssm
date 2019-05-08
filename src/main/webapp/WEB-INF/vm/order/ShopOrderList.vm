@@ -1,0 +1,92 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Title</title>
+    <link rel="stylesheet" href="/static/js/jquery-easyui-1.5.4.5/themes/default/easyui.css">
+    <link rel="stylesheet" href="/static/js/jquery-easyui-1.5.4.5/themes/icon.css">
+    <link rel="stylesheet" href="/static/js/layui/css/layui.css">
+    <script src="/static/jquery-easyui-1.5.4.5/jquery.min.js"></script>
+    <script src="/static/jquery-easyui-1.5.4.5/jquery.easyui.min.js"></script>
+    <script src="/static/jquery-easyui-1.5.4.5/locale/easyui-lang-zh_CN.js"></script>
+    <script src="/static/layui/layui.js"></script>
+##    <script src="/static/js/eCharts/echarts.min.js"></script>
+</head>
+<body>
+    #set($pageId = "ShopOrderList")
+
+
+<!-- 文件下载用 form -->
+<div>
+    <form method="post" id="downloadForm"  target="frameDownload"></form>
+</div>
+
+
+<div class="easyui-panel" title="基础功能">
+    <a href="#" style="margin: 10px" id="${pageId}Add" class="easyui-linkbutton" data-options="iconCls:'icon-add'">新增</a>
+    <a href="#" style="margin: 10px"  id="${pageId}Search" class="easyui-linkbutton" data-options="iconCls:'icon-search' ">查询</a>
+    <a href="#" style="margin: 10px" id="${pageId}Delete" class="easyui-linkbutton " data-options="iconCls:'icon-remove' ">删除</a>
+    <a href="#" style="margin: 10px" id="${pageId}Export"  class="easyui-linkbutton" data-options="iconCls:'icon-tip' ">按条件导出</a>
+    <a href="#" style="margin: 10px" id="${pageId}ExportAll"  class="easyui-linkbutton" data-options="iconCls:'icon-tip' ">全部导出</a>
+    <a href="#" style="margin: 10px" id="${pageId}Print"  class="easyui-linkbutton" data-options="iconCls:'icon-print' ">打印预览</a>
+    <a href="#" style="margin: 10px" id="${pageId}DownLoad"  class="easyui-linkbutton" data-options="iconCls:'icon-download' ">txt下载</a>
+    <a href="#" style="margin: 10px" id="${pageId}DownLoad2"  class="easyui-linkbutton" data-options="iconCls:'icon-download' ">txt下载简洁方式</a>
+</div>
+
+<div class="easyui-panel" title="查询条件">
+    <form action="${pageId}Export" id="${pageId}Form">
+        <div class="" style="padding: 13px;float: left">
+            <lable class="">订单编号：</lable>
+            <input type="text" name="sellOrderNo"placeholder="请输入" class="easyui-textbox">
+        </div>
+        <div class="" style="padding: 13px ;float: left">
+            <lable class="">门店编号：</lable>
+            <input type="text" name="shopId" placeholder="请输入" class="easyui-textbox">
+        </div>
+        <div class="" style="padding: 13px;float: left">
+            <lable class="">创建时间范围：</lable>
+            <input type="text" name="createDateStart" class="easyui-datebox" data-options="validType:'dateType'">
+        </div>
+        <div class="" style="padding: 13px;float: left">
+            <lable class="">~~：</lable>
+            <input type="text" name="createDateEnd"class="easyui-datebox" data-options="validType:'dateType'">
+        </div>
+    </form>
+</div>
+
+
+<table class="easyui-datagrid" title="订单列表" style="height:auto" id="${pageId}Table"
+      style="width:auto;height: 40px" data-options="pagination:true">
+    <thead>
+    <tr>
+##        <th data-options="checkbox:true,width:'155' "></th>
+        <th data-options="field:'id',width:'80',halign:'center',align:'center',sortable:true">ID</th>
+        <th data-options="field:'sellOrderNo',width:'150',halign:'center',align:'left',sortable:true,formatter:linkCellFormatter">订单编号</th>
+        <th data-options="field:'shopNo',width:'150',halign:'center',align:'center',sortable:true">门店编号</th>
+        <th data-options="field:'orderAmout',width:'90',halign:'center',align:'center',sortable:true">总数量</th>
+        <th data-options="field:'createDate',width:'120',halign:'center',align:'center',sortable:true,
+                        formatter:function(value,row){
+                            return DateTimeFormatter(value);
+                        }">创建时间</th>
+        <th data-options="field:'updateDate',width:'120',halign:'center',align:'right',sortable:true,
+                        formatter:function(value,row){
+                            return DateTimeFormatter(value);
+                        }">更新时间</th>
+
+    </tr>
+    </thead>
+</table>
+
+
+
+
+
+
+
+<div id="${pageId}Dialog" closed="true" class="easyui-dialog" title="新增用户" style="width:400px;height:200px;" data-options="">
+</div>
+
+
+<script src="/static/js/common/cldCommon.js"></script>
+<script src="/static/js/order/ShopOrderList.js"></script>
+
+</body>
+</html>
