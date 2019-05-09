@@ -27,6 +27,7 @@
     <a href="#" style="margin: 10px" id="userListPrint"  class="easyui-linkbutton" data-options="iconCls:'icon-print' ">打印预览</a>
     <a href="#" style="margin: 10px" id="userListDownLoad"  class="easyui-linkbutton" data-options="iconCls:'icon-download' ">txt下载</a>
     <a href="#" style="margin: 10px" id="userListDownLoad2"  class="easyui-linkbutton" data-options="iconCls:'icon-download' ">txt下载简洁方式</a>
+    <a href="#" style="margin: 10px" id="userListsendMils"  class="easyui-linkbutton" data-options="iconCls:'icon-tip' ">发送邮件</a>
 </div>
 
 <div class="easyui-panel" title="查询条件">

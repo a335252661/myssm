@@ -26,6 +26,7 @@
     <bean id="layuiBaseQueryApi" class="cn.cld.serviceImpl.layui.LayuiBaseQueryApiImpl" />
 
     <bean id="shopOrderListService" class="cn.cld.serviceImpl.order.ShopOrderListServiceImpl" />
+    <bean id="javaMailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl" />
 
     <!--mq消息-->
     <bean id="MQTestService" class="cn.cld.serviceImpl.MQTestServiceApiImpl" />

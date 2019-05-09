@@ -745,4 +745,32 @@ public class CldCommonUntils {
         return true;
     }
 
+
+    /**
+     * base64加密
+     * @param key
+     * @return
+     * @throws Exception
+     */
+    public static String encryptBASE64(String key) {
+        return (new BASE64Encoder()).encodeBuffer(key.getBytes());
+    }
+
+
+    /**
+     * base64解密
+     * @param key
+     * @return
+     */
+    public static String decryptBASE64(String key){
+        String dekey="";
+        try {
+            dekey = new String(new BASE64Decoder().decodeBuffer(key))
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return dekey;
+    }
+
+
 }

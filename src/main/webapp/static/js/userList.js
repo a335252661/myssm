@@ -264,6 +264,22 @@ $(function () {
 
     })
 
+    //发送邮件
+    $('#userListsendMils').click(function () {
+        //封装的json请求
+        $.requestJson('sendMils',null,function (data) {
+            var result = data.result;
+            if(result){
+                $.messager.alert('Warning',data.message);
+                $("#userListDataTable").datagrid('reload');
+            }else {
+                $.messager.alert('alert',data.message);
+            }
+        })
+
+    })
+
+
 
 
     /**

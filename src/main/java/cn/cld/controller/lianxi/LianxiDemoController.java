@@ -23,6 +23,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.data.redis.core.ListOperations;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -53,6 +55,9 @@ public class LianxiDemoController {
     private PublisherServiceApi publisherService;
     @Resource(name="redisTemplate")
     protected ListOperations<String, String> redis;
+
+    @Autowired
+    private JavaMailSender javaMailSender;
 
 //    @RequestMapping("")
 //    public ModelAndView index(ModelAndView mav,HttpServletRequest request){
@@ -271,6 +276,26 @@ public class LianxiDemoController {
         }
 
         return messageResult;
+    }
+
+
+    //sendMils
+    @RequestMapping("sendMils")
+    public String sendMils(ModelAndView mav,HttpServletRequest request){
+
+        SimpleMailMessage message = new SimpleMailMessage();
+        //发件人的邮箱地址
+        message.setFrom("335252661@qq.com");
+        //收件人的邮箱地址
+        message.setTo("chengliude@tes-sys.com");
+        //邮件主题
+        message.setSubject("spring email test!!!!");
+        //邮件内容
+        message.setText("收到的邮件内容：spring email test ！！！");
+        //发送邮件
+        javaMailSender.send(message);
+
+        return  "";
     }
 
 }
