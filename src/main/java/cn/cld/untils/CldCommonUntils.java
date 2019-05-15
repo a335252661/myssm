@@ -16,8 +16,11 @@ import org.slf4j.LoggerFactory;
 import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;
 
+import javax.imageio.ImageIO;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
+import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.URLEncoder;
 import java.nio.file.Path;
@@ -765,11 +768,40 @@ public class CldCommonUntils {
     public static String decryptBASE64(String key){
         String dekey="";
         try {
-            dekey = new String(new BASE64Decoder().decodeBuffer(key))
+            dekey = new String(new BASE64Decoder().decodeBuffer(key));
         } catch (IOException e) {
             e.printStackTrace();
         }
         return dekey;
+    }
+
+
+    /**
+     * 全屏截图
+     * @param location
+     * @param fileName
+     * @param imageFormat
+     */
+    public static void screenshot(String location ,String fileName, String imageFormat){
+        //获取屏幕分辨率
+        Dimension d=Toolkit.getDefaultToolkit().getScreenSize();
+        try {
+            //拷贝屏幕到一个BufferedImage对象screenshot
+            BufferedImage screenshot=(new Robot()).createScreenCapture(
+                    new Rectangle(0,0,(int)d.getWidth(),(int)d.getHeight()));
+//            serialNum++;
+            //根据文件前缀变量和文件格式变量，自动生成文件名
+            String name=location+"\\"+fileName+"."+imageFormat;
+            System.out.println(name);
+            File f=new File(name);
+            System.out.println("Save File-"+name);
+            //将screenshot对象写入图像文件
+            ImageIO.write(screenshot, imageFormat, f);
+            System.out.println("..Finished");
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }
 
 

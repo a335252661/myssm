@@ -10,6 +10,7 @@ import cn.cld.service.layui.LayuiBaseQueryApi;
 import cn.cld.service.lianxi.LianxiDemoServiceApi;
 import cn.cld.service.logs.AddLogsApi;
 import cn.cld.untils.CldCommonUntils;
+import cn.cld.untils.PropertyUtils;
 import cn.cld.untils.XlsxReaderUtil;
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JasperFillManager;
@@ -22,15 +23,19 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
+import org.springframework.core.io.FileSystemResource;
 import org.springframework.data.redis.core.ListOperations;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
@@ -281,21 +286,41 @@ public class LianxiDemoController {
 
     //sendMils
     @RequestMapping("sendMils")
-    public String sendMils(ModelAndView mav,HttpServletRequest request){
+    @ResponseBody
+    public MessageResult sendMils(ModelAndView mav,HttpServletRequest request){
 
-        SimpleMailMessage message = new SimpleMailMessage();
-        //发件人的邮箱地址
-        message.setFrom("335252661@qq.com");
-        //收件人的邮箱地址
-        message.setTo("chengliude@tes-sys.com");
-        //邮件主题
-        message.setSubject("spring email test!!!!");
-        //邮件内容
-        message.setText("收到的邮件内容：spring email test ！！！");
-        //发送邮件
-        javaMailSender.send(message);
+        MessageResult messageResult = new MessageResult();
 
-        return  "";
+        MimeMessage mMessage=javaMailSender.createMimeMessage();//创建邮件对象
+        MimeMessageHelper mMessageHelper;
+        String from;
+        try {
+            //从配置文件中拿到发件人邮箱地址
+            mMessageHelper=new MimeMessageHelper(mMessage,true);
+            String property = PropertyUtils.getProperty("mail.smtp.username");
+            mMessageHelper.setFrom(property);//发件人邮箱
+
+
+            mMessageHelper.setTo("335252661@qq.com");//收件人邮箱
+            mMessageHelper.setSubject("会议安排");//邮件的主题
+            mMessageHelper.setText("<p>Spring邮件测试</p><br/>" +
+                    "我是测试邮件！",true);//邮件的文本内容，true表示文本以html格式打开
+//            File file=new File("C:\\tmp\\ppp.jpg");//在邮件中添加一张图片
+//            FileSystemResource resource=new FileSystemResource(file);
+//            mMessageHelper.addInline("fengye", resource);//这里指定一个id,在上面引用
+//            mMessageHelper.addAttachment("枫叶.png", resource);//在邮件中添加一个附件
+            javaMailSender.send(mMessage);//发送邮件
+
+            messageResult.setMessage("发送成功！");
+            messageResult.setResult(true);
+        } catch (Exception e) {
+            messageResult.setResult(false);
+            messageResult.setMessage("发送失败！");
+            e.printStackTrace();
+        }
+
+
+        return  messageResult;
     }
 
 }

@@ -8,6 +8,13 @@ import org.springframework.context.annotation.Scope;
 public class testIOC implements BeanNameAware {
     private String size;
 
+    @Override
+    public String toString() {
+        return "testIOC{" +
+                "size='" + size + '\'' +
+                '}';
+    }
+
     public String getSize() {
         return size;
     }

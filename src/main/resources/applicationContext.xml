@@ -32,6 +32,9 @@
 	<!--将标注Spring注解的类自动转化Bean，同时完成Bean的注入-->
 	<context:component-scan base-package="cn.cld.controller" />
 
+
+	<!-- =================================基于XML的配置元数据-================================= -->
+
 	<!-- 引入配置文件 -->
 	<bean id="propertyConfigurer"
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
@@ -106,6 +109,21 @@
 			<aop:after-throwing pointcut-ref="updateService" method="doThrowing" throwing="ex"/>
 		</aop:aspect>
 	</aop:config>
+
+
+	<!--配置邮件-->
+	<bean id="javaMailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host" value="${mail.smtp.host}"/>
+		<property name="username" value="${mail.smtp.username}"/>
+		<property name="password" value="${mail.smtp.password}"/>
+		<property name="defaultEncoding" value="${mail.smtp.defaultEncoding}"/>
+		<property name="javaMailProperties">
+			<props>
+				<prop key="mail.smtp.auth">${mail.smtp.auth}</prop>
+				<prop key="mail.smtp.timeout">${mail.smtp.timeout}</prop>
+			</props>
+		</property>
+	</bean>
 
 
 </beans>

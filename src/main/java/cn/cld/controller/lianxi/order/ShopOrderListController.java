@@ -10,6 +10,7 @@ import cn.cld.service.logs.AddLogsApi;
 import cn.cld.service.order.ShopOrderListServiceApi;
 import org.apache.log4j.spi.LoggerFactory;
 import org.slf4j.Logger;
+import org.springframework.data.redis.core.ListOperations;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -27,6 +28,9 @@ public class ShopOrderListController {
     @Resource
     private ShopOrderListServiceApi shopOrderListService;
 
+    @Resource(name="redisTemplate")
+    protected ListOperations<String, String> redis;
+
     @RequestMapping("")
     public String shopOrderList(ModelAndView mav, HttpServletRequest request){
 
@@ -38,6 +42,10 @@ public class ShopOrderListController {
     public PageQueryResult<ShopOrderListVo> query(ShopOrderListVo shopOrderListVo){
 
         logger.info("query 方法执行");
+
+        redis.leftPush("query","dhiauhd28d8wq9s");
+        redis.leftPush("query2","dhiauh22222d28d8wq9s");
+        redis.leftPush("query3","3333333dhiauhd28d8wq9s");
 
         PageQueryResult<ShopOrderListVo> resultUserInfo = shopOrderListService.shopOrderList(shopOrderListVo);
         return resultUserInfo;
