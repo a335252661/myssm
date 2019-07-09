@@ -23,7 +23,7 @@ public class cldTest2 {
         Date beg1 = new Date(System.currentTimeMillis());
 
         //度本地文件
-        File file = new File("C:\\temp\\PurchaseOrderResult1904261529.txt");
+        File file = new File("C:\\temp\\RouteInfo1905211902.txt");
 
         int filelen = 0;
         //创建byte字节数组
@@ -61,9 +61,11 @@ public class cldTest2 {
 
             JSONObject jsonObject = dataList.getJSONObject(i);
             String CenterCode = jsonObject.get("CenterCode") + "";
-            String DenpyouNo = jsonObject.get("DenpyouNo") + "";
-            String OrderCode = jsonObject.get("OrderCode") + "";
-            key = CenterCode+"-"+DenpyouNo+"-"+OrderCode;
+            String RouteId = jsonObject.get("RouteId") + "";
+            String DistributionType = jsonObject.get("DistributionType") + "";
+            String ShopCode = jsonObject.get("ShopCode") + "";
+            String DeliveryDate = jsonObject.get("DeliveryDate") + "";
+            key = CenterCode+"-"+RouteId+"-"+DistributionType+"-"+ShopCode+"-"+DeliveryDate;
             listkey.add(key);
 
         }

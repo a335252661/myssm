@@ -9,9 +9,7 @@ import cn.cld.pojo.lianxi.UserInfoListVo;
 import cn.cld.service.layui.LayuiBaseQueryApi;
 import cn.cld.service.lianxi.LianxiDemoServiceApi;
 import cn.cld.service.logs.AddLogsApi;
-import cn.cld.untils.CldCommonUntils;
-import cn.cld.untils.PropertyUtils;
-import cn.cld.untils.XlsxReaderUtil;
+import cn.cld.untils.*;
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
@@ -322,5 +320,85 @@ public class LianxiDemoController {
 
         return  messageResult;
     }
+
+
+    /**
+     * @author by cld
+     * @date 2019/5/13 13:38
+     * @description: 按照模板导出
+     */
+    @RequestMapping("exportForTem")
+    @ResponseBody
+    public MessageResult exportForTem(UserInfoListVo userInfoListVo,HttpServletResponse response,HttpServletRequest request){
+
+
+        File file = new File("C:\\project\\ebiss\\tes\\tes-manager\\target\\tes-manager\\WEB-INF\\template\\RebateMergeSalesChannelTemplete.xlsx");
+        String dateStr = DateTimeUtils.getDateTimeString();
+        File file2 = new File("C:\\Users\\tes\\Desktop\\11.xlsx");
+        try {
+            List<String> sheetNames = new ArrayList<>();
+            sheetNames.add("111");
+
+            Map<String, List<List<Object>>> map = new HashMap<>();
+
+            Map<String, Object> sheet = new HashMap<>();
+            sheet.put("customerName", "客户名称");
+            sheet.put("customerNo", "12345678");
+
+
+            Map<String, Object> datas = new HashMap<>();
+            datas.put("replace", sheet);
+
+
+            List<List<Map<String, Object>>> lists = new ArrayList<>();
+
+            Map<String, Object> data = new HashMap<>();
+//            data.put(CELL_ALIGN,"LEFT");
+            data.put(CELL_LENGTH,2);
+            data.put(CELL_VALUE,"2018年度");
+
+            Map<String, Object> data2 = new HashMap<>();
+//            data.put(CELL_ALIGN,"CENTER");
+            data2.put(CELL_LENGTH,2);
+            data2.put(CELL_VALUE,"全年");
+
+            List<Map<String, Object>> list = new ArrayList<>();
+            list.add(data);
+            list.add(data2);
+
+            lists.add(list);
+
+
+
+            List<List<Object>> lists2 = new ArrayList<>();
+
+            List<Object> list9 = new ArrayList<>();
+            list9.add(0);
+
+            lists2.add(list9);
+
+
+            datas.put("rebatePolicy", lists);
+//            datas.put("details", lists2);
+
+            map.put("OA", lists2);
+
+            XlsxTemplateWriterUtil.rebateMergeSalesChannelExcel(datas, sheetNames, map, file2.getPath(), file.getPath());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+
+        return null;
+    }
+
+    public static final String CELL_VALUE = "cell_value";
+    public static final String CELL_LENGTH = "cell_length";
+    public static final String CELL_ALIGN = "cell_align";
+    public static final String CELL_TYPE = "cell_type";
+    private static final String ROW_INDEX = "row_index";
+    private static final String COL_INDEX = "col_index";
+
 
 }
