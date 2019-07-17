@@ -501,4 +501,15 @@ public class StringUtils extends org.springframework.util.StringUtils {
 	}
 
 
+	/**
+	 * @author by cld
+	 * @date 2019/5/13 13:38
+	 * @description: 截取两个字符串之间内容
+	 */
+	public static String subStr(String str,String start,String end){
+		String	newstr =  str.substring(str.indexOf(start)+start.length(),str.indexOf(end));
+		return newstr;
+	}
+
+
 }
