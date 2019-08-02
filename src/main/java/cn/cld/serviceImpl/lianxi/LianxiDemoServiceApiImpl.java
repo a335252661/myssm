@@ -12,17 +12,17 @@ import cn.cld.service.lianxi.LianxiDemoServiceApi;
 import cn.cld.service.logs.AddLogsApi;
 import cn.cld.untils.CldCommonUntils;
 import cn.cld.untils.DateTimeUtils;
+import cn.cld.untils.MainXlsxUtil;
 import cn.cld.untils.StringUtils;
 import org.apache.ibatis.session.RowBounds;
+import org.apache.poi.xssf.usermodel.XSSFCellStyle;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.annotation.Resource;
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.math.BigDecimal;
+import java.util.*;
 
 public class LianxiDemoServiceApiImpl implements LianxiDemoServiceApi {
 
@@ -35,6 +35,16 @@ public class LianxiDemoServiceApiImpl implements LianxiDemoServiceApi {
     private MyUserMapper myUserMapper;
     @Resource
     private AddLogsApi addLogsApi;
+
+
+    public static final String CELL_VALUE = "cell_value";
+    public static final String CELL_LENGTH = "cell_length";
+    public static final String CELL_ALIGN = "cell_align";
+    public static final String CELL_TYPE = "cell_type";
+    private static final String ROW_INDEX = "row_index";
+    private static final String COL_INDEX = "col_index";
+    private static final String CELL_STYLE = "cell_style";
+
 
     public PageQueryResult<UserInfo> queryUserInfo(UserInfoListVo params) {
 
@@ -224,6 +234,34 @@ public class LianxiDemoServiceApiImpl implements LianxiDemoServiceApi {
             strings[i]=arr;
         }
         return strings;
+    }
+
+    /**
+     * 读模板，获取数据
+     * @param userInfoListVo
+     */
+    @Override
+    public List<List<Map<String, Object>>> getExcelData(UserInfoListVo userInfoListVo) {
+
+
+        List<List<Map<String, Object>>> list1 = new ArrayList<>();
+        List<Map<String, Object>> dataOne = new ArrayList<>();
+
+        XSSFCellStyle xssfCellStyle = MainXlsxUtil.setAndReturnStyle();
+        for(int i =0;i<10;i++){
+            Map<String, Object> data = new HashMap<>();
+            data.put(CELL_LENGTH, 1);
+            data.put(CELL_VALUE, i);
+            if(i==3){
+                            data.put(CELL_STYLE, xssfCellStyle);
+            }
+            dataOne.add(data);
+        }
+
+
+        list1.add(dataOne);
+        return list1;
+
     }
 
 

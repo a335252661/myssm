@@ -46,4 +46,10 @@ public interface LianxiDemoServiceApi {
     MessageResult downLoadTxt2(UserInfoListVo userInfoListVo);
 
     String[][] add(UserInfoListVo userInfoListVo);
+
+    /**
+     *  获取 数据
+     * @param userInfoListVo
+     */
+    List<List<Map<String, Object>>> getExcelData(UserInfoListVo userInfoListVo);
 }

@@ -28,9 +28,11 @@
     <a href="#" style="margin: 10px" id="userListDownLoad"  class="easyui-linkbutton" data-options="iconCls:'icon-download' ">txt下载</a>
     <a href="#" style="margin: 10px" id="userListDownLoad2"  class="easyui-linkbutton" data-options="iconCls:'icon-download' ">txt下载简洁方式</a>
     <a href="#" style="margin: 10px" id="userListsendMils"  class="easyui-linkbutton" data-options="iconCls:'icon-tip' ">发送邮件</a>
+    <a href="#" style="margin: 10px" id="userListWriteAndExport"  class="easyui-linkbutton" data-options="iconCls:'icon-tip' ">读模板导出</a>
 </div>
 
 <div class="easyui-panel" title="查询条件">
+    <form action="writeAndExport" id="writeAndExport"></form>
     <form action="userListExport" id="userListForm">
         <div class="" style="padding: 13px;float: left">
             <lable class="">用户ID：</lable>

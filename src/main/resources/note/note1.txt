@@ -1,3 +1,49 @@
 //复制bean
 package org.springframework.beans;
 BeanUtils.copyProperties(vo, newVo);
+
+
+//  <<    >>   运算技巧
+m<<n  ==  m*2的n次方
+m>>n ==   m/2的n次方 ,取整
+
+
+序列化就是将对象转换成字节码保存
+反序列化，就是将字节码转化为对象
+transient int modCount;
+transient 修饰的属性是不会被序列化的
+
+
+//HashMap
+是通过数组和链表来实现的，存放的是key 和value键值对
+HashMap是在bucket中储存键对象和值对象
+数组指的是 node节点数组=也就是bucket桶
+Node[] table=new Node[16] 散列桶初始化
+put过程
+对key取hash值，计算下标，将k,v放入桶中
+key的hash值相同，以链表的形式存放到一个bucket中
+如果链表的长度超过阈值8，把链表转化为红黑树，链表长度低于6，就把红黑树转回链表
+如果节点已经存在就替换旧值
+如果桶满了(容量16*加载因子0.75)，就需要 resize（扩容2倍后重排）
+get过程
+通过key的hash值找到bucket的位置，如果存在链表，则调用equals方法，找到正确的节点
+
+//ConcurrentHashMap
+高并发情况下的实现方式
+
+IO：
+同步阻塞式IO，并发处理能力低
+NIO:
+同步非阻塞式IO
+AIO：Asynchronous ：
+是 NIO 的升级，也叫 NIO2，实现了异步非堵塞 IO ，异步 IO 的操作基于事件和回调机制。
+
+
+
+//集合才有iterator方法
+map.entrySet 是一个Map.Entry集合
+
+
+//并行和并发
+你吃饭吃到一半，电话来了，你停了下来接了电话，接完后继续吃饭，这说明你支持并发。  （不一定是同时的）
+你吃饭吃到一半，电话来了，你一边打电话一边吃饭，这说明你支持并行。

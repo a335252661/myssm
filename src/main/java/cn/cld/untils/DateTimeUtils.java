@@ -535,4 +535,9 @@ public class DateTimeUtils {
 		String timeStr = DateTimeUtils.format(new Date(), "HH:mm:ss");
 		return timeStr;
 	}
+
+	public static String getNowTimeSSS(){
+		String timeStr = DateTimeUtils.format(new Date(), "HHmmssSSS");
+		return timeStr;
+	}
 }

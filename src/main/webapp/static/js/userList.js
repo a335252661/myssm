@@ -280,7 +280,9 @@ $(function () {
     })
 
 
-
+    $('#userListWriteAndExport').click(function () {
+     $('#writeAndExport').submit();
+    })
 
     /**
      * 选中datagrid转json
@@ -308,6 +310,10 @@ $(function () {
         });
         return deleteObj;
     }
+
+
+
+
 
 
 // 基于准备好的dom，初始化echarts实例

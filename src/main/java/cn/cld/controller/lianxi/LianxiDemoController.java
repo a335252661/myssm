@@ -17,6 +17,7 @@ import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.export.JRPdfExporter;
 import net.sf.jasperreports.export.SimpleExporterInput;
 import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,13 +39,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.net.URLEncoder;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Controller
-public class LianxiDemoController {
+public class LianxiDemoController  extends BaseController{
 
     protected static final Logger logger = LoggerFactory.getLogger(LianxiDemoController.class);
 
@@ -322,83 +320,32 @@ public class LianxiDemoController {
     }
 
 
-    /**
-     * @author by cld
-     * @date 2019/5/13 13:38
-     * @description: 按照模板导出
-     */
-    @RequestMapping("exportForTem")
+
+    @RequestMapping("writeAndExport")
     @ResponseBody
-    public MessageResult exportForTem(UserInfoListVo userInfoListVo,HttpServletResponse response,HttpServletRequest request){
-
-
-        File file = new File("C:\\project\\ebiss\\tes\\tes-manager\\target\\tes-manager\\WEB-INF\\template\\RebateMergeSalesChannelTemplete.xlsx");
-        String dateStr = DateTimeUtils.getDateTimeString();
-        File file2 = new File("C:\\Users\\tes\\Desktop\\11.xlsx");
+    public MessageResult writeAndExport(UserInfoListVo userInfoListVo,HttpServletResponse response,HttpServletRequest request){
         try {
-            List<String> sheetNames = new ArrayList<>();
-            sheetNames.add("111");
-
-            Map<String, List<List<Object>>> map = new HashMap<>();
-
-            Map<String, Object> sheet = new HashMap<>();
-            sheet.put("customerName", "客户名称");
-            sheet.put("customerNo", "12345678");
 
 
-            Map<String, Object> datas = new HashMap<>();
-            datas.put("replace", sheet);
+            String fileName  = "doTest";
+            String fileLocation = getTempDirPathAndMkIfNotExitsts(request) + File.separator + fileName+".xlsx";
 
+//            fileLocation = "C:\\Users\\Administrator\\Desktop\\do\\doTest.xlsx";
 
-            List<List<Map<String, Object>>> lists = new ArrayList<>();
+            //获取需要写的数据
+            List<List<Map<String, Object>>> data =  lianxiDemoServiceApi.getExcelData(userInfoListVo);
 
-            Map<String, Object> data = new HashMap<>();
-//            data.put(CELL_ALIGN,"LEFT");
-            data.put(CELL_LENGTH,2);
-            data.put(CELL_VALUE,"2018年度");
+            //向单元格中填数据
+            XSSFWorkbook wb = ServiceMainXlsx.doTest(data, fileLocation);
 
-            Map<String, Object> data2 = new HashMap<>();
-//            data.put(CELL_ALIGN,"CENTER");
-            data2.put(CELL_LENGTH,2);
-            data2.put(CELL_VALUE,"全年");
-
-            List<Map<String, Object>> list = new ArrayList<>();
-            list.add(data);
-            list.add(data2);
-
-            lists.add(list);
-
-
-
-            List<List<Object>> lists2 = new ArrayList<>();
-
-            List<Object> list9 = new ArrayList<>();
-            list9.add(0);
-
-            lists2.add(list9);
-
-
-            datas.put("rebatePolicy", lists);
-//            datas.put("details", lists2);
-
-            map.put("OA", lists2);
-
-            XlsxTemplateWriterUtil.rebateMergeSalesChannelExcel(datas, sheetNames, map, file2.getPath(), file.getPath());
+            //浏览器导出文件
+            MainXlsxUtil.exportFilesFromBrowser(fileName,response,wb);
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-
-
         return null;
     }
 
-    public static final String CELL_VALUE = "cell_value";
-    public static final String CELL_LENGTH = "cell_length";
-    public static final String CELL_ALIGN = "cell_align";
-    public static final String CELL_TYPE = "cell_type";
-    private static final String ROW_INDEX = "row_index";
-    private static final String COL_INDEX = "col_index";
 
 
 }
