@@ -11,25 +11,25 @@
                         http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
 
 
-    <bean id="publisherService" class="cn.cld.mq.PublisherManager" />
+    <bean id="publisherService" class="cn.cld.mq.PublisherManager"/>
 
-    <bean id="commonService"  class="cn.cld.serviceImpl.commen.CommonServiceImpl"/>
+    <bean id="commonService" class="cn.cld.serviceImpl.commen.CommonServiceImpl"/>
 
-    <bean id="homeServiceApi" class="cn.cld.serviceImpl.login.HomeServiceApiImpl" />
+    <bean id="homeServiceApi" class="cn.cld.serviceImpl.login.HomeServiceApiImpl"/>
 
-    <bean id="lianxiDemoServiceApi" class="cn.cld.serviceImpl.lianxi.LianxiDemoServiceApiImpl" />
+    <bean id="lianxiDemoServiceApi" class="cn.cld.serviceImpl.lianxi.LianxiDemoServiceApiImpl"/>
 
-    <bean id="queryLogListApi" class="cn.cld.serviceImpl.logs.QueryLogListApiImpl" />
+    <bean id="queryLogListApi" class="cn.cld.serviceImpl.logs.QueryLogListApiImpl"/>
 
-    <bean id="addLogsApi" class="cn.cld.serviceImpl.logs.AddLogsApiImpl" />
+    <bean id="addLogsApi" class="cn.cld.serviceImpl.logs.AddLogsApiImpl"/>
 
-    <bean id="layuiBaseQueryApi" class="cn.cld.serviceImpl.layui.LayuiBaseQueryApiImpl" />
+    <bean id="layuiBaseQueryApi" class="cn.cld.serviceImpl.layui.LayuiBaseQueryApiImpl"/>
 
-    <bean id="shopOrderListService" class="cn.cld.serviceImpl.order.ShopOrderListServiceImpl" />
-    <bean id="javaMailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl" />
+    <bean id="shopOrderListService" class="cn.cld.serviceImpl.order.ShopOrderListServiceImpl"/>
+    <bean id="javaMailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl"/>
 
     <!--mq消息-->
-    <bean id="MQTestService" class="cn.cld.serviceImpl.MQTestServiceApiImpl" />
+    <bean id="MQTestService" class="cn.cld.serviceImpl.MQTestServiceApiImpl"/>
 
     <!--xml装配ben，测试Spring IOC获取bean,创建的bean是单例模式-->
     <bean id="testIOC" class="cn.cld.pojo.basic.testIOC">

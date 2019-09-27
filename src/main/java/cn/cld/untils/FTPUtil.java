@@ -14,16 +14,16 @@ import java.util.Map;
 
 public class FTPUtil {
 
-	private static final String FTP_IP = PropertyUtils.getProperty("ftp.ip", "192.168.137.143");
+	private static final String FTP_IP = PropertyUtils.getProperty("ftp.ip", "106.54.46.37");
 	private static final int FTP_PORT = Integer.parseInt(PropertyUtils.getProperty("ftp.port", "21"));
-	private static final String FTP_USERNAME = PropertyUtils.getProperty("ftp.username", "zmm");
-	private static final String FTP_PASSWORD = PropertyUtils.getProperty("ftp.password", "zmm123456");
+	private static final String FTP_USERNAME = PropertyUtils.getProperty("ftp.username", "test");
+	private static final String FTP_PASSWORD = PropertyUtils.getProperty("ftp.password", "test");
 	private static final int FTP_DEFAULT_TIMEOUT_SECOND = Integer.parseInt(PropertyUtils.getProperty("ftp.default_timeout_second","3600"));
 	
 	private static final Logger logger = Logger.getLogger(FTPUtil.class);
 
 	/**
-	 * æ–‡ä»¶ä¸Šä¼ 
+	 * ÎÄ¼şÉÏ´«
 	 * 
 	 * @param ftpUrl
 	 * @param port
@@ -43,25 +43,25 @@ public class FTPUtil {
         	ftpClient.setDataTimeout(FTP_DEFAULT_TIMEOUT_SECOND);
             ftpClient.connect(FTP_IP,FTP_PORT); 
             boolean result = ftpClient.login(FTP_USERNAME, FTP_PASSWORD); 
-            if(result ==false){//FTPè¿æ¥å¤±è´¥
+            if(result ==false){//FTPÁ¬½ÓÊ§°Ü
             	return false;
             }
             File srcFile = new File(filePath);
             fis = new FileInputStream(srcFile); 
-            //è®¾ç½®ä¸Šä¼ ç›®å½• 
+            //ÉèÖÃÉÏ´«Ä¿Â¼ 
             boolean changeDirectory = ftpClient.changeWorkingDirectory(ftpPath); 
             if(changeDirectory==false){
-            	logger.error("FTPè·¯å¾„ä¸å­˜åœ¨ ftpPath:"+ftpPath);
+            	logger.error("FTPÂ·¾¶²»´æÔÚ ftpPath:"+ftpPath);
             	return false;
             }
             ftpClient.setBufferSize(1024); 
             ftpClient.setControlEncoding(encode); 
-            //è®¾ç½®æ–‡ä»¶ç±»å‹ï¼ˆäºŒè¿›åˆ¶ï¼‰ 
+            //ÉèÖÃÎÄ¼şÀàĞÍ£¨¶ş½øÖÆ£© 
             ftpClient.setFileType(FTPClient.BINARY_FILE_TYPE);
             return ftpClient.storeFile(ftpFileName, fis); 
         } catch (IOException e) { 
             e.printStackTrace(); 
-            logger.error("FTPå®¢æˆ·ç«¯å‡ºé”™ï¼", e);
+            logger.error("FTP¿Í»§¶Ë³ö´í£¡", e);
             return false;
         } finally { 
             try { 
@@ -69,19 +69,19 @@ public class FTPUtil {
                 ftpClient.disconnect(); 
             } catch (IOException e) { 
                 e.printStackTrace(); 
-                logger.error("å…³é—­FTPè¿æ¥å‘ç”Ÿå¼‚å¸¸ï¼", e);
+                logger.error("¹Ø±ÕFTPÁ¬½Ó·¢ÉúÒì³££¡", e);
             } 
         } 
 	}
 
 	/**
-	 * æ–‡ä»¶ä¸‹è½½
+	 * ÎÄ¼şÏÂÔØ
 	 * 
-	 * @param ftpFilePath   æ–‡ä»¶æ‰€åœ¨è·¯å¾„
-	 * @param filePath  æ–‡ä»¶ä¸‹è½½
-	 * @param encode    ç¼–ç æ ¼å¼
-	 * @param fileNames  éœ€è¦ä¸‹è½½çš„æ–‡ä»¶é›†åˆ
-	 * @param downLoadFilePaths  ä¸‹è½½æˆåŠŸçš„æ–‡ä»¶é›†åˆ keyï¼šæ–‡ä»¶åï¼›value:ä¸‹è½½è·¯å¾„ 
+	 * @param ftpFilePath   ÎÄ¼şËùÔÚÂ·¾¶
+	 * @param filePath  ÎÄ¼şÏÂÔØ
+	 * @param encode    ±àÂë¸ñÊ½
+	 * @param fileNames  ĞèÒªÏÂÔØµÄÎÄ¼ş¼¯ºÏ
+	 * @param downLoadFilePaths  ÏÂÔØ³É¹¦µÄÎÄ¼ş¼¯ºÏ key£ºÎÄ¼şÃû£»value:ÏÂÔØÂ·¾¶ 
 	 * @return
 	 */
 	public static boolean fileDownLoad(String ftpFilePath,String filePath,String encode,List<String> fileNames,Map<String,String> downLoadFilePaths){
@@ -90,9 +90,8 @@ public class FTPUtil {
 		if(fileNameStr!=null){
 			fileNameStr = fileNameStr.replace("[\"", "").replaceAll("\"]", "");
 		}
-		logger.info("++++++++++++++++++++++ ftpFilePath:ã€ "+ filePath +" ã€‘++++++++++++++++++++++");
-		logger.info("+++++++++++++++++++++++++++ FTP_IP:ã€ "+ FTP_IP + ftpFilePath + fileNameStr +" ã€‘++++++++++++++++++++++");
-		logger.info("+++++++++++++++++++++++++ FTP_PORT:ã€ "+ FTP_PORT +" ã€‘++++++++++++++++++++++");
+		logger.info("+++++++++++++++++++++++++++ ÏÂÔØºó´æ·ÅµÄÄ¿Â¼:¡¾ "+ filePath +" ¡¿++++++++++++++++++++++");
+		logger.info("+++++++++++++++++++++++++++ FTP·şÎñÆ÷ÎÄ¼şÎ»ÖÃ:¡¾ "+ FTP_IP + ftpFilePath + fileNameStr +" ¡¿++++++++++++++++++++++");
 
 		FTPClient ftpClient = new FTPClient();
 		FileOutputStream its = null;
@@ -103,7 +102,7 @@ public class FTPUtil {
         	ftpClient.setDataTimeout(FTP_DEFAULT_TIMEOUT_SECOND);
             ftpClient.connect(FTP_IP,FTP_PORT); 
             boolean result = ftpClient.login(FTP_USERNAME, FTP_PASSWORD); 
-            if(result ==false){//FTPè¿æ¥å¤±è´¥
+            if(result ==false){//FTPÁ¬½ÓÊ§°Ü
             	return false;
             }
             for (String fileName : fileNames) {
@@ -115,21 +114,22 @@ public class FTPUtil {
             	
             	ftpClient.setBufferSize(1024); 
             	ftpClient.setControlEncoding(encode); 
-            	//è®¾ç½®æ–‡ä»¶ç±»å‹ï¼ˆäºŒè¿›åˆ¶ï¼‰ 
+            	//ÉèÖÃÎÄ¼şÀàĞÍ£¨¶ş½øÖÆ£© 
             	ftpClient.setFileType(FTPClient.BINARY_FILE_TYPE);
             	boolean downloadResult = ftpClient.retrieveFile(ftpFilePath+fileName,its);
-            	if(downloadResult==false){//ä¸‹è½½å¤±è´¥å°†ç”Ÿæˆçš„æ–‡ä»¶åˆ é™¤
+            	if(downloadResult==false){//ÏÂÔØÊ§°Ü½«Éú³ÉµÄÎÄ¼şÉ¾³ı
             		its.close();
                     if (srcFile.isFile()) {  
                     	srcFile.delete();  
                     } 
-            	}else{//ä¸‹è½½æˆåŠŸ
+            	}else{//ÏÂÔØ³É¹¦
             		downLoadFilePaths.put(fileName, srcFile.getPath());
             	}
 			}
+            logger.info("+++++++++++++++++++++++++++ÏÂÔØ³É¹¦+++++++++++++++++++++++++++");
             return true;
         } catch (IOException e) { 
-            logger.error("FTPå®¢æˆ·ç«¯å‡ºé”™ï¼", e);
+            logger.error("FTP¿Í»§¶Ë³ö´í£¡", e);
             return false; 
         } finally { 
             try { 
@@ -139,20 +139,18 @@ public class FTPUtil {
                 ftpClient.disconnect(); 
             } catch (IOException e) { 
                 e.printStackTrace(); 
-                logger.error("å…³é—­FTPè¿æ¥å‘ç”Ÿå¼‚å¸¸ï¼", e);
+                logger.error("¹Ø±ÕFTPÁ¬½Ó·¢ÉúÒì³££¡", e);
             } 
         } 
 	}
-	/**
-	 * æ–‡ä»¶ä¸‹è½½
-	 * 
-	 * @param ftpFilePath   æ–‡ä»¶æ‰€åœ¨è·¯å¾„
-	 * @param filePath  æ–‡ä»¶ä¸‹è½½
-	 * @param encode    ç¼–ç æ ¼å¼
-	 * @param fileNames  éœ€è¦ä¸‹è½½çš„æ–‡ä»¶é›†åˆ
-	 * @param downLoadFilePaths  ä¸‹è½½æˆåŠŸçš„æ–‡ä»¶é›†åˆ keyï¼šæ–‡ä»¶åï¼›value:ä¸‹è½½è·¯å¾„ 
-	 * @return
-	 */
+
+
+    /**
+     * ÒÆ¶¯ÎÄ¼ş
+     * @param oldPath
+     * @param newPath
+     * @return
+     */
 	public static boolean fileRemove(String oldPath,String newPath){
 		FTPClient ftpClient = new FTPClient();
 		FileOutputStream its = null;
@@ -160,13 +158,13 @@ public class FTPUtil {
         try { 
             ftpClient.connect(FTP_IP,FTP_PORT); 
             boolean result = ftpClient.login(FTP_USERNAME, FTP_PASSWORD); 
-            if(result ==false){//FTPè¿æ¥å¤±è´¥
+            if(result ==false){//FTPÁ¬½ÓÊ§°Ü
             	return false;
             }
             boolean moved = ftpClient.rename(oldPath, newPath);
             return moved;
         } catch (IOException e) { 
-            logger.error("FTPå®¢æˆ·ç«¯å‡ºé”™ï¼", e);
+            logger.error("FTP¿Í»§¶Ë³ö´í£¡", e);
             return false; 
         } finally { 
             try { 
@@ -176,7 +174,7 @@ public class FTPUtil {
                 ftpClient.disconnect(); 
             } catch (IOException e) { 
                 e.printStackTrace(); 
-                logger.error("å…³é—­FTPè¿æ¥å‘ç”Ÿå¼‚å¸¸ï¼", e);
+                logger.error("¹Ø±ÕFTPÁ¬½Ó·¢ÉúÒì³££¡", e);
             } 
         } 
 	}
@@ -184,33 +182,37 @@ public class FTPUtil {
 	
 	
 	public static void main(String[] params){
+//²âÊÔÁ¬½ÓÀõ×Ó
+//		FTPClient ftpClient = new FTPClient();
+//		try{
+//			ftpClient.setDefaultTimeout(FTP_DEFAULT_TIMEOUT_SECOND);
+//			ftpClient.setConnectTimeout(FTP_DEFAULT_TIMEOUT_SECOND);
+//			ftpClient.setDataTimeout(FTP_DEFAULT_TIMEOUT_SECOND);
+//			ftpClient.connect(FTP_IP,FTP_PORT);
+//			boolean result = ftpClient.login(FTP_USERNAME, FTP_PASSWORD);
+//			System.out.println(result);
+//		}catch (Exception e){
+//			e.printStackTrace();
+//		}
 
-		FTPClient ftpClient = new FTPClient();
-		try{
-			ftpClient.setDefaultTimeout(FTP_DEFAULT_TIMEOUT_SECOND);
-			ftpClient.setConnectTimeout(FTP_DEFAULT_TIMEOUT_SECOND);
-			ftpClient.setDataTimeout(FTP_DEFAULT_TIMEOUT_SECOND);
-			ftpClient.connect(FTP_IP,FTP_PORT);
-			boolean result = ftpClient.login(FTP_USERNAME, FTP_PASSWORD);
-			System.out.println(result);
-		}catch (Exception e){
-			e.printStackTrace();
-		}
 
+		//´Ó±¾µØÉÏ´«ÎÄ¼ş
+		//ÉÏ´ÎµÄÄ¿Â¼
+//		String  ftpPath= "/home/ftpuser/usrmaster";
+//		String fileName = "7.txt";
+//		boolean ftpResult = FTPUtil.fileUpload(ftpPath, fileName, "D:\\tem\\7.txt", "utf-8");
+//		System.out.println(ftpResult);
 
-		//ä»æœ¬åœ°ä¸Šä¼ æ–‡ä»¶
-//		String  ftpPath= "/upload/";
-//		String fileName = "ppp.jpg";
-//		boolean ftpResult = FTPUtil.fileUpload(ftpPath, fileName, "C:\\tmp\\ppp.jpg", "GB2312");
-
-		//æ–‡ä»¶ä»ftpä¸‹è½½
+		//ÎÄ¼ş´ÓftpÏÂÔØ
 //		Map<String,String> downLoadFilePaths = new HashMap<String, String>();
 //		List<String> fileNames = new ArrayList<String>();
-//		fileNames.add("ppp.jpg");
-//		boolean ftpResults = FTPUtil.fileDownLoad(ftpPath, "C:\\tmp\\ftpDownLoad","GB2312", fileNames,downLoadFilePaths);
-//
-//		//ç§»åŠ¨æ–‡ä»¶
-//		FTPUtil.fileRemove("/8002/ppp.jpg","/8002/Master//ppp.jpg");
+//		fileNames.add("7.txt");
+//		//ftp·şÎñÆ÷ÉÏµÄÄ¿Â¼
+//		String  ftpPath= "/home/test/";
+//		boolean ftpResults = FTPUtil.fileDownLoad(ftpPath, "D:\\temDownLoad","GB2312", fileNames,downLoadFilePaths);
+//		System.out.println(ftpResults);
+//		//ÒÆ¶¯ÎÄ¼ş
+		FTPUtil.fileRemove("/8002/ppp.jpg","/8002/Master//ppp.jpg");
 		 
 	}
     

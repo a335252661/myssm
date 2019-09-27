@@ -30,18 +30,18 @@ rownumbers:'true'
 "
 >
     <thead>
-        <tr>
-            <th data-options="field:'operatorTime',width:120,align:'center',
+    <tr>
+        <th data-options="field:'operatorTime',width:120,align:'center',
                     formatter:function(value,row,index){
                         return DateTimeFormatter(value)
-                        }">日志时间</th>
-##            <th data-options="field:'logsId',width:80">日志ID</th>
-            <th data-options="field:'message',width:420,align:'center'">日志内容</th>
-            <th data-options="field:'remark',width:80,align:'center'">备注</th>
+                        }">日志时间
+        </th>
+    ##            <th data-options="field:'logsId',width:80">日志ID</th>
+        <th data-options="field:'message',width:420,align:'center'">日志内容</th>
+        <th data-options="field:'remark',width:80,align:'center'">备注</th>
 
-        </tr>
+    </tr>
     </thead>
-
 
 
 </table>

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
-	xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:mvc="http://www.springframework.org/schema/mvc"
-	   xmlns:tx="http://www.springframework.org/schema/tx"
-	   xmlns:aop="http://www.springframework.org/schema/aop"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans  
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
                         http://www.springframework.org/schema/beans/spring-beans-3.1.xsd  
                         http://www.springframework.org/schema/context  
                         http://www.springframework.org/schema/context/spring-context-3.1.xsd  
@@ -16,114 +16,113 @@
 ">
     <!--        ========================= applicationContext.xml Spring 的配置文件 =========================         -->
 
-	<import resource="service-config.xml"/>
+    <import resource="service-config.xml"/>
 
-	<!--引入redis配置文件-->
-	<import resource="redis-config.xml"/>
+    <!--引入redis配置文件-->
+    <import resource="redis-config.xml"/>
 
-	<!-- import activemq config -->
-	<import resource="activemq-consumer-config.xml" />
-	<import resource="activemq-producter-config.xml" />
-
-
-	<!--当使用 <context:component-scan/> 后，就可以将 <context:annotation-config/> 移除了-->
-	<!--<context:annotation-config/>-->
-	<!-- 自动扫描 -->
-	<!--将标注Spring注解的类自动转化Bean，同时完成Bean的注入-->
-	<context:component-scan base-package="cn.cld.controller" />
+    <!-- import activemq config -->
+    <import resource="activemq-consumer-config.xml"/>
+    <import resource="activemq-producter-config.xml"/>
 
 
-	<!-- =================================基于XML的配置元数据-================================= -->
-
-	<!-- 引入配置文件 -->
-	<bean id="propertyConfigurer"
-		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-		<property name="location" value="classpath:system.properties" />
-	</bean>
-
-	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
-		destroy-method="close">
-		<property name="driverClassName" value="${driver}" />
-		<property name="url" value="${url}" />
-		<property name="username" value="${username}" />
-		<property name="password" value="${password}" />
-		<!-- 初始化连接大小 -->
-		<property name="initialSize" value="${initialSize}"/>
-		<!-- 连接池最大数量 -->
-		<property name="maxActive" value="${maxActive}"/>
-		<!-- 连接池最大空闲 -->
-		<property name="maxIdle" value="${maxIdle}"/>
-		<!-- 连接池最小空闲 -->
-		<property name="minIdle" value="${minIdle}"/>
-		<!-- 获取连接最大等待时间 -->
-		<property name="maxWait" value="${maxWait}"/>
-	</bean>
-
-	<!-- spring和MyBatis完美整合，不需要mybatis的配置映射文件 -->
-	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-		<property name="dataSource" ref="dataSource" />
-		<!-- 自动扫描mapping.xml文件 -->
-		<!--中间配置** ： 表示mapping文件夹内部的文件夹也可以扫描，-->
-		<property name="mapperLocations" value="classpath:cn/cld/mapping/**/*.xml"/>
-
-		<!--添加mybatis配置文件，为了将sql显示在控制台-->
-		<property name="configLocation" value="classpath:mybatis-config.xml" />
-
-	</bean>
-
-	<!-- DAO接口所在包名，Spring会自动查找其下的类 -->
-	<!--Mybatis MapperScannerConfigurer 自动扫描 将Mapper接口生成代理注入到Spring-->
-	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-		<property name="basePackage" value="cn.cld.dao" />
-		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
-	</bean>
-
-	<!-- (事务管理)transaction manager, use JtaTransactionManager for global tx -->
-	<bean id="transactionManager"
-		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-		<property name="dataSource" ref="dataSource" />
-	</bean>
+    <!--当使用 <context:component-scan/> 后，就可以将 <context:annotation-config/> 移除了-->
+    <!--<context:annotation-config/>-->
+    <!-- 自动扫描 -->
+    <!--将标注Spring注解的类自动转化Bean，同时完成Bean的注入-->
+    <context:component-scan base-package="cn.cld.controller"/>
 
 
-	<!-- Quartz -->
-	<bean id="jobFactoryBean" class="cn.cld.batch.AutowiringSpringBeanJobFactory">
-	</bean>
+    <!-- =================================基于XML的配置元数据-================================= -->
 
-	<bean id="schedulerFactoryBean" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
-		<property name="configLocation" value="classpath:quartz.properties"/>
-		<property name="jobFactory" ref="jobFactoryBean"/>
-	</bean>
+    <!-- 引入配置文件 -->
+    <bean id="propertyConfigurer"
+          class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="location" value="classpath:system.properties"/>
+    </bean>
+
+    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+          destroy-method="close">
+        <property name="driverClassName" value="${driver}"/>
+        <property name="url" value="${url}"/>
+        <property name="username" value="${username}"/>
+        <property name="password" value="${password}"/>
+        <!-- 初始化连接大小 -->
+        <property name="initialSize" value="${initialSize}"/>
+        <!-- 连接池最大数量 -->
+        <property name="maxActive" value="${maxActive}"/>
+        <!-- 连接池最大空闲 -->
+        <property name="maxIdle" value="${maxIdle}"/>
+        <!-- 连接池最小空闲 -->
+        <property name="minIdle" value="${minIdle}"/>
+        <!-- 获取连接最大等待时间 -->
+        <property name="maxWait" value="${maxWait}"/>
+    </bean>
+
+    <!-- spring和MyBatis完美整合，不需要mybatis的配置映射文件 -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <!-- 自动扫描mapping.xml文件 -->
+        <!--中间配置** ： 表示mapping文件夹内部的文件夹也可以扫描，-->
+        <property name="mapperLocations" value="classpath:cn/cld/mapping/**/*.xml"/>
+
+        <!--添加mybatis配置文件，为了将sql显示在控制台-->
+        <property name="configLocation" value="classpath:mybatis-config.xml"/>
+
+    </bean>
+
+    <!-- DAO接口所在包名，Spring会自动查找其下的类 -->
+    <!--Mybatis MapperScannerConfigurer 自动扫描 将Mapper接口生成代理注入到Spring-->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="cn.cld.dao"/>
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+    </bean>
+
+    <!-- (事务管理)transaction manager, use JtaTransactionManager for global tx -->
+    <bean id="transactionManager"
+          class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
 
 
+    <!-- Quartz -->
+    <bean id="jobFactoryBean" class="cn.cld.batch.AutowiringSpringBeanJobFactory">
+    </bean>
 
-	<tx:annotation-driven />
-	<bean id="aspectBean" class="cn.cld.aop.RollBackAspect" ></bean>
-	<aop:config>
-		<!--aspect 定义一个切面-->
-		<aop:aspect id="RollBackAspect" ref="aspectBean">
-			<aop:pointcut id="updateService"
-						  expression="execution(* cn.cld.serviceImpl..*.update*(..))||execution(* cn.cld.serviceImpl..*.add*(..))||execution(* cn.cld.serviceImpl..*.save*(..))||execution(* cn.cld.serviceImpl..*.insert*(..))||execution(* cn.cld.serviceImpl..*.delete*(..)))" />
-			<aop:before pointcut-ref="updateService" method="doBefore"/>
-			<aop:after pointcut-ref="updateService" method="doAfter"/>
-			<aop:around pointcut-ref="updateService" method="doAround"/>
-			<aop:after-throwing pointcut-ref="updateService" method="doThrowing" throwing="ex"/>
-		</aop:aspect>
-	</aop:config>
+    <bean id="schedulerFactoryBean" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <property name="configLocation" value="classpath:quartz.properties"/>
+        <property name="jobFactory" ref="jobFactoryBean"/>
+    </bean>
 
 
-	<!--配置邮件-->
-	<bean id="javaMailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
-		<property name="host" value="${mail.smtp.host}"/>
-		<property name="username" value="${mail.smtp.username}"/>
-		<property name="password" value="${mail.smtp.password}"/>
-		<property name="defaultEncoding" value="${mail.smtp.defaultEncoding}"/>
-		<property name="javaMailProperties">
-			<props>
-				<prop key="mail.smtp.auth">${mail.smtp.auth}</prop>
-				<prop key="mail.smtp.timeout">${mail.smtp.timeout}</prop>
-			</props>
-		</property>
-	</bean>
+    <tx:annotation-driven/>
+    <bean id="aspectBean" class="cn.cld.aop.RollBackAspect"></bean>
+    <aop:config>
+        <!--aspect 定义一个切面-->
+        <aop:aspect id="RollBackAspect" ref="aspectBean">
+            <aop:pointcut id="updateService"
+                          expression="execution(* cn.cld.serviceImpl..*.update*(..))||execution(* cn.cld.serviceImpl..*.add*(..))||execution(* cn.cld.serviceImpl..*.save*(..))||execution(* cn.cld.serviceImpl..*.insert*(..))||execution(* cn.cld.serviceImpl..*.delete*(..)))"/>
+            <aop:before pointcut-ref="updateService" method="doBefore"/>
+            <aop:after pointcut-ref="updateService" method="doAfter"/>
+            <aop:around pointcut-ref="updateService" method="doAround"/>
+            <aop:after-throwing pointcut-ref="updateService" method="doThrowing" throwing="ex"/>
+        </aop:aspect>
+    </aop:config>
+
+
+    <!--配置邮件-->
+    <bean id="javaMailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+        <property name="host" value="${mail.smtp.host}"/>
+        <property name="username" value="${mail.smtp.username}"/>
+        <property name="password" value="${mail.smtp.password}"/>
+        <property name="defaultEncoding" value="${mail.smtp.defaultEncoding}"/>
+        <property name="javaMailProperties">
+            <props>
+                <prop key="mail.smtp.auth">${mail.smtp.auth}</prop>
+                <prop key="mail.smtp.timeout">${mail.smtp.timeout}</prop>
+            </props>
+        </property>
+    </bean>
 
 
 </beans>

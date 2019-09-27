@@ -1,4 +1,3 @@
-
 <div id="myPanelMain" style="width: auto;height: 200px" class="easyui-pancel" title="按钮列表">
     ss
 </div>
@@ -27,16 +26,15 @@
     "
 
 
-
 >
     <p>panel content.</p>
     <p>panel content.</p>
 </div>
 
 <script type="text/javascript">
-    $(function(){
-        $('#myPanel').panel('setTitle',{
-            title:'js修改标题'
+    $(function () {
+        $('#myPanel').panel('setTitle', {
+            title: 'js修改标题'
         });
 
 
@@ -47,7 +45,6 @@
         console.info(header);
 
     })
-
 
 
 </script>

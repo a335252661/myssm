@@ -14,11 +14,11 @@
 <body>
 <form method="post" id="userDetailForm">
     <div style="padding: 13px">
-        <laber >用户：</laber>
+        <laber>用户：</laber>
         <input type="text" class="easyui-validatebox easyui-textbox" name="userName" data-options="required:true">
     </div>
     <div style="padding: 13px">
-        <laber >密码：</laber>
+        <laber>密码：</laber>
         <input type="text" class="easyui-validatebox easyui-textbox" name="passWord" data-options="required:true">
     </div>
 </form>

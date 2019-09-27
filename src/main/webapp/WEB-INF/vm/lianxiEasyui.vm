@@ -14,27 +14,32 @@
 
 <!-- 文件下载用 form -->
 <div>
-    <form method="post" id="downloadForm"  target="frameDownload"></form>
+    <form method="post" id="downloadForm" target="frameDownload"></form>
 </div>
 
 
 <div class="easyui-panel" title="基础功能">
     <a href="#" style="margin: 10px" id="userListAdd" class="easyui-linkbutton" data-options="iconCls:'icon-add'">新增</a>
-    <a href="#" style="margin: 10px"  id="userListSearch" class="easyui-linkbutton" data-options="iconCls:'icon-search' ">查询</a>
-    <a href="#" style="margin: 10px" id="userListDelete" class="easyui-linkbutton " data-options="iconCls:'icon-remove' ">删除</a>
-    <a href="#" style="margin: 10px" id="userListExport"  class="easyui-linkbutton" data-options="iconCls:'icon-tip' ">按条件导出</a>
-    <a href="#" style="margin: 10px" id="userListExportAll"  class="easyui-linkbutton" data-options="iconCls:'icon-tip' ">全部导出</a>
-    <a href="#" style="margin: 10px" id="userListPrint"  class="easyui-linkbutton" data-options="iconCls:'icon-print' ">打印预览</a>
-    <a href="#" style="margin: 10px" id="userListDownLoad"  class="easyui-linkbutton" data-options="iconCls:'icon-download' ">txt下载</a>
-    <a href="#" style="margin: 10px" id="userListDownLoad2"  class="easyui-linkbutton" data-options="iconCls:'icon-download' ">txt下载简洁方式</a>
-    <a href="#" style="margin: 10px" id="userListsendMils"  class="easyui-linkbutton" data-options="iconCls:'icon-tip' ">发送邮件</a>
+    <a href="#" style="margin: 10px" id="userListSearch" class="easyui-linkbutton"
+       data-options="iconCls:'icon-search' ">查询</a>
+    <a href="#" style="margin: 10px" id="userListDelete" class="easyui-linkbutton "
+       data-options="iconCls:'icon-remove' ">删除</a>
+    <a href="#" style="margin: 10px" id="userListExport" class="easyui-linkbutton" data-options="iconCls:'icon-tip' ">按条件导出</a>
+    <a href="#" style="margin: 10px" id="userListExportAll" class="easyui-linkbutton"
+       data-options="iconCls:'icon-tip' ">全部导出</a>
+    <a href="#" style="margin: 10px" id="userListPrint" class="easyui-linkbutton" data-options="iconCls:'icon-print' ">打印预览</a>
+    <a href="#" style="margin: 10px" id="userListDownLoad" class="easyui-linkbutton"
+       data-options="iconCls:'icon-download' ">txt下载</a>
+    <a href="#" style="margin: 10px" id="userListDownLoad2" class="easyui-linkbutton"
+       data-options="iconCls:'icon-download' ">txt下载简洁方式</a>
+    <a href="#" style="margin: 10px" id="userListsendMils" class="easyui-linkbutton" data-options="iconCls:'icon-tip' ">发送邮件</a>
 </div>
 
 <div class="easyui-panel" title="查询条件">
     <form action="userListExport" id="userListForm">
         <div class="" style="padding: 13px;float: left">
             <lable class="">用户ID：</lable>
-            <input type="text" name="userId"placeholder="请输入" class="easyui-textbox">
+            <input type="text" name="userId" placeholder="请输入" class="easyui-textbox">
         </div>
         <div class="" style="padding: 13px ;float: left">
             <lable class="">用户姓名：</lable>
@@ -46,7 +51,7 @@
         </div>
         <div class="" style="padding: 13px;float: left">
             <lable class="">~~：</lable>
-            <input type="text" name="registerEnd"class="easyui-datebox" data-options="validType:'dateType'">
+            <input type="text" name="registerEnd" class="easyui-datebox" data-options="validType:'dateType'">
         </div>
         <div class="" style="padding: 13px ;float: left">
             <lable class="">是否有效：</lable>
@@ -61,15 +66,15 @@
 
 
 <div class="easyui-panel" title="文件上传" style="padding: 13px;float: left">
-    <form id="userUploadForm"  method="post" enctype="multipart/form-data">
+    <form id="userUploadForm" method="post" enctype="multipart/form-data">
         <laber>选择文件：</laber>
-        　<input id="uploadExcel" name="file" class="easyui-filebox" style="width:200px" data-options="prompt:'请选择文件...'">
+        　<input id="uploadExcel" name="file" class="easyui-filebox" style="width:200px"
+                data-options="prompt:'请选择文件...'">
 
-        　　<a href="#" id="userListUplode" class="easyui-linkbutton" style="width:122px" >用户批量导入</a> 　　     　　　　　
+        　　<a href="#" id="userListUplode" class="easyui-linkbutton" style="width:122px">用户批量导入</a> 　　 　　　　　
 
     </form>
 </div>
-
 
 
 <table class="easyui-datagrid" title="用户列表" style="height:auto" id="userListDataTable"></table>
@@ -82,11 +87,8 @@
 </div>
 
 
-
-
-
-
-<div id="userListDialog" closed="true" class="easyui-dialog" title="新增用户" style="width:400px;height:200px;" data-options="">
+<div id="userListDialog" closed="true" class="easyui-dialog" title="新增用户" style="width:400px;height:200px;"
+     data-options="">
 </div>
 
 

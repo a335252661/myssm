@@ -16,12 +16,13 @@
 
 
 <div class="easyui-panel" title="基础功能">
-    <a href="#" style="margin: 10px"  id="${pageId}Search" class="easyui-linkbutton" data-options="iconCls:'icon-search' ">查询</a>
+    <a href="#" style="margin: 10px" id="${pageId}Search" class="easyui-linkbutton"
+       data-options="iconCls:'icon-search' ">查询</a>
 
 </div>
 
 <div class="easyui-panel" title="查询条件">
-    <form  id="queryLogListForm">
+    <form id="queryLogListForm">
         <div class="" style="padding: 13px;float: left">
             <lable class="">查询日期：</lable>
             <input type="text" name="time" class="easyui-datebox" data-options="validType:'dateType'">
@@ -33,9 +34,6 @@
         </div>
     </form>
 </div>
-
-
-
 
 
 <table id="${pageId}Table" class="easyui-datagrid" title="作业日志" style="width:auto;height:525px"
@@ -53,7 +51,8 @@ rownumbers:'true'
                     formatter:function(value,row,index){
                         return DateTimeFormatter(value)
                         }
-                                                ">操作日期</th>
+                                                ">操作日期
+        </th>
         <th data-options="field:'operator',width:100">操作用户</th>
         <th data-options="field:'operatorType',width:80">操作类型</th>
         <th data-options="field:'operatorObject',width:80,align:'center'">操作对象</th>
@@ -62,17 +61,17 @@ rownumbers:'true'
                         return operatorTransToStr(value,row,index)
                         }
 
-">处理状态</th>
+">处理状态
+        </th>
         <th data-options="field:'remark',width:120,align:'center'">备注</th>
     </tr>
     </thead>
 </table>
 
 
-<div id="${pageId}Dialog" closed="true" class="easyui-dialog" title="日志详细" style="width:800px;height:400px;" data-options="">
+<div id="${pageId}Dialog" closed="true" class="easyui-dialog" title="日志详细" style="width:800px;height:400px;"
+     data-options="">
 </div>
-
-
 
 
 <script src="/static/js/queryLogList.js"></script>

@@ -20,7 +20,7 @@
     </div>
 
     <div data-options="region:'west',title:'West',split:true" style="width:200px;">
-##        <%--树组件--%>
+    ##        <%--树组件--%>
         <ul id="indexTree"></ul>
     </div>
 

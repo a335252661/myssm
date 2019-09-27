@@ -4,41 +4,40 @@
 The content of element type "configuration" must match "(properties?,settings?,typeAliases?,typeHandlers?,objectFactory?,objectWrapperFactory?,plugins?,environments?,mappers?)". 
 -->
 <configuration>
-		
-	<!-- 属性配置 -->
-	<properties>
-	
-	</properties>
-	
-	<!-- 设置缓存和延迟加载等等重要的运行时的行为方式 -->
-	<settings>
-		<!-- 设置超时时间，它决定驱动等待一个数据库响应的时间  -->
-		<setting name="defaultStatementTimeout" value="25000"/>
 
-		<!--SLF4J | LOG4J | LOG4J2 | JDK_LOGGING | COMMONS_LOGGING | STDOUT_LOGGING | NO_LOGGING-->
-		<setting name="logImpl" value="STDOUT_LOGGING"/>
+    <!-- 属性配置 -->
+    <properties>
 
-	</settings>
-	
-	<!-- 别名 -->
-	<!--<typeAliases/>-->
-	
-	<!-- 
-	<plugins>
-		指定数据库分页方言Dialect, 其它方言:OracleDialect,SQLServerDialect,SybaseDialect,DB2Dialect,
-		PostgreSQLDialect,MySQLDialect,DerbyDialect,HSQLDialect
-		<plugin interceptor="com.chenxin.authority.common.mybatis.OffsetLimitInterceptor">
-			<property name="dialectClass" value="com.chenxin.authority.common.mybatis.dialect.OracleDialect"/>
-		</plugin>
-	</plugins>
-	-->	
-	 <plugins>
-        <plugin interceptor="org.mybatis.pagination.PaginationInterceptor">
-              <property name="dbms" value="mysql"/>
-              <property name="sqlRegex" value=".findAll*.*"/>
+    </properties>
+
+    <!-- 设置缓存和延迟加载等等重要的运行时的行为方式 -->
+    <settings>
+        <!-- 设置超时时间，它决定驱动等待一个数据库响应的时间  -->
+        <setting name="defaultStatementTimeout" value="25000"/>
+
+        <!--SLF4J | LOG4J | LOG4J2 | JDK_LOGGING | COMMONS_LOGGING | STDOUT_LOGGING | NO_LOGGING-->
+        <setting name="logImpl" value="STDOUT_LOGGING"/>
+
+    </settings>
+
+    <!-- 别名 -->
+    <!--<typeAliases/>-->
+
+    <!--
+    <plugins>
+        指定数据库分页方言Dialect, 其它方言:OracleDialect,SQLServerDialect,SybaseDialect,DB2Dialect,
+        PostgreSQLDialect,MySQLDialect,DerbyDialect,HSQLDialect
+        <plugin interceptor="com.chenxin.authority.common.mybatis.OffsetLimitInterceptor">
+            <property name="dialectClass" value="com.chenxin.authority.common.mybatis.dialect.OracleDialect"/>
         </plugin>
     </plugins>
-	
+    -->
+    <plugins>
+        <plugin interceptor="org.mybatis.pagination.PaginationInterceptor">
+            <property name="dbms" value="mysql"/>
+            <property name="sqlRegex" value=".findAll*.*"/>
+        </plugin>
+    </plugins>
 
-	
+
 </configuration>

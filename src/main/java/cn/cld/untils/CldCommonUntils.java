@@ -1,6 +1,7 @@
 package cn.cld.untils;
 
 import cn.cld.controller.lianxi.LianxiDemoController;
+import com.alibaba.fastjson.JSONObject;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.EncodeHintType;
 import com.google.zxing.MultiFormatWriter;
@@ -11,6 +12,12 @@ import org.apache.commons.codec.binary.Base64;
 import org.apache.poi.hssf.usermodel.*;
 import org.apache.poi.hssf.util.HSSFColor;
 import org.apache.poi.ss.util.CellRangeAddress;
+import org.dom4j.Document;
+import org.dom4j.DocumentHelper;
+import org.dom4j.Element;
+import org.dom4j.io.OutputFormat;
+import org.dom4j.io.SAXReader;
+import org.dom4j.io.XMLWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import sun.misc.BASE64Decoder;
@@ -32,6 +39,29 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
+
+import java.io.File;
+import java.io.IOException;
+import java.io.StringReader;
+import java.io.StringWriter;
+import java.net.URL;
+import java.nio.file.Paths;
+
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
+import org.dom4j.Document;
+import org.dom4j.DocumentException;
+import org.dom4j.DocumentHelper;
+import org.dom4j.Element;
+import org.dom4j.io.OutputFormat;
+import org.dom4j.io.SAXReader;
+import org.dom4j.io.XMLWriter;
+import org.xml.sax.SAXException;
+
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+
+import static javax.xml.transform.OutputKeys.ENCODING;
 
 public class CldCommonUntils {
 
@@ -802,6 +832,144 @@ public class CldCommonUntils {
         } catch (Exception e) {
             System.out.println(e);
         }
+    }
+
+    public static JSONObject  xmlToJson(String xml){
+        JSONObject json = new JSONObject();
+
+        SAXReader reader = new SAXReader();
+        Document document = null;
+        try{
+             document = reader.read(new StringReader(xml));
+        }catch (Exception e){
+
+        }
+        Element root = document.getRootElement();
+
+        json.put(root.getName(), elementToJson(root));
+
+        return json;
+    }
+
+    public static JSONObject elementToJson(Element element) {
+        JSONObject json = new JSONObject();
+        for (Object child : element.elements()) {
+            Element e = (Element) child;
+            if (e.elements().isEmpty()) {
+                json.put(e.getName(), e.getText());
+            }
+
+            else {
+                json.put(e.getName(), elementToJson(e));
+            }
+        }
+
+        return json;
+    }
+
+    public static String  jsonToXml(JSONObject json) {
+        StringWriter formatXml = new StringWriter();
+        try{
+            Document document = jsonToDocument(json);
+
+            /* 格式化xml */
+            OutputFormat format = OutputFormat.createPrettyPrint();
+
+            // 设置缩进为4个空格
+            format.setIndent(" ");
+            format.setIndentSize(4);
+
+
+            XMLWriter writer = new XMLWriter(formatXml, format);
+            writer.write(document);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+
+        return formatXml.toString();
+    }
+    public static Document jsonToDocument(JSONObject json) throws SAXException {
+        Document document = DocumentHelper.createDocument();
+        document.setXMLEncoding(ENCODING);
+
+        // root对象只能有一个
+        for (String rootKey : json.keySet()) {
+            Element root = jsonToElement(json.getJSONObject(rootKey), rootKey);
+            document.add(root);
+            break;
+        }
+        return document;
+    }
+    public static Element jsonToElement(JSONObject json, String nodeName) {
+        Element node = DocumentHelper.createElement(nodeName);
+        for (String key : json.keySet()) {
+            Object child = json.get(key);
+            if (child instanceof JSONObject) {
+                node.add(jsonToElement(json.getJSONObject(key), key));
+            }
+
+            else {
+                Element element = DocumentHelper.createElement(key);
+                element.setText(json.getString(key));
+                node.add(element);
+            }
+        }
+
+        return node;
+    }
+
+
+    public static void main(String[] args) {
+        String xml = "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" \n" +
+                "    xmlns:base=\"http://base.webservice.ctsh.com\">\n" +
+                "    <soapenv:Header></soapenv:Header>\n" +
+                "    <soapenv:Body>\n" +
+                "        <base:IfService>\n" +
+                "            <base:ifUser>http://10.145.205.45:9080/IAMService/webservice/service?wsdl</base:ifUser>\n" +
+                "            <base:ifPass>test</base:ifPass>\n" +
+                "            <base:ifCode>RealtimeBalance</base:ifCode>\n" +
+                "            <base:ifEvent></base:ifEvent>\n" +
+                "            <base:info>&lt;?xml version=\"1.0\" encoding=\"utf-8\" ?&gt;&lt;ZhunYURequest&gt;&lt;Devno&gt;17721031391&lt;/Devno&gt;&lt;/ZhunYURequest&gt;</base:info>\n" +
+                "            <base:ifFull/>\n" +
+                "        </base:IfService>\n" +
+                "    </soapenv:Body>\n" +
+                "</soapenv:Envelope> ";
+
+
+       JSONObject js =  xmlToJson(xml);
+        System.out.println(js.toJSONString());
+
+
+        String jsonStr = "{\n" +
+                "    \"requestSeq\": \"20190712121212121ABC091857\",\n" +
+                "    \"requestTime\": \"20190712121212121\",\n" +
+                "    \"operAttrStruct\": {\n" +
+                "        \"staffId\": 8457458934534,\n" +
+                "        \"operOrgId\": 5434756454,\n" +
+                "        \"operTime\": \"\",\n" +
+                "        \"operPost\": \",\",\n" +
+                "        \"operServiceId\": \"\",\n" +
+                "        \"lanId\": \"\"\n" +
+                "    },\n" +
+                "    \"svcObjectStruct\": {\n" +
+                "        \"objType\": \"1\",\n" +
+                "        \"objValue\": \"17721031391\",\n" +
+                "        \"objAttr\": \"\",\n" +
+                "        \"dataArea\": \"\"\n" +
+                "    },\n" +
+                "    \"BillingCycleId\": 201804,\n" +
+                "    \"balanceTypeFlag\": \"0\",\n" +
+                "    \"reserve1\": \"0\",\n" +
+                "    \"reserve2\": \"0\",\n" +
+                "    \"reserve3\": \"0\",\n" +
+                "    \"reserve4\": \"0\",\n" +
+                "    \"reserve5\": \"0\"\n" +
+                "}";
+
+       JSONObject JSO = (JSONObject)JSONObject.parseObject(jsonStr);
+       String mm = jsonToXml(JSO);
+        System.out.println(mm);
     }
 
 

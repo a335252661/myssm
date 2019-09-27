@@ -1,4 +1,3 @@
-
 // (function ($) {
 //     $.fn.lalala = function (options) {
 //         alert(333)
@@ -15,12 +14,12 @@ var Appp = function () {
     }
 
     return {
-        init4:function () {
+        init4: function () {
             index1()
         },
-        init2:function () {
-          index1();
-          index2()
+        init2: function () {
+            index1();
+            index2()
         }
     }
 }

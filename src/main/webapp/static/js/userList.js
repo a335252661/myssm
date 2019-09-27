@@ -3,34 +3,36 @@ $(function () {
 
     //查询
     $('#userListSearch').click(function () {
-       // var data2 = {"total":3,"rows":[{"userId":2,"userName":"chengliude","passWord":"cld7758258","isUse":1,"creatDate":1541988122000},{"userId":3,"userName":"qq1","passWord":"qq1","isUse":1,"creatDate":1542002581000},{"userId":4,"userName":"qq2","passWord":"qq2","isUse":1,"creatDate":1542002588000}]}
+        // var data2 = {"total":3,"rows":[{"userId":2,"userName":"chengliude","passWord":"cld7758258","isUse":1,"creatDate":1541988122000},{"userId":3,"userName":"qq1","passWord":"qq1","isUse":1,"creatDate":1542002581000},{"userId":4,"userName":"qq2","passWord":"qq2","isUse":1,"creatDate":1542002588000}]}
         var jsonDate = $("#userListForm").serializeObject(); //输出数组
         console.info(jsonDate);
         $("#userListDataTable").datagrid({
-            url:'query',
-            title:'hahah',
-            striped:'true',//奇偶行变色
-            pagination:'true',//底部显示分页栏
-            rownumbers:'true',//显示带有行号的列
-            checkbox:'true',
-           //data:data2,
+            url: 'query',
+            title: 'hahah',
+            striped: 'true',//奇偶行变色
+            pagination: 'true',//底部显示分页栏
+            rownumbers: 'true',//显示带有行号的列
+            checkbox: 'true',
+            //data:data2,
             //额外的参数，json格式
             //datagrid,加载带额外的查询参数
             queryParams: jsonDate,
-            columns:[[
-                {field:'userId',title:'ID',width:80,align:'center',checkbox:'true'},
-                {field:'userName',title:'姓名',width:80,align:'center',editor:'text'},
-                {field:'passWord',title:'用户密码',width:80,align:'center',editor:'text'},
-                {field:'isUse',title:'是否有效',width:80,align:'center'},
-                {field:'creatDate',title:'创建时间',width:150,align:'center',
-                    formatter:function(value,row,index){
-                        return DateTimeFormatter(value);}
+            columns: [[
+                {field: 'userId', title: 'ID', width: 80, align: 'center', checkbox: 'true'},
+                {field: 'userName', title: '姓名', width: 80, align: 'center', editor: 'text'},
+                {field: 'passWord', title: '用户密码', width: 80, align: 'center', editor: 'text'},
+                {field: 'isUse', title: '是否有效', width: 80, align: 'center'},
+                {
+                    field: 'creatDate', title: '创建时间', width: 150, align: 'center',
+                    formatter: function (value, row, index) {
+                        return DateTimeFormatter(value);
+                    }
                 },
-                    ]],
+            ]],
 
 
-            onClickCell:onClickCell,
-            onAfterEdit:onAfterEdit
+            onClickCell: onClickCell,
+            onAfterEdit: onAfterEdit
         });
 
     })
@@ -51,16 +53,16 @@ $(function () {
     }
 
     //点击行
-    function onClickCell(index,field,value) {
+    function onClickCell(index, field, value) {
         if (endEditing()) {
-            if(field=="userName"){
+            if (field == "userName") {
                 $(this).datagrid('beginEdit', index);
-                var ed = $(this).datagrid('getEditor', {index:index,field:field});
+                var ed = $(this).datagrid('getEditor', {index: index, field: field});
                 $(ed.target).focus();
             }
             editIndex = index;
         }
-       // $('#userListDataTable').datagrid('onClickRow')
+        // $('#userListDataTable').datagrid('onClickRow')
     }
 
 
@@ -76,24 +78,25 @@ $(function () {
             console.info(getRows);
             var arr = [];
             //var userName = null;
-            $.each(getRows,function (index) {
+            $.each(getRows, function (index) {
                 var userName = getRows[index].userName;
                 arr.push(userName);
             })
             var result = $.inArray(updated[0].userName, arr)
             //-1表示不存在
-            if(result!=-1){
+            if (result != -1) {
                 alert("用户名和其他用户相同")
                 $('#userListDataTable').datagrid('beginEdit', index);
             }
 
             // 传值
             //submitForm(index, row, changes);
-           //console.info(updated);
-           //检查不得和其他用户名相同
-           //$.requestJson('delete',updated,)
+            //console.info(updated);
+            //检查不得和其他用户名相同
+            //$.requestJson('delete',updated,)
         }
     }
+
     $('#userListUpdate').click(function () {
         var updated = $('#userListDataTable').datagrid('getChanges', 'updated');
         console.info(updated);
@@ -102,7 +105,7 @@ $(function () {
 
     //新增用户
     $('#userListAdd').click(function () {
-        $('#userListDialog').dialog({'href' : 'userDetail'}).dialog('open');
+        $('#userListDialog').dialog({'href': 'userDetail'}).dialog('open');
     })
 
     //删除用户
@@ -113,16 +116,15 @@ $(function () {
         console.info(selectionsToJson1);
 
         //封装的json请求
-        $.requestJson('delete',selectionsToJson1,function (data) {
+        $.requestJson('delete', selectionsToJson1, function (data) {
             var result = data.result;
-            if(result){
-                $.messager.alert('Warning',data.message);
+            if (result) {
+                $.messager.alert('Warning', data.message);
                 $("#userListDataTable").datagrid('reload');
-            }else {
-                $.messager.alert('alert',data.message);
+            } else {
+                $.messager.alert('alert', data.message);
             }
         })
-
 
 
     })
@@ -130,21 +132,21 @@ $(function () {
 
     //导入操作
     $('#userListUplode').click(function () {
-        var fileName= $('#uploadExcel').filebox('getValue');
-        $('#userUploadForm').form('submit',{
-            url:'userListUplode',
-            success:function (data) {
+        var fileName = $('#uploadExcel').filebox('getValue');
+        $('#userUploadForm').form('submit', {
+            url: 'userListUplode',
+            success: function (data) {
                 var da = JSON.parse(data);
                 //console.info(data)
-                $.messager.alert('Warning',da.message);
+                $.messager.alert('Warning', da.message);
             }
         })
     })
-    
+
     //导出操作
     $('#userListExport').click(function () {
-        $.messager.confirm('Confirm','是否按照条件进行导出操作?',function(r){
-            if (r){
+        $.messager.confirm('Confirm', '是否按照条件进行导出操作?', function (r) {
+            if (r) {
                 var jsonDate = $("#userListForm").serializeObject(); //输出数组
                 console.info(jsonDate);
 
@@ -158,7 +160,7 @@ $(function () {
     $('#userListExportAll').tooltip({
         position: 'bottom',
         content: '<span style="color:#fff">将所有用户进行导出</span>',
-        onShow: function(){
+        onShow: function () {
             $(this).tooltip('tip').css({
                 backgroundColor: '#666',
                 borderColor: '#666'
@@ -167,21 +169,19 @@ $(function () {
     });
 
 
-
     //打印预览
     $('#userListPrint').click(function () {
         var selections = $("#userListDataTable").datagrid('getChecked');
-        if(selections.length !=1){
-           $.messager.alert('Warning',"请选择一条数据");
+        if (selections.length != 1) {
+            $.messager.alert('Warning', "请选择一条数据");
             return;
         }
         console.info(selections)
         var userId = selections[0].userId;
 
-        window.open('userListPrint?userId='+userId);
+        window.open('userListPrint?userId=' + userId);
 
     })
-
 
 
     //txt下载
@@ -199,24 +199,24 @@ $(function () {
         console.info(selectionToJson(selections[0]));
 
         // 未选中任何信息
-        if(selections == null || selections.length == 0){
-            $.messager.alert('Warning','未选择信息');
+        if (selections == null || selections.length == 0) {
+            $.messager.alert('Warning', '未选择信息');
             return;
         }
-        if (selections.length!=1){
-            $.messager.alert('Warning','请选择一条数据');
+        if (selections.length != 1) {
+            $.messager.alert('Warning', '请选择一条数据');
             return;
         }
 
 
         downloadSubmit({
-            url:'downLoadTxt',
+            url: 'downLoadTxt',
             queryData: {
                 userId: selections[0].userId,
                 userName: selections[0].userName,
                 passWord: selections[0].passWord
             },
-            okCallback: function(data){
+            okCallback: function (data) {
 
             }
         });
@@ -239,24 +239,24 @@ $(function () {
         console.info(selectionToJson(selections[0]));
 
         // 未选中任何信息
-        if(selections == null || selections.length == 0){
-            $.messager.alert('Warning','未选择信息');
+        if (selections == null || selections.length == 0) {
+            $.messager.alert('Warning', '未选择信息');
             return;
         }
-        if (selections.length!=1){
-            $.messager.alert('Warning','请选择一条数据');
+        if (selections.length != 1) {
+            $.messager.alert('Warning', '请选择一条数据');
             return;
         }
 
 
         downloadSubmit({
-            url:'downLoadTxt2',
+            url: 'downLoadTxt2',
             queryData: {
                 userId: selections[0].userId,
                 userName: selections[0].userName,
                 passWord: selections[0].passWord
             },
-            okCallback: function(data){
+            okCallback: function (data) {
 
             }
         });
@@ -267,19 +267,17 @@ $(function () {
     //发送邮件
     $('#userListsendMils').click(function () {
         //封装的json请求
-        $.requestJson('sendMils',null,function (data) {
+        $.requestJson('sendMils', null, function (data) {
             var result = data.result;
-            if(result){
-                $.messager.alert('Warning',data.message);
+            if (result) {
+                $.messager.alert('Warning', data.message);
                 $("#userListDataTable").datagrid('reload');
-            }else {
-                $.messager.alert('alert',data.message);
+            } else {
+                $.messager.alert('alert', data.message);
             }
         })
 
     })
-
-
 
 
     /**
@@ -287,10 +285,10 @@ $(function () {
      */
     function selectionsToJson(selections) {
         var deleteObj = new Array();
-        $.each(selections, function(index) {
+        $.each(selections, function (index) {
             deleteObj.push({
-                "userId" : this.userId,
-                "userName" : this.userName
+                "userId": this.userId,
+                "userName": this.userName
             });
         });
         return deleteObj;
@@ -301,9 +299,9 @@ $(function () {
      */
     function selectionToJson(selection) {
         var deleteObj = new Array();
-        $.each(selection, function(key,value) {
+        $.each(selection, function (key, value) {
             deleteObj.push({
-                key : value
+                key: value
             });
         });
         return deleteObj;
@@ -311,10 +309,10 @@ $(function () {
 
 
 // 基于准备好的dom，初始化echarts实例
-var myChart = echarts.init(document.getElementById('main'));
+    var myChart = echarts.init(document.getElementById('main'));
 
 // 指定图表的配置项和数据
- var   option = {
+    var option = {
         backgroundColor: '#2c343c',
 
         title: {
@@ -326,7 +324,7 @@ var myChart = echarts.init(document.getElementById('main'));
             }
         },
 
-        tooltip : {
+        tooltip: {
             trigger: 'item',
             formatter: "{a} <br/>{b} : {c} ({d}%)"
         },
@@ -339,19 +337,21 @@ var myChart = echarts.init(document.getElementById('main'));
                 colorLightness: [0, 1]
             }
         },
-        series : [
+        series: [
             {
-                name:'访问来源',
-                type:'pie',
-                radius : '55%',
+                name: '访问来源',
+                type: 'pie',
+                radius: '55%',
                 center: ['50%', '50%'],
-                data:[
-                    {value:335, name:'直接访问'},
-                    {value:310, name:'邮件营销'},
-                    {value:274, name:'联盟广告'},
-                    {value:235, name:'视频广告'},
-                    {value:420, name:'搜索引擎'}
-                ].sort(function (a, b) { return a.value - b.value; }),
+                data: [
+                    {value: 335, name: '直接访问'},
+                    {value: 310, name: '邮件营销'},
+                    {value: 274, name: '联盟广告'},
+                    {value: 235, name: '视频广告'},
+                    {value: 420, name: '搜索引擎'}
+                ].sort(function (a, b) {
+                    return a.value - b.value;
+                }),
                 roseType: 'radius',
                 label: {
                     normal: {
@@ -387,10 +387,7 @@ var myChart = echarts.init(document.getElementById('main'));
         ]
     };
 // 使用刚指定的配置项和数据显示图表。
-myChart.setOption(option);
-
-
-
+    myChart.setOption(option);
 
 
 })
