@@ -2,13 +2,13 @@
   {
     "id": 1,
     "text": "Folder1",
-    "state":"closed",
-    "animate":true,
+    "state": "closed",
+    "animate": true,
     "children": [
       {
         "text": "File1",
         "checked": true
-    },
+      },
       {
         "text": "Books",
         "state": "closed",

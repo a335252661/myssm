@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 public class easyui {
     @RequestMapping("demo1")
     public String index(HttpServletRequest request, Model model){
-        return "demo1";
+        return "ResourceBundleDemo1";
     }
 
     //panel

@@ -30,20 +30,20 @@ $(function () {
     ];
 
     $('#indexTree').tree({
-        url:"menu",
+        url: "menu",
         //data:treeData,
-        onLoadSuccess:function(node,data){
+        onLoadSuccess: function (node, data) {
             console.info("目录加载成功");
         },
-        onClick: function(node){
+        onClick: function (node) {
             console.info(node);
 
             //判断tab是否已经打开
-            if($('#indexTable').tabs('exists',node.text)){
+            if ($('#indexTable').tabs('exists', node.text)) {
                 $('#indexTable').tabs('select', node.text);//选中一个tab
-            }else{
+            } else {
                 $('#indexTable').tabs('add', {
-                    title:  node.text,
+                    title: node.text,
                     href: node.attributes.url,
                     closable: true
                 });
