@@ -14,15 +14,15 @@ public class cldTestOpenFile {
 //        Desktop.getDesktop().open(new File("C:\\tmp\\ppp.jpg"));
 
 //方式2
-        Process exec = Runtime.getRuntime().exec("cmd /c start C:\\tmp\\ppp.jpg");
-        int i = exec.exitValue();
-        System.out.println(i);
+//        Process exec = Runtime.getRuntime().exec("cmd /c start C:\\tmp\\ppp.jpg");
+//        int i = exec.exitValue();
+//        System.out.println(i);
 
         //使用cmd命令并输出
-//        Process exec = Runtime.getRuntime().exec("cmd /c ipconfig");
-//        InputStream inputStream = exec.getInputStream();
-//        byte[] bytes = CldCommonUntils.InputStreamToByte(inputStream);
-//        String data = new String(bytes,"GBK");
-//        System.out.println(data);
+        Process exec = Runtime.getRuntime().exec("cmd /c ipconfig");
+        InputStream inputStream = exec.getInputStream();
+        byte[] bytes = CldCommonUntils.InputStreamToByte(inputStream);
+        String data = new String(bytes,"GBK");
+        System.out.println(data);
     }
 }

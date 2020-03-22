@@ -187,6 +187,7 @@ public class LianxiDemoServiceApiImpl implements LianxiDemoServiceApi {
 
         List<UserInfo> userInfoList = myUserMapper.queryUser(userInfoListVo);
 
+
         String[][] strings = new String[userInfoList.size()][5];
         int i = 0;
         for(UserInfo vo :userInfoList){

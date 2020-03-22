@@ -13,6 +13,9 @@ public class cldTestWeiXinBUGApplication {
         //bug应用的corpsecret
         String corpsecret = "v_sWaLf1a-gcNj6JsvBkTpJNVuGFbYu1QQxSlL8PZUU";
 
+        String secret = "qHToh622zGu94dqbI4tsGGHSeNJyyO1iOhz1Lxo3yBM";
+
+
         String acceptAccessTokenUrl = "https://qyapi.weixin.qq.com/cgi-bin/gettoken?corpid="+corpid
                 +"&corpsecret="+corpsecret;
 
@@ -21,6 +24,11 @@ public class cldTestWeiXinBUGApplication {
         JSONObject jsonObject = JSONObject.parseObject(s);
         String access_token = jsonObject.getString("access_token");
 
+
+        System.out.println(access_token);
+//TyxWXhqx91APPHQdn4eEHnc9m_CSa4gUWKDxq_427acmm-d6KuiK8doG1MCvwG89GrJrHliCu7
+// RgcOdmB6Maef4YjfQNXA-rxEg_zhrM5QwbsOyvilLyOmlYq2NGPJ_KabIFSfJlKjaKZk4dQc0W
+// LmIy7BuVQqBUu75ovrBR-lqKXdu3uG3VnEaPsn60umEpkKQ5E1YVAFJvG6jdrpREKQ
         String sendMessurl = "https://qyapi.weixin.qq.com/cgi-bin/message/send?access_token="+access_token;
 
         String sendJson = "{\n" +

@@ -9,8 +9,11 @@ import java.util.Map;
  * @date 2019/8/2  16:49
  * @description:
  */
-public class mapTest {
+public class mapTest extends mapTest2{
     public static void main(String[] args) {
+        mapTest mm = new mapTest();
+        System.out.println(mm.a+1);
+        mm.fun();
         Map<String,String> map = new HashMap<>();
         map.put("11","22");
         map.put("12","22");
@@ -41,5 +44,21 @@ public class mapTest {
         System.out.println(100>>4);
         System.out.println(Integer.toBinaryString(3<<4));
         System.out.println(100/16);
+    }
+
+    @Override
+    void fun() {
+        mapTest mm = new mapTest();
+        System.out.println(mm.a);
+    }
+
+    @Override
+    public void fun1() {
+
+    }
+
+    @Override
+    public void fun3() {
+
     }
 }

@@ -50,7 +50,7 @@ public class DateTimeUtils {
 	public final static String YY_MM_DD_HH_mm = "yyMMddHHmm";
 	public final static String MM = "MM";
 	public final static String YYYYMM = "yyyyMM";
-	public final static String YMD_HHMMSS = "yyyyMMddHHmmss";
+	public final static String yyyyMMddHHmmss = "yyyyMMddHHmmss";
 	public final static String dateString_D = "d";
 	public final static String yyyyMMdd = "yyyy/MM/dd";
 	/**
@@ -445,8 +445,12 @@ public class DateTimeUtils {
 	 *
 	 * @return
 	 */
+	public static String getDateTimeString(String formate){
+		SimpleDateFormat format = new SimpleDateFormat(formate);
+		return format.format(new Date());
+	}
 	public static String getDateTimeString(){
-		SimpleDateFormat format = new SimpleDateFormat("yyyyMMddHHmmssSSS");
+		SimpleDateFormat format = new SimpleDateFormat(DateTimeUtils.yyyyMMddHHmmss);
 		return format.format(new Date());
 	}
 
